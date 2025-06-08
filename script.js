@@ -40,7 +40,7 @@ const songs = [
         id: 'Rosa de trigo',
         title: 'Rosa De Trigo',
         artist: 'H.A.',
-        image: 'assets/images/Rosa-de-trigo.PNG',
+        image: 'assets/images/Rosa-De-trigo.PNG',
         fullAudio: 'assets/audio/full/Rosa-full.mp3',
         baseAudio: 'assets/audio/bases/Rosa-base.mp3',
         vocalAudio: 'assets/audio/vocals/Rosa-vocals.mp3'
@@ -59,7 +59,7 @@ const songs = [
         id: 'meltdown',
         title: 'Meltdown',
         artist: 'Hookme',
-        image: 'assets/images/Meltdown.jpg',
+        image: 'assets/images/meltdown.jpg',
         fullAudio: 'assets/audio/full/meltdown-full.mp3',
         baseAudio: 'assets/audio/bases/meltdown-base.mp3',
         vocalAudio: 'assets/audio/vocals/meltdown-vocals.mp3'
@@ -125,7 +125,7 @@ const songs = [
         image: 'assets/images/Sinrollos.PNG',
         fullAudio: 'assets/audio/full/sinrollos-full.mp3',
         baseAudio: 'assets/audio/bases/sinrollo-base.mp3',
-        
+        vocalAudio: 'assets/audio/vocals/Sinrollo-vocal.mp3',
     }
 
 ];
