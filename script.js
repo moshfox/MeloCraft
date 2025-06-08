@@ -133,7 +133,7 @@ const songs = [
         artist: 'Tyler, the creator',
         image: 'assets/images/Noid.jpg',
         fullAudio: 'assets/audio/full/Noid.mp3',
-        baseAudio: 'assets/audio/bases/sinrollo-base.mp3',
+        baseAudio: 'assets/audio/bases/Noid-base.mp3
         vocalAudio: 'assets/audio/vocals/Noid-vocals.mp3',
     }
 
