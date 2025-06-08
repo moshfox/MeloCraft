@@ -134,7 +134,7 @@ const songs = [
         image: 'assets/images/Noid.jpg',
         fullAudio: 'assets/audio/full/Noid.mp3',
         baseAudio: 'assets/audio/bases/Noid-base.mp3',
-        vocalAudio: 'assets/audio/vocals/Noid-vocal.mp3',
+        vocalAudio: 'assets/audio/vocals/Noid-vocals.mp3',
     }
 
 ];
