@@ -1,0 +1,1012 @@
+/* Variables CSS */
+:root {
+    --primary-color: #6a11cb; /* Morado Vibrante */
+    --secondary-color: #2575fc; /* Azul Eléctrico */
+    --background-dark: #1a1a2e; /* Azul Oscuro Profundo */
+    --background-light: #2c2c4a; /* Azul Oscuro Más Claro */
+    --text-color: #e0e0e0; /* Gris Claro */
+    --accent-color: #2575fc; /* Azul Brillante - Ahora Azul en lugar de Amarillo */
+    --border-radius: 12px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --transition: all 0.3s ease;
+}
+
+/* Selección de texto con el color de acento azul */
+::selection {
+    background-color: var(--accent-color); /* Fondo azul para la selección */
+    color: #fff; /* Texto blanco en la selección */
+}
+
+/* Estilos Generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+header {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    z-index: 100;
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    font-size: 2.2em;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+}
+
+.volume-controls i {
+    font-size: 1.2em;
+    color: var(--text-color);
+}
+
+.volume-controls input[type="range"] {
+    -webkit-appearance: none;
+    width: 120px;
+    height: 8px;
+    background: var(--background-dark);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.2s ease;
+}
+
+.volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.main-button, .secondary-button, .play-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.main-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    box-shadow: var(--shadow);
+}
+
+.main-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.1);
+}
+
+.secondary-button {
+    background-color: var(--background-light);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    margin-top: 20px;
+}
+
+.secondary-button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+section {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+    width: 100%;
+    box-sizing: border-box;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+    position: relative;
+}
+
+section.hidden {
+    display: none;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--accent-color); /* Ahora azul */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+/* Home Page */
+#homePage {
+    padding-top: 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-song-grid {
+    display: grid;
+    /* Permite 4 columnas en pantallas grandes */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    /* Scroll vertical para muchas canciones */
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.full-song-item {
+    background-color: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box; /* Asegura que el padding no añada ancho extra */
+    min-height: 200px; /* **MODIFICADO: Añadida altura mínima para uniformidad** */
+}
+
+.full-song-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--primary-color);
+}
+
+.full-song-item.playing {
+    border: 2px solid var(--accent-color); /* Ahora azul */
+}
+
+.full-song-item img {
+    width: 100%; /* **MODIFICADO: Imagen ocupa el 100% del ancho del contenedor** */
+    height: auto; /* **MODIFICADO: Altura automática para mantener la proporción** */
+    max-width: 150px; /* **MODIFICADO: Limita el tamaño máximo de la imagen** */
+    max-height: 150px; /* **MODIFICADO: Limita el tamaño máximo de la imagen** */
+    border-radius: 8px;
+    object-fit: cover; /* **MODIFICADO: Asegura que la imagen cubra el espacio, recortando si es necesario** */
+    margin-bottom: 10px;
+    border: 2px solid var(--primary-color);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.full-song-item h3 {
+    font-size: 1em; /* Ligeramente más pequeño para títulos largos */
+    margin: 5px 0 2px;
+    color: #fff;
+    white-space: nowrap; /* Evita que el texto del título se rompa */
+    overflow: hidden; /* Oculta el texto que desborda */
+    text-overflow: ellipsis; /* Añade puntos suspensivos */
+    max-width: 100%; /* Asegura que el párrafo no desborde la tarjeta */
+}
+
+.full-song-item p {
+    font-size: 0.8em; /* Ligeramente más pequeño */
+    color: var(--text-color);
+    margin: 0;
+}
+
+.play-pause-overlay {
+    position: absolute;
+    bottom: 10px; /* Cambiado a bottom */
+    left: 10px;  /* Cambiado a left */
+    transform: none; /* Eliminado el transform */
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    width: 40px; /* Reducido el tamaño */
+    height: 40px; /* Reducido el tamaño */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: auto; /* Permite interacción */
+}
+
+.full-song-item:hover .play-pause-overlay {
+    opacity: 1;
+}
+.full-song-item.playing .play-pause-overlay {
+    opacity: 1;
+    background-color: rgba(var(--accent-color), 0.7); /* Ahora azul */
+}
+
+.play-pause-overlay .icon {
+    color: #fff;
+    font-size: 1.5em; /* Reducido el tamaño del icono */
+}
+
+
+/* --- Song Selection Pages (Base and Vocal) --- */
+/* Aumentamos el número de columnas con un minmax más pequeño y el gap entre elementos */
+.track-selection-grid {
+    display: grid;
+    /* Permite más columnas y una altura mínima más pequeña para cada tarjeta */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* **MODIFICADO: Reducido de 140px a 120px para 5 canciones por fila** */
+    gap: 10px; /* **MODIFICADO: Reducido de 15px a 10px para más compactación** */
+    justify-content: center;
+    align-items: flex-start;
+    /* Mantener el desplazamiento vertical */
+    max-height: 60vh; /* Ajustado para consistencia con full-song-grid */
+    overflow-y: auto;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.song-option {
+    background-color: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: 8px; /* **MODIFICADO: Reducido el padding para hacerlos más pequeños** */
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    position: relative;
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box; /* Asegura que el padding no añada ancho extra */
+    min-height: 150px; /* **MODIFICADO: Altura mínima para uniformidad** */
+}
+
+.song-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.song-option.selected {
+    border-color: var(--accent-color); /* Ahora azul */
+    background-color: rgba(var(--primary-color), 0.3);
+    box-shadow: 0 0 15px rgba(var(--accent-color), 0.5); /* Ahora azul */
+    transform: scale(1.02);
+}
+
+.song-option img {
+    width: 100%; /* **MODIFICADO: Imagen ocupa el 100% del ancho del contenedor** */
+    height: auto; /* **MODIFICADO: Altura automática para mantener la proporción** */
+    max-width: 80px; /* **MODIFICADO: Reducido de 100px a 80px para que el cuadrado sea menos vertical** */
+    max-height: 80px; /* **MODIFICADO: Reducido de 100px a 80px** */
+    border-radius: 8px;
+    object-fit: cover; /* **MODIFICADO: Asegura que la imagen cubra el espacio, recortando si es necesario** */
+    border: 2px solid var(--secondary-color);
+    margin-bottom: 5px; /* **MODIFICADO: Reducido el margen inferior** */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.song-option p {
+    margin: 0;
+    font-size: 0.8em; /* **MODIFICADO: Reducido el tamaño de la fuente para mejor legibilidad** */
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap; /* Evita que el texto del título se rompa */
+    overflow: hidden; /* Oculta el texto que desborda */
+    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
+    max-width: 100%; /* Asegura que el párrafo no desborde la tarjeta */
+}
+
+
+.selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+/* Mix Result Page */
+#mixResultPage {
+    text-align: center;
+}
+
+.mixed-tracks-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.mixed-track-info {
+    flex: 1;
+    min-width: 250px;
+    background-color: var(--background-dark);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.mixed-track-info img {
+    width: 180px;
+    height: 180px;
+    border-radius: var(--border-radius);
+    object-fit: cover;
+    border: 3px solid var(--accent-color); /* Ahora azul */
+    margin-bottom: 15px;
+}
+
+.mixed-track-info p {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+    margin: 5px 0;
+}
+
+#finalMixedTrack {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+    filter: invert(0.9) hue-rotate(180deg) saturate(1.5);
+}
+
+footer {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    margin-top: auto;
+}
+
+/* Clases de utilidad para JavaScript */
+.hidden {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+/* Media Queries para Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+        margin-bottom: 0; /* Eliminado el margen inferior */
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%; /* Ajuste para ocupar todo el ancho */
+    }
+
+    .volume-controls {
+        width: 100%; /* Para que la barra de volumen ocupe el ancho */
+        justify-content: center;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    .full-song-grid {
+        /* Ajuste para pantallas más pequeñas, por ejemplo, 2 o 3 columnas */
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* **MODIFICADO: Ajuste para móviles** */
+        gap: 10px; /* **MODIFICADO: Ajuste para móviles** */
+    }
+
+    .full-song-item img {
+        width: 100%;
+        height: auto;
+        max-width: 100px; /* **MODIFICADO: Ajuste para pantallas más pequeñas** */
+        max-height: 100px; /* **MODIFICADO: Ajuste para pantallas más pequeñas** */
+    }
+
+    .full-song-item h3 {
+        font-size: 0.9em;
+    }
+
+    .full-song-item p {
+        font-size: 0.7em;
+    }
+
+    .play-pause-overlay {
+        width: 40px;
+        height: 40px;
+    }
+    .play-pause-overlay .icon {
+        font-size: 1.5em;
+    }
+
+    /* Ajuste para las selecciones de base/vocal en pantallas pequeñas */
+    .track-selection-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* **MODIFICADO: Aún más pequeños en móvil para bases/vocals** */
+        gap: 8px; /* **MODIFICADO: Más compactas** */
+        max-height: 50vh; /* Quizás más pequeño en móvil si el contenido es mucho */
+    }
+
+    .song-option {
+        min-height: 120px; /* **MODIFICADO: Mantiene una altura mínima en móviles** */
+    }
+
+    .song-option img {
+        width: 100%;
+        height: auto;
+        max-width: 60px; /* **MODIFICADO: Ajuste para móviles** */
+        max-height: 60px; /* **MODIFICADO: Ajuste para móviles** */
+    }
+
+    .song-option p {
+        font-size: 0.75em; /* Texto más pequeño */
+    }
+
+
+    .main-button, .secondary-button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    .mixed-tracks-display {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mixed-track-info {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .mixed-track-info img {
+        width: 150px;
+        height: 150px;
+    }
+}
+/* Nuevos estilos para los controles de volumen de pista individual */
+.track-volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.track-volume-controls i {
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.track-volume-controls input[type="range"] {
+    -webkit-appearance: none;
+    width: 100px; /* Ancho ajustable */
+    height: 6px;
+    background: var(--background-dark);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.2s ease;
+}
+
+.track-volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent-color); /* Usar el color de acento */
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para las cuadrículas donde aparecerán las canciones (Explora Música, Bases, Voces) */
+.full-song-grid,
+.track-selection-grid {
+    max-height: 60vh; /* Establece una altura máxima. Si el contenido la excede, aparecerá el scroll. */
+    overflow-y: auto; /* Habilita la barra de desplazamiento vertical si el contenido sobrepasa el max-height. */
+    padding-right: 15px; /* Añade un pequeño padding a la derecha para que el contenido no quede pegado a la barra de scroll. */
+    box-sizing: border-box; /* Asegura que el padding no añada ancho extra a la caja. */
+}
+
+/* Estilos para la barra de desplazamiento (WebKit - Chrome, Safari, Edge, Opera) */
+/* Estas pseudo-clases controlan la apariencia visual del scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento vertical */
+    height: 12px; /* Altura de la barra de desplazamiento horizontal (si hay scroll horizontal) */
+}
+
+/* El "track" es el fondo de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background: #2b2b2b; /* Fondo gris oscuro de la barra */
+    border-radius: 10px; /* Bordes redondeados para el fondo de la barra */
+}
+
+/* El "thumb" es el "pulgar" o la parte móvil de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background: #6a0dad; /* Morado vibrante para el pulgar de la barra */
+    border-radius: 10px; /* Bordes redondeados para el pulgar */
+    border: 3px solid #2b2b2b; /* Un borde para que el pulgar se vea flotante sobre el track */
+}
+
+/* Estilo cuando el ratón pasa por encima del pulgar */
+::-webkit-scrollbar-thumb:hover {
+    background: #8b40ed; /* Un morado un poco más claro al pasar el ratón */
+}
+
+/* Estilos específicos para Firefox */
+/* Firefox usa propiedades diferentes para el scrollbar */
+.full-song-grid,
+.track-selection-grid {
+    scrollbar-width: thin; /* Hace la barra de desplazamiento delgada. Puede ser 'auto' o 'none'. */
+    scrollbar-color: #6a0dad #2b2b2b; /* El primer valor es el color del pulgar, el segundo el del track. */
+}
+/* --- Estilos de la Barra de Búsqueda (Solo lo necesario para el morado) --- */
+.search-bar {
+    /* Fondo semitransparente que se mezcla con los tonos morados */
+    background-color: rgba(138, 43, 226, 0.2); /* Usa el primary-purple con transparencia */
+    border-radius: 25px; /* Bordes bien redondeados */
+    padding: 8px 15px; /* Espaciado interno */
+    margin-bottom: 20px; /* Espacio debajo de la barra */
+    box-shadow: inset 0 0 8px rgba(75, 0, 130, 0.4); /* Sombra interior para profundidad */
+    border: 1px solid rgba(147, 112, 219, 0.4); /* Borde sutil del secondary-purple */
+}
+
+.search-bar input[type="text"] {
+    background: none; /* Sin fondo propio, usa el de .search-bar */
+    border: none; /* Sin bordes */
+    outline: none; /* Elimina el contorno al hacer clic */
+    color: #E6E6FA; /* Texto del input en lavanda claro */
+    font-size: 1em;
+    padding: 0 10px; /* Espaciado interno del texto */
+}
+
+.search-bar input[type="text"]::placeholder {
+    color: rgba(230, 230, 250, 0.7); /* Placeholder en lavanda semitransparente */
+}
+
+.search-bar .fas.fa-search {
+    color: #FF69B4; /* Icono de búsqueda en rosa chillón para contraste */
+    font-size: 1.2em;
+}
+/* Asegúrate de que tus estilos base ya existan aquí. No los modificaré. */
+
+/* --- Estilos para el Header y el Buscador Global --- */
+header {
+    display: flex; /* Habilitar Flexbox */
+    align-items: center; /* Centrar verticalmente los elementos */
+    justify-content: space-between; /* Distribuir el espacio entre los elementos */
+    /* Mantén tu padding, background-color, box-shadow, etc. aquí */
+}
+
+header h1 {
+    margin: 0; /* Elimina márgenes predeterminados para un control total con flexbox */
+    /* Mantén tus estilos de color, text-shadow, etc. aquí */
+}
+
+.search-bar.global-search {
+    flex-grow: 1; /* Permite que el buscador ocupe el espacio disponible */
+    max-width: 500px; /* Limita el ancho máximo para que no sea excesivamente grande */
+    margin: 0 auto; /* Centra el buscador global en el espacio que le queda */
+    /* Mantén tu background-color, border-radius, padding, box-shadow, border, etc. aquí */
+}
+
+.header-controls {
+    display: flex; /* Asegura que los controles dentro del header usen flexbox */
+    align-items: center;
+    /* Mantén tu gap, etc. aquí */
+}
+
+/* --- Estilos para todas las Barras de Búsqueda (.search-bar) --- */
+.search-bar {
+    display: flex; /* Habilitar Flexbox para el icono y el input */
+    align-items: center; /* Centrar verticalmente el icono y el input */
+    /* Mantén tus estilos de background-color, border-radius, padding, etc. aquí */
+}
+
+.search-bar .fas.fa-search {
+    /* El icono de búsqueda estará a la izquierda por defecto con flexbox */
+    margin-right: 8px; /* Espacio entre el icono y el texto del input */
+    /* Mantén tu color, font-size, etc. aquí */
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1; /* Permite que el input ocupe todo el espacio restante */
+    /* Mantén tus estilos de background, border, outline, color, font-size, padding, etc. aquí */
+}
+
+/* --- Estilos para las Cuadrículas (Grids) y el tamaño fijo de las canciones --- */
+/* Los ajustes específicos de minmax y gap ya están en las secciones .full-song-grid y .track-selection-grid */
+.full-song-item,
+.song-option {
+    width: 100%; /* Asegura que cada elemento ocupe el ancho completo de su columna */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    /* min-height ya definido en las secciones específicas */
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto */
+    /* Mantén tus estilos de background-color, border-radius, padding, text-align, box-shadow, transition, border, etc. aquí */
+}
+
+.full-song-item img,
+.song-option img {
+    width: 100%; /* La imagen ocupa el 100% del ancho del contenedor del item */
+    height: auto; /* La altura se ajusta para mantener la proporción */
+    /* max-width y max-height ya definidos en las secciones específicas */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio, recortando si es necesario */
+    /* Mantén tus estilos de border-radius, box-shadow, border, etc. aquí */
+}
+
+/* --- Media Queries para responsividad (si las tienes, ajústalas así) --- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Apila los elementos en pantallas pequeñas */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        /* Ajusta tu padding si es necesario */
+    }
+
+    .search-bar.global-search {
+        width: 100%; /* Ocupa todo el ancho en móviles */
+        max-width: none; /* Elimina la restricción de ancho máximo */
+        margin: 10px 0; /* Ajusta el margen en móviles */
+    }
+
+    .header-controls {
+        width: 100%; /* Ocupa todo el ancho en móviles */
+        justify-content: space-between; /* Espacia los controles */
+    }
+
+    /* Los ajustes de grid-template-columns en las media queries ya están actualizados */
+}
+/* --- ESTILOS QUE DEBES APLICAR/MODIFICAR EN TU style.css --- */
+
+/* Ajustes para el Header y el Buscador Global */
+header {
+    display: flex; /* Habilitar Flexbox para la alineación */
+    align-items: center; /* Centrar verticalmente los elementos */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos: logo, buscador, controles */
+    /* Mantén el resto de tus estilos (width, background, padding, box-shadow, z-index) */
+}
+
+header h1 {
+    margin: 0; /* Elimina márgenes por defecto para un mejor control con flexbox */
+    /* Mantén el resto de tus estilos (font-family, font-weight, color, font-size, text-shadow) */
+}
+
+.search-bar.global-search {
+    flex-grow: 1; /* Permite que este buscador ocupe todo el espacio disponible en el medio */
+    max-width: 500px; /* Limita el ancho máximo para que no sea demasiado grande en pantallas amplias */
+    margin: 0 auto; /* Centra el buscador global horizontalmente en el espacio asignado */
+    /* Mantén el resto de tus estilos (background-color, border-radius, padding, box-shadow, border) */
+}
+
+.header-controls {
+    display: flex; /* Asegura que los elementos dentro de header-controls también usen flexbox */
+    align-items: center;
+    /* Mantén el resto de tus estilos (gap) */
+}
+
+/* Estilos para TODAS las Barras de Búsqueda (.search-bar) */
+.search-bar {
+    display: flex; /* Habilitar Flexbox para el icono y el input */
+    align-items: center; /* Centrar verticalmente el icono y el input */
+    /* Mantén el resto de tus estilos (background-color, border-radius, padding, margin-bottom, box-shadow, border) */
+}
+
+.search-bar .fas.fa-search {
+    /* El icono estará a la izquierda por defecto gracias al display: flex; */
+    margin-right: 8px; /* Espacio entre el icono y el texto del input */
+    /* Mantén el resto de tus estilos (color, font-size) */
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1; /* Permite que el input ocupe todo el espacio restante después del icono */
+    /* Mantén el resto de tus estilos (background, border, outline, color, font-size, padding) */
+}
+
+/* --- Estilos para las Cuadrículas de Canciones (FULL-SONG-GRID) --- */
+/* Esto se aplica a la página principal "Explora Nuestra Música" */
+.full-song-grid {
+    display: grid; /* Asegura el modelo de grid */
+    /* Usa auto-fit para crear tantas columnas como quepan, con un tamaño mínimo */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Mínimo 180px, luego se expande */
+    gap: 25px; /* Mantén el espacio entre los elementos */
+    justify-content: center;
+    /* max-width y margin: 0 auto; ya los tenías para centrar el grid */
+    max-height: 60vh; /* Altura máxima con scroll si hay muchas canciones */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    padding-right: 15px; /* Espacio para la barra de scroll */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    /* Mantén el resto de tus estilos de background-color, border-radius, padding */
+}
+
+.full-song-item {
+    width: 100%; /* Ocupa el 100% del ancho de su celda de grid */
+    height: auto; /* La altura se ajusta al contenido */
+    min-height: 200px; /* Puedes establecer una altura mínima si quieres uniformidad visual */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho/alto */
+    /* Mantén el resto de tus estilos (background-color, border-radius, padding, text-align, cursor, transition, box-shadow, position, display, flex-direction, align-items, justify-content) */
+}
+
+.full-song-item img {
+    width: 100%; /* La imagen ocupa el 100% del ancho del contenedor del item */
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-width: 150px; /* Limita el tamaño máximo de la imagen para que no sea gigante */
+    max-height: 150px; /* Limita el tamaño máximo de la imagen */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio, recortando si es necesario */
+    /* Mantén el resto de tus estilos (border-radius, margin-bottom, border, display, margin-left, margin-right) */
+}
+
+/* --- Estilos para las Cuadrículas de Selección (TRACK-SELECTION-GRID) --- */
+/* Esto se aplica a las páginas "Elige tu Base" y "Elige tu Voz" */
+.track-selection-grid {
+    display: grid; /* Asegura el modelo de grid */
+    /* Más columnas y un tamaño mínimo más pequeño para cada tarjeta */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Reducido de 140px a 120px para más columnas */
+    gap: 10px; /* Reducido el espacio a 10px para mayor compactación */
+    justify-content: center;
+    align-items: flex-start;
+    max-height: 60vh; /* Altura máxima con scroll si hay muchas canciones */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    padding-right: 15px; /* Espacio para la barra de scroll */
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+    /* Mantén el resto de tus estilos */
+}
+
+.song-option {
+    width: 100%; /* Ocupa el 100% del ancho de su celda de grid */
+    height: auto; /* La altura se ajusta al contenido */
+    min-height: 150px; /* Una altura mínima para evitar que sean demasiado pequeños verticalmente */
+    padding: 8px; /* Reducido el padding para hacerlos más pequeños y menos verticales */
+    box-sizing: border-box; /* Crucial para incluir padding y borde en el ancho/alto */
+    /* Mantén el resto de tus estilos (background-color, border-radius, cursor, transition, text-align, position, border, display, flex-direction, align-items, justify-content) */
+}
+
+.song-option img {
+    width: 100%; /* La imagen ocupa el 100% del ancho del contenedor del item */
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-width: 80px; /* Reducido de 100px a 80px para que el cuadrado sea menos vertical */
+    max-height: 80px; /* Reducido de 100px a 80px */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio, recortando si es necesario */
+    margin-bottom: 5px; /* Reducido el margen inferior */
+    /* Mantén el resto de tus estilos (border-radius, border, display, margin-left, margin-right) */
+}
+
+.song-option p {
+    margin: 0;
+    font-size: 0.8em; /* Ajustado el tamaño de la fuente para mejor legibilidad */
+    /* Mantén el resto de tus estilos (font-weight, color, white-space, overflow, text-overflow, max-width) */
+}
+
+
+/* --- Media Queries para Responsive Design --- */
+/* Asegúrate de que tus media queries también usen los valores consistentes de minmax */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center; /* Alinea los elementos al centro en móviles */
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .header-controls {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .volume-controls {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-bar.global-search {
+        width: 100%; /* Ocupa todo el ancho en móviles */
+        max-width: none; /* Elimina la restricción de ancho máximo */
+        margin-bottom: 15px; /* Ajusta el margen inferior */
+        margin-top: 5px; /* Espacio arriba */
+    }
+
+    /* Ajustes para las cuadrículas en pantallas más pequeñas */
+    .full-song-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Un poco más pequeños en móvil */
+        gap: 10px;
+    }
+
+    .full-song-item {
+        min-height: 160px; /* Mantiene una altura mínima en móviles */
+    }
+
+    .full-song-item img {
+        max-width: 100px; /* Ajuste para móviles */
+        max-height: 100px;
+    }
+
+    .track-selection-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Aún más pequeños en móvil para bases/vocals */
+        gap: 8px;
+    }
+
+    .song-option {
+        min-height: 120px; /* Mantiene una altura mínima en móviles */
+    }
+
+    .song-option img {
+        max-width: 60px; /* Ajuste para móviles */
+        max-height: 60px;
+    }
+
+    .mixed-tracks-display {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mixed-track-info {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .mixed-track-info img {
+        width: 150px;
+        height: 150px;
+    }
+}
+/* --- Song Selection Pages (Base and Vocal) --- */
+/* Aumentamos el número de columnas con un minmax más pequeño y el gap entre elementos */
+.track-selection-grid {
+    display: grid;
+    /* Permite 5 columnas en pantallas más grandes */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* **MODIFICADO: Ajustado a 130px para 5 canciones por fila** */
+    gap: 10px; /* **MODIFICADO: Ajustado el espacio a 10px** */
+    justify-content: center;
+    align-items: flex-start;
+    /* Mantener el desplazamiento vertical */
+    max-height: 50vh; /* **MODIFICADO: Reducido para hacer la caja menos vertical** */
+    overflow-y: auto;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.song-option {
+    background-color: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: 8px; /* **MODIFICADO: Ajustado el padding para el tamaño del cuadrado** */
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    position: relative;
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 150px; /* **MODIFICADO: Reducida altura mínima para el cuadrado** */
+}
+
+.song-option img {
+    width: 100%;
+    height: auto;
+    max-width: 100px; /* **MODIFICADO: Ajustado para la imagen** */
+    max-height: 100px; /* **MODIFICADO: Ajustado** */
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid var(--secondary-color);
+    margin-bottom: 5px; /* **MODIFICADO: Ajustado el margen inferior** */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.song-option p {
+    margin: 0;
+    font-size: 0.8em; /* **MODIFICADO: Ajustado el tamaño de la fuente** */
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* --- Media Queries para Responsive Design --- */
+@media (max-width: 768px) {
+    /* ... (resto de tus media queries) ... */
+
+    .track-selection-grid {
+        /* En pantallas más pequeñas, volvemos a permitir más columnas, por ejemplo, 3 o 4 */
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* **MODIFICADO: Ajuste para móviles** */
+        gap: 8px;
+    }
+
+    .song-option {
+        min-height: 120px; /* **MODIFICADO: Altura mínima ajustada para móviles** */
+    }
+
+    .song-option img {
+        max-width: 70px; /* **MODIFICADO: Ajuste para móviles** */
+        max-height: 70px; /* **MODIFICADO: Ajuste para móviles** */
+    }
+
+    .song-option p {
+        font-size: 0.7em; /* **MODIFICADO: Ajuste para móviles** */
+    }
+}
