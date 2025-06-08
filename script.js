@@ -59,7 +59,7 @@ const songs = [
         id: 'meltdown',
         title: 'Meltdown',
         artist: 'Hookme',
-        image: 'assets/images/meltdown.jpg',
+        image: 'assets/images/Meltdown.jpg',
         fullAudio: 'assets/audio/full/meltdown-full.mp3',
         baseAudio: 'assets/audio/bases/meltdown-base.mp3',
         vocalAudio: 'assets/audio/vocals/meltdown-vocals.mp3'
