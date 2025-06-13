@@ -1,1 +1,29 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melocraft - Mezclador de Canciones</title>
+    <title>Melocraft</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Melocraft 🎶</h1>
+        <div class="search-bar global-search">
+            <i class="fas fa-search"></i> <input type="text" id="globalSearchInput" placeholder="Buscar canción o artista...">
+        </div>
+        <div class="header-controls">
+            <div class="volume-controls">
+                <i class="fas fa-volume-up" id="muteButton"></i>
+                <input type="range" id="volumeSlider" min="0" max="100" value="100">
+            </div>
+            <button id="createButton" class="main-button">Crear Nueva Mezcla</button>
+        </div>
+    </header>
 
+    <main>
+        <section id="homePage" class="active">
+            <h2>Explora Nuestra Música</h2>
+            <audio id="globalFeaturedAudioPlayer" controls style="display:none;"></audio>
