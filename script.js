@@ -171,10 +171,6 @@ const muteButton = document.getElementById('muteButton');
 const baseVolumeSlider = document.getElementById('baseVolumeSlider');
 const vocalVolumeSlider = document.getElementById('vocalVolumeSlider');
 
-// NUEVOS elementos de búsqueda
-const searchInputBase = document.getElementById('searchInputBase');
-const searchInputVocal = document.getElementById('searchInputVocal');
-
 
 // --- Reproductores de Audio Globales ---
 const globalFeaturedAudioPlayer = document.getElementById('globalFeaturedAudioPlayer');
@@ -199,15 +195,10 @@ let selectedVocalTrack = null;
 /** Detiene y resetea todos los reproductores de audio activos. */
 function stopAllAudio() {
     [globalFeaturedAudioPlayer, baseSelectionPageAudio, vocalSelectionPageAudio,
-      currentPlayingSelectionAudio, finalBaseAudio, finalVocalAudio].forEach(player => {
+     currentPlayingSelectionAudio, finalBaseAudio, finalVocalAudio].forEach(player => {
         if (player) {
             player.pause();
             player.currentTime = 0;
-            // Solo limpiar SRC si no es el reproductor principal en la home page (que queremos que siga cargado)
-            if (player !== globalFeaturedAudioPlayer) {
-                player.src = '';
-                player.load();
-            }
         }
     });
 
@@ -228,30 +219,29 @@ function stopAllAudio() {
         const icon = item.querySelector('.play-pause-overlay .icon');
         if (icon) icon.textContent = '▶';
     });
-    // Y para las selecciones de base/vocal también si tuvieran un estado de "playing"
-    document.querySelectorAll('.song-option .fa-pause').forEach(icon => {
-        icon.classList.replace('fa-pause', 'fa-play');
-    });
 }
 
 /** Aplica el volumen actual del slider global a todos los reproductores. */
 function applyGlobalVolume() {
     const newGlobalVolume = volumeSlider.value / 100;
 
-    // Aplicar a reproductores generales
-    [globalFeaturedAudioPlayer, baseSelectionPageAudio, vocalSelectionPageAudio,
-      currentPlayingSelectionAudio].forEach(player => {
-        if (player) {
-            // Asegurarse de que el reproductor principal no esté silenciado si el volumen es > 0
-            // EXCEPCIÓN: globalFeaturedAudioPlayer puede iniciarse silenciado por autoplay policy.
-            // Si el volumen global se ajusta por el usuario y no está en 0, desmutearlo.
-            if (player === globalFeaturedAudioPlayer && newGlobalVolume > 0 && player.muted && !player.paused) {
-                player.muted = false; // Desmutearlo si el usuario ajusta el volumen o hace clic
-                console.log("Global player desmuteado por ajuste de volumen.");
-            }
-            player.volume = newGlobalVolume;
-        }
-    });
+    // Aplicar al reproductor de la página principal (si está activo)
+    if (globalFeaturedAudioPlayer) {
+        globalFeaturedAudioPlayer.volume = newGlobalVolume;
+    }
+
+    // Aplicar a los reproductores de fondo de las páginas de selección
+    if (baseSelectionPageAudio) {
+        baseSelectionPageAudio.volume = newGlobalVolume;
+    }
+    if (vocalSelectionPageAudio) {
+        vocalSelectionPageAudio.volume = newGlobalVolume;
+    }
+
+    // Aplicar al reproductor individual de selección (si está activo)
+    if (currentPlayingSelectionAudio) {
+        currentPlayingSelectionAudio.volume = newGlobalVolume;
+    }
 
     // Los volúmenes individuales de la mezcla final se controlan también por el global
     // Esto asegura que el slider global sea el volumen máximo, y los individuales el balance
@@ -274,40 +264,50 @@ function applyGlobalVolume() {
 
 /**
  * Reproduce una canción aleatoria completa en la página de inicio.
- * Se inicia SILENCIADA para cumplir con las políticas de autoplay.
- * El usuario debe hacer clic en una canción para escuchar el audio con sonido.
+ * Esta función es susceptible al bloqueo de autoplay, por lo que el clic del usuario es clave.
  */
 async function playRandomFeaturedSong() {
-    // Al volver a la home, siempre queremos que el audio principal se reinicie y esté silenciado por autoplay
-    globalFeaturedAudioPlayer.pause();
-    globalFeaturedAudioPlayer.currentTime = 0;
-    globalFeaturedAudioPlayer.src = ''; // Limpiar para forzar recarga si no está cargada ya
+    stopAllAudio(); // Asegurarse de parar todo antes de iniciar
 
     const randomIndex = Math.floor(Math.random() * songs.length);
     const randomSong = songs[randomIndex];
 
     globalFeaturedAudioPlayer.src = randomSong.fullAudio;
-    globalFeaturedAudioPlayer.muted = true; // Iniciar silenciado para el autoplay
-    globalFeaturedAudioPlayer.volume = volumeSlider.value / 100; // Asignar volumen real, pero el muted prevalece
-    globalFeaturedAudioPlayer.loop = true; // Que se reproduzca en bucle silenciada
+    globalFeaturedAudioPlayer.volume = volumeSlider.value / 100; // Aplicar volumen global
 
     try {
+        // Intentar reproducir. La promesa será rechazada si el autoplay está bloqueado.
         await globalFeaturedAudioPlayer.play();
-        console.log("Reproduciendo canción destacada aleatoria (silenciada). Haz click en una canción para activar el audio.");
-        // No actualizamos la UI con un icono de "pausa" si está silenciado y no interactúa el usuario
+        console.log(`Reproduciendo aleatoria en Home: ${randomSong.title}`);
+        // Actualizar UI para mostrar qué canción está reproduciéndose
         document.querySelectorAll('.full-song-item').forEach(item => {
             item.classList.remove('playing');
             const icon = item.querySelector('.play-pause-overlay .icon');
             if (icon) icon.textContent = '▶';
         });
+        const playingItem = document.querySelector(`.full-song-item[data-song-id="${randomSong.id}"]`);
+        if (playingItem) {
+            playingItem.classList.add('playing');
+            const playIcon = playingItem.querySelector('.play-pause-overlay .icon');
+            if (playIcon) playIcon.textContent = '⏸'; // Establecer icono de pausa
+        }
     } catch (e) {
-        console.warn("Autoplay de canción destacada bloqueado o fallido (esperado si no hay interacción):", e);
+        console.warn("Autoplay de canción destacada bloqueado o fallido (Home Page):", e);
+        // Si el autoplay es bloqueado, no hacer nada visualmente o mostrar un mensaje
+        // El usuario **deberá hacer clic en una canción** para iniciar la reproducción.
+        // Asegurarse de que no quede ningún "playing" activo si no se reprodujo.
+        document.querySelectorAll('.full-song-item.playing').forEach(item => {
+            item.classList.remove('playing');
+            const icon = item.querySelector('.play-pause-overlay .icon');
+            if (icon) icon.textContent = '▶';
+        });
     }
 }
 
 /**
  * Reproduce y selecciona una pista aleatoria en las páginas de selección de base/voz.
- * Esta es la reproducción "de fondo" que no se puede parar.
+ * Esta es la reproducción "de fondo" que no se puede parar fácilmente por el usuario
+ * (solo al cambiar de página o al hacer clic en otra opción).
  * @param {string} type - 'base' o 'vocal'.
  */
 async function playRandomSelectionTrack(type) {
@@ -339,30 +339,17 @@ async function playRandomSelectionTrack(type) {
     player.src = randomTrack.audio;
     player.loop = true; // Reproducir en bucle
     player.volume = volumeSlider.value / 100; // Aplicar volumen global
-    player.muted = false; // Asegurarse de que no esté silenciado para estas reproducciones de fondo
 
-    // Cargar metadatos para obtener la duración y luego iniciar la reproducción en un punto medio
-    player.addEventListener('loadedmetadata', () => {
-        if (player.duration > 0) {
-            const startPoint = player.duration / 2 + (Math.random() * player.duration / 4 - player.duration / 8); // Random point in the middle 50% of the track
-            player.currentTime = Math.max(0, startPoint); // Ensure it's not negative
-        }
-        player.play().catch(e => console.warn(`Autoplay de ${type} aleatoria bloqueado o fallido:`, e));
-    }, { once: true }); // Use { once: true } to remove the listener after it fires
-
-    player.load(); // Load the audio to trigger 'loadedmetadata'
-
-    console.log(`Reproduciendo ${type} aleatoria: ${randomTrack.title}`);
+    try {
+        await player.play();
+        console.log(`Reproduciendo ${type} aleatoria de fondo: ${randomTrack.title}`);
+    } catch (e) {
+        console.warn(`Autoplay de ${type} aleatoria bloqueado o fallido:`, e);
+        // Aquí no necesitamos cambiar la UI, ya que el usuario puede hacer clic para probar las pistas
+    }
 
     // Deseleccionar todas las opciones y seleccionar la aleatoria
-    targetGrid.querySelectorAll('.song-option').forEach(option => {
-        option.classList.remove('selected');
-        // Asegurarse de que los iconos estén en 'play' si no están activos
-        const icon = option.querySelector('.fa-play, .fa-pause');
-        if (icon && icon.classList.contains('fa-pause')) {
-            icon.classList.replace('fa-pause', 'fa-play');
-        }
-    });
+    targetGrid.querySelectorAll('.song-option').forEach(option => option.classList.remove('selected'));
     const selectedOption = targetGrid.querySelector(`.song-option[data-song-id="${randomTrack.id}"]`);
     if (selectedOption) {
         selectedOption.classList.add('selected');
@@ -391,10 +378,9 @@ async function setupAndPlayFinalMix() {
     // Reiniciar sliders de volumen individuales en la mezcla final a 100%
     baseVolumeSlider.value = 100;
     vocalVolumeSlider.value = 100;
-
-    // AHORA APLICAMOS EL VOLUMEN DESPUÉS DE ASIGNAR EL SRC
-    applyGlobalVolume();
-
+    
+    // APLICAR VOLUMEN INICIAL: es crucial que finalBaseAudio y finalVocalAudio tengan src asignada ANTES de esta llamada.
+    applyGlobalVolume(); 
 
     // Actualizar UI de la mezcla final
     finalBaseArtwork.src = selectedBaseTrack.image;
@@ -444,19 +430,6 @@ async function setupAndPlayFinalMix() {
     }
 }
 
-/**
- * Función para barajar un array usando el algoritmo Fisher-Yates (Knuth shuffle).
- * @param {Array} array - El array a barajar.
- * @returns {Array} Un nuevo array barajado.
- */
-function shuffleArray(array) {
-    const shuffled = [...array]; // Crear una copia para no modificar el array original
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Intercambiar elementos
-    }
-    return shuffled;
-}
 
 // --- Funciones de Interfaz (UI) ---
 
@@ -465,8 +438,7 @@ function shuffleArray(array) {
  */
 function renderFullSongs() {
     fullSongGrid.innerHTML = ''; // Limpiar contenido existente
-    const shuffledSongs = shuffleArray(songs); // Barajar las canciones
-    shuffledSongs.forEach(song => {
+    songs.forEach(song => {
         const songItem = document.createElement('div');
         songItem.classList.add('full-song-item');
         songItem.dataset.songId = song.id;
@@ -485,32 +457,20 @@ function renderFullSongs() {
 /**
  * Renderiza dinámicamente las opciones de bases y voces.
  * @param {string} type - 'base' o 'vocal'.
- * @param {Array}  [filteredSongs=songs] - Array de canciones a renderizar (por defecto, todas las canciones).
  */
-function renderSelectionOptions(type, filteredSongs = songs) {
+function renderSelectionOptions(type) {
     let targetGrid;
     let tracks;
 
-    // Solo barajar si no estamos aplicando un filtro de búsqueda (es decir, si filteredSongs es el array completo)
-    const songsToRender = filteredSongs.length === songs.length ? shuffleArray(filteredSongs) : filteredSongs;
-
     if (type === 'base') {
         targetGrid = baseTrackSelectionGrid;
-        tracks = songsToRender.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.baseAudio }));
+        tracks = songs.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.baseAudio }));
     } else { // type === 'vocal'
         targetGrid = vocalTrackSelectionGrid;
-        tracks = songsToRender.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.vocalAudio }));
+        tracks = songs.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.vocalAudio }));
     }
 
     targetGrid.innerHTML = ''; // Limpiar contenido existente
-    if (tracks.length === 0) {
-        targetGrid.innerHTML = '<p class="no-results">No se encontraron resultados para tu búsqueda.</p>';
-        // Deshabilitar el botón de siguiente si no hay resultados y nada seleccionado
-        if (type === 'base') nextToVocalSelectionButton.disabled = true;
-        else nextToMixResultButton.disabled = true;
-        return;
-    }
-
     tracks.forEach(track => {
         const songOption = document.createElement('div');
         songOption.classList.add('song-option');
@@ -525,29 +485,6 @@ function renderSelectionOptions(type, filteredSongs = songs) {
         `;
         targetGrid.appendChild(songOption);
     });
-
-    // Restaurar el estado de selección si ya había una pista seleccionada antes de la búsqueda
-    if (type === 'base' && selectedBaseTrack) {
-        const currentSelectedOption = targetGrid.querySelector(`.song-option[data-song-id="${selectedBaseTrack.id}"]`);
-        if (currentSelectedOption) {
-            currentSelectedOption.classList.add('selected');
-            nextToVocalSelectionButton.disabled = false;
-        } else {
-            // Si la canción seleccionada no está en los resultados de la búsqueda, deseleccionarla
-            selectedBaseTrack = null;
-            nextToVocalSelectionButton.disabled = true;
-        }
-    } else if (type === 'vocal' && selectedVocalTrack) {
-        const currentSelectedOption = targetGrid.querySelector(`.song-option[data-song-id="${selectedVocalTrack.id}"]`);
-        if (currentSelectedOption) {
-            currentSelectedOption.classList.add('selected');
-            nextToMixResultButton.disabled = false;
-        } else {
-            // Si la canción seleccionada no está en los resultados de la búsqueda, deseleccionarla
-            selectedVocalTrack = null;
-            nextToMixResultButton.disabled = true;
-        }
-    }
 }
 
 /**
@@ -555,17 +492,9 @@ function renderSelectionOptions(type, filteredSongs = songs) {
  * @param {HTMLElement} pageToShow - El elemento de la sección (página) a mostrar.
  */
 function showPage(pageToShow) {
-    // Al cambiar de página, detener todos los audios excepto la gestión específica de globalFeaturedAudioPlayer
-    stopAllAudio(); // Detiene todos los audios y limpia sus SRCs (excepto globalFeaturedAudioPlayer que se gestiona diferente)
+    // Es crucial detener todo el audio ANTES de cambiar de página
+    stopAllAudio();
 
-    // Restablecer el icono de reproducción en la página de inicio
-    document.querySelectorAll('.full-song-item.playing').forEach(item => {
-        item.classList.remove('playing');
-        const icon = item.querySelector('.play-pause-overlay .icon');
-        if (icon) icon.textContent = '▶';
-    });
-
-    // Ocultar todas las páginas y mostrar la deseada
     const pages = [homePage, baseSelectionPage, vocalSelectionPage, mixResultPage];
     pages.forEach(page => {
         page.classList.remove('active');
@@ -574,51 +503,26 @@ function showPage(pageToShow) {
     pageToShow.classList.add('active');
     pageToShow.classList.remove('hidden');
 
-    // Limpiar campos de búsqueda al cambiar de página de selección
-    if (pageToShow !== baseSelectionPage) {
-        searchInputBase.value = '';
-    }
-    if (pageToShow !== vocalSelectionPage) {
-        searchInputVocal.value = '';
-    }
-
-
     // Iniciar audio específico de la página
     if (pageToShow === homePage) {
-        playRandomFeaturedSong(); // Esto iniciará el audio silenciado si no hay interacción
+        // En la home, solo se intentará reproducir una canción aleatoria.
+        // Si el navegador lo bloquea (autoplay sin interacción), no sonará hasta el clic del usuario.
+        playRandomFeaturedSong(); 
     } else if (pageToShow === baseSelectionPage) {
-        // Al entrar a la página de selección, renderizar todas las opciones y luego reproducir un random
-        renderSelectionOptions('base');
         playRandomSelectionTrack('base'); // Autoplay random al entrar
     } else if (pageToShow === vocalSelectionPage) {
-        // Al entrar a la página de selección, renderizar todas las opciones y luego reproducir un random
-        renderSelectionOptions('vocal');
         playRandomSelectionTrack('vocal'); // Autoplay random al entrar
     } else if (pageToShow === mixResultPage) {
         setupAndPlayFinalMix();
     }
 }
 
-/**
- * Función de búsqueda para filtrar canciones por título o artista.
- * @param {string} query - El texto de búsqueda.
- * @returns {Array} Un array de canciones que coinciden con la búsqueda.
- */
-function searchSongs(query) {
-    const lowerCaseQuery = query.toLowerCase();
-    return songs.filter(song =>
-        song.title.toLowerCase().includes(lowerCaseQuery) ||
-        song.artist.toLowerCase().includes(lowerCaseQuery)
-    );
-}
-
-
 // --- Event Listeners ---
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Renderizar el contenido dinámico al cargar la página
     renderFullSongs();
-    renderSelectionOptions('base'); // Inicialmente renderizar todas las opciones
-    renderSelectionOptions('vocal'); // Inicialmente renderizar todas las opciones
+    renderSelectionOptions('base');
+    renderSelectionOptions('vocal');
 
     // 2. Inicializar volumen global y sus listeners
     applyGlobalVolume(); // Establece el volumen inicial al 100%
@@ -629,34 +533,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (volumeSlider.value > 0) {
             previousGlobalVolume = volumeSlider.value;
             volumeSlider.value = 0;
-            // Si el globalFeaturedAudioPlayer está reproduciendo (y no estaba silenciado por el navegador), silenciarlo.
-            if (globalFeaturedAudioPlayer && !globalFeaturedAudioPlayer.paused && !globalFeaturedAudioPlayer.muted) {
-                globalFeaturedAudioPlayer.muted = true;
-            }
         } else {
             volumeSlider.value = previousGlobalVolume;
-            // Si el globalFeaturedAudioPlayer estaba silenciado por el botón, desmutearlo.
-            if (globalFeaturedAudioPlayer && globalFeaturedAudioPlayer.muted) {
-                globalFeaturedAudioPlayer.muted = false;
-            }
         }
         applyGlobalVolume(); // Aplicar el nuevo volumen (0 o previo)
     });
 
     // NUEVOS: Listeners para los sliders de volumen individuales en la mezcla final
+    // Estos se encargan de ajustar el volumen de finalBaseAudio y finalVocalAudio
+    // El applyGlobalVolume() ya los tiene en cuenta.
     baseVolumeSlider.addEventListener('input', () => {
         if (finalBaseAudio) {
+            // El volumen del track es (volumen global * volumen individual)
             finalBaseAudio.volume = (volumeSlider.value / 100) * (baseVolumeSlider.value / 100);
         }
     });
     vocalVolumeSlider.addEventListener('input', () => {
         if (finalVocalAudio) {
+            // El volumen del track es (volumen global * volumen individual)
             finalVocalAudio.volume = (volumeSlider.value / 100) * (vocalVolumeSlider.value / 100);
         }
     });
 
 
-    // 3. Autoplay random en la página de inicio (silenciada inicialmente)
+    // 3. Autoplay random en la página de inicio (puede ser bloqueado por el navegador)
+    // El usuario deberá hacer clic en una canción para garantizar la reproducción.
     playRandomFeaturedSong();
 
 
@@ -665,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     backFromBaseSelectionButton.addEventListener('click', () => {
         selectedBaseTrack = null; // Limpiar selección
-        nextToVocalSelectionButton.disabled = true; // Deshabilitar el botón de siguiente
+        nextToVocalSelectionButton.disabled = true;
         showPage(homePage);
     });
 
@@ -676,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     backToVocalSelectionButton.addEventListener('click', () => {
         selectedVocalTrack = null; // Limpiar selección
-        nextToMixResultButton.disabled = true; // Deshabilitar el botón de siguiente
+        nextToMixResultButton.disabled = true;
         showPage(baseSelectionPage);
     });
 
@@ -712,26 +613,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si se hace clic en una opción, paramos la reproducción de fondo y la actual clickeada
         baseSelectionPageAudio.pause(); // Detener la reproducción random de fondo
-        baseSelectionPageAudio.currentTime = 0; // Resetear tiempo
-        baseSelectionPageAudio.src = ''; // Limpiar SRC
 
         // Gestión de la reproducción individual al hacer click
         if (!currentPlayingSelectionAudio) {
             currentPlayingSelectionAudio = new Audio();
+            document.body.appendChild(currentPlayingSelectionAudio); // Añadir al DOM para control visual si fuera necesario, aunque será oculto
         }
 
-        const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
-
         if (currentPlayingSelectionAudio.src.includes(clickedTrack.baseAudio) && !currentPlayingSelectionAudio.paused) {
-            // Si ya estaba reproduciendo esta misma canción Y ESTÁ SONANDO, pausarla
+            // Si ya estaba reproduciendo esta, la pausamos
             currentPlayingSelectionAudio.pause();
-            if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
+            songOption.querySelector('.fa-pause')?.classList.replace('fa-pause', 'fa-play');
         } else {
-            // Detener cualquier otra reproducción individual previa
-            if (!currentPlayingSelectionAudio.paused) {
+            // Detener cualquier reproducción individual anterior antes de iniciar una nueva
+            if (currentPlayingSelectionAudio && !currentPlayingSelectionAudio.paused) {
                 currentPlayingSelectionAudio.pause();
-                currentPlayingSelectionAudio.currentTime = 0;
-                // Buscar el icono 'pause' y cambiarlo a 'play' en todas las opciones
+                // Resetear iconos de play/pause de todas las opciones
                 baseTrackSelectionGrid.querySelectorAll('.song-option .fa-pause').forEach(icon => {
                     icon.classList.replace('fa-pause', 'fa-play');
                 });
@@ -740,25 +637,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si no estaba reproduciendo esta, la preparamos y reproducimos
             currentPlayingSelectionAudio.src = clickedTrack.baseAudio;
             currentPlayingSelectionAudio.volume = volumeSlider.value / 100;
-            currentPlayingSelectionAudio.muted = false; // Asegurarse de que no esté silenciado al hacer click
             currentPlayingSelectionAudio.loop = true; // Loop la pista seleccionada individualmente
 
-            // Load metadata to get duration, then play from a random middle point
-            currentPlayingSelectionAudio.addEventListener('loadedmetadata', () => {
-                if (currentPlayingSelectionAudio.duration > 0) {
-                    const startPoint = currentPlayingSelectionAudio.duration / 2 + (Math.random() * currentPlayingSelectionAudio.duration / 4 - currentPlayingSelectionAudio.duration / 8);
-                    currentPlayingSelectionAudio.currentTime = Math.max(0, startPoint);
-                }
-                currentPlayingSelectionAudio.play().catch(e => console.error("Error reproduciendo base individual:", e));
-            }, { once: true }); // Use { once: true } to remove the listener after it fires
+            currentPlayingSelectionAudio.play().catch(e => console.error("Error reproduciendo base individual:", e));
 
-            currentPlayingSelectionAudio.load(); // Load the audio to trigger 'loadedmetadata'
-
-            // Actualizar icono de play/pause
-            if (playButtonIcon) playButtonIcon.classList.replace('fa-play', 'fa-pause');
+            // Actualizar iconos de play/pause de la opción clickeada
+            songOption.querySelector('.fa-play')?.classList.replace('fa-play', 'fa-pause');
         }
 
-        // Marcar visualmente la opción seleccionada
+        // Marcar visualmente la opción seleccionada (solo una a la vez)
         baseTrackSelectionGrid.querySelectorAll('.song-option').forEach(option => {
             option.classList.remove('selected');
         });
@@ -777,26 +664,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si se hace clic en una opción, paramos la reproducción de fondo y la actual clickeada
         vocalSelectionPageAudio.pause(); // Detener la reproducción random de fondo
-        vocalSelectionPageAudio.currentTime = 0; // Resetear tiempo
-        vocalSelectionPageAudio.src = ''; // Limpiar SRC
 
         // Gestión de la reproducción individual al hacer click
         if (!currentPlayingSelectionAudio) {
             currentPlayingSelectionAudio = new Audio();
+            document.body.appendChild(currentPlayingSelectionAudio);
         }
 
-        const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
-
         if (currentPlayingSelectionAudio.src.includes(clickedTrack.vocalAudio) && !currentPlayingSelectionAudio.paused) {
-            // Si ya estaba reproduciendo esta misma canción Y ESTÁ SONANDO, pausarla
+            // Si ya estaba reproduciendo esta, la pausamos
             currentPlayingSelectionAudio.pause();
-            if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
+            songOption.querySelector('.fa-pause')?.classList.replace('fa-pause', 'fa-play');
         } else {
-            // Detener cualquier otra reproducción individual previa
-            if (!currentPlayingSelectionAudio.paused) {
+            // Detener cualquier reproducción individual anterior antes de iniciar una nueva
+            if (currentPlayingSelectionAudio && !currentPlayingSelectionAudio.paused) {
                 currentPlayingSelectionAudio.pause();
-                currentPlayingSelectionAudio.currentTime = 0;
-                // Buscar el icono 'pause' y cambiarlo a 'play' en todas las opciones
+                // Resetear iconos de play/pause de todas las opciones
                 vocalTrackSelectionGrid.querySelectorAll('.song-option .fa-pause').forEach(icon => {
                     icon.classList.replace('fa-pause', 'fa-play');
                 });
@@ -805,25 +688,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si no estaba reproduciendo esta, la preparamos y reproducimos
             currentPlayingSelectionAudio.src = clickedTrack.vocalAudio;
             currentPlayingSelectionAudio.volume = volumeSlider.value / 100;
-            currentPlayingSelectionAudio.muted = false; // Asegurarse de que no esté silenciado al hacer click
             currentPlayingSelectionAudio.loop = true; // Loop la pista seleccionada individualmente
 
-            // Load metadata to get duration, then play from a random middle point
-            currentPlayingSelectionAudio.addEventListener('loadedmetadata', () => {
-                if (currentPlayingSelectionAudio.duration > 0) {
-                    const startPoint = currentPlayingSelectionAudio.duration / 2 + (Math.random() * currentPlayingSelectionAudio.duration / 4 - currentPlayingSelectionAudio.duration / 8);
-                    currentPlayingSelectionAudio.currentTime = Math.max(0, startPoint);
-                }
-                currentPlayingSelectionAudio.play().catch(e => console.error("Error reproduciendo vocal individual:", e));
-            }, { once: true }); // Use { once: true } to remove the listener after it fires
+            currentPlayingSelectionAudio.play().catch(e => console.error("Error reproduciendo vocal individual:", e));
 
-            currentPlayingSelectionAudio.load(); // Load the audio to trigger 'loadedmetadata'
-
-            // Actualizar icono de play/pause
-            if (playButtonIcon) playButtonIcon.classList.replace('fa-play', 'fa-pause');
+            // Actualizar iconos de play/pause de la opción clickeada
+            songOption.querySelector('.fa-play')?.classList.replace('fa-play', 'fa-pause');
         }
 
-        // Marcar visualmente la opción seleccionada
+        // Marcar visualmente la opción seleccionada (solo una a la vez)
         vocalTrackSelectionGrid.querySelectorAll('.song-option').forEach(option => {
             option.classList.remove('selected');
         });
@@ -832,16 +705,71 @@ document.addEventListener('DOMContentLoaded', () => {
         nextToMixResultButton.disabled = false;
     });
 
-    // NUEVOS: Listeners para los campos de búsqueda
-    searchInputBase.addEventListener('input', (event) => {
-        const query = event.target.value;
-        const filtered = searchSongs(query);
-        renderSelectionOptions('base', filtered);
+
+    // 6. Listener para el play/pause individual en la Home Page (este es el que el usuario usará para iniciar el audio)
+    fullSongGrid.addEventListener('click', (event) => {
+        const songItem = event.target.closest('.full-song-item');
+        if (!songItem) return;
+
+        const songId = songItem.dataset.songId;
+        const clickedSong = songs.find(s => s.id === songId);
+        if (!clickedSong) return;
+
+        const isPlayingThisSong = songItem.classList.contains('playing');
+        const wasGlobalPlayerPlayingThisSrc = globalFeaturedAudioPlayer.src.includes(clickedSong.fullAudio);
+
+
+        if (isPlayingThisSong && wasGlobalPlayerPlayingThisSrc && !globalFeaturedAudioPlayer.paused) {
+            // Si ya estaba reproduciendo esta misma canción Y ESTÁ SONANDO, pausarla
+            globalFeaturedAudioPlayer.pause();
+            songItem.classList.remove('playing');
+            songItem.querySelector('.play-pause-overlay .icon').textContent = '▶';
+        } else {
+            // Si no estaba reproduciendo esta, o estaba pausada, la preparamos y reproducimos
+            stopAllAudio(); // Detener cualquier otra reproducción
+            globalFeaturedAudioPlayer.src = clickedSong.fullAudio;
+            globalFeaturedAudioPlayer.volume = volumeSlider.value / 100; // Aplicar volumen global
+
+            globalFeaturedAudioPlayer.play().catch(e => console.error("Error reproduciendo canción completa:", e));
+
+            // Actualizar UI para la nueva canción reproduciéndose
+            document.querySelectorAll('.full-song-item').forEach(item => {
+                item.classList.remove('playing');
+                const icon = item.querySelector('.play-pause-overlay .icon');
+                if (icon) icon.textContent = '▶';
+            });
+            songItem.classList.add('playing');
+            songItem.querySelector('.play-pause-overlay .icon').textContent = '⏸';
+        }
     });
 
-    searchInputVocal.addEventListener('input', (event) => {
-        const query = event.target.value;
-        const filtered = searchSongs(query);
-        renderSelectionOptions('vocal', filtered);
+    // 7. Sincronizar el icono de play/pausa de la home page con el estado del reproductor
+    globalFeaturedAudioPlayer.addEventListener('play', () => {
+        // Encontrar el item de canción que está actualmente reproduciéndose por su SRC
+        const currentSong = songs.find(s => globalFeaturedAudioPlayer.src.includes(s.fullAudio));
+        if (currentSong) {
+            const currentlyPlayingItem = document.querySelector(`.full-song-item[data-song-id="${currentSong.id}"]`);
+            if (currentlyPlayingItem) {
+                currentlyPlayingItem.classList.add('playing');
+                const icon = currentlyPlayingItem.querySelector('.play-pause-overlay .icon');
+                if (icon) icon.textContent = '⏸';
+            }
+        }
+    });
+    globalFeaturedAudioPlayer.addEventListener('pause', () => {
+        const currentlyPlayingItem = document.querySelector('.full-song-item.playing');
+        if (currentlyPlayingItem && globalFeaturedAudioPlayer.paused) {
+            currentlyPlayingItem.classList.remove('playing');
+            const icon = currentlyPlayingItem.querySelector('.play-pause-overlay .icon');
+            if (icon) icon.textContent = '▶';
+        }
+    });
+    globalFeaturedAudioPlayer.addEventListener('ended', () => {
+        const currentlyPlayingItem = document.querySelector('.full-song-item.playing');
+        if (currentlyPlayingItem) {
+            currentlyPlayingItem.classList.remove('playing');
+            const icon = currentlyPlayingItem.querySelector('.play-pause-overlay .icon');
+            if (icon) icon.textContent = '▶';
+        }
     });
 });
