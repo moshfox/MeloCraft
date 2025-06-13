@@ -1010,3 +1010,71 @@ header h1 {
         font-size: 0.7em; /* **MODIFICADO: Ajuste para móviles** */
     }
 }
+/* --- Estilos para la barra de progreso del reproductor de mezcla final --- */
+
+/* Base styling for the audio element if needed, though usually not required for controls */
+#finalMixedTrack {
+    width: 100%; /* Make sure it takes full width of its container */
+    max-width: 600px; /* Example: limit max width */
+    margin: 20px auto; /* Center it */
+    display: block; /* Ensure it's a block element */
+    /* If you want to force specific native controls appearance */
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
+    /* appearance: none; */
+}
+
+/* For Webkit browsers (Chrome, Safari, Opera) */
+#finalMixedTrack::-webkit-media-controls-timeline {
+    background-color: #e0e0e0; /* Light gray background for the entire seek bar */
+    border-radius: 5px;
+}
+
+#finalMixedTrack::-webkit-media-controls-current-time-display,
+#finalMixedTrack::-webkit-media-controls-time-remaining-display {
+    color: #8A2BE2; /* Purple text for time display */
+}
+
+#finalMixedTrack::-webkit-media-controls-play-button {
+    color: #8A2BE2; /* Purple play button */
+}
+
+#finalMixedTrack::-webkit-media-controls-panel {
+    background-color: #f0f0f0; /* Slightly lighter panel background */
+    color: #333;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+#finalMixedTrack::-webkit-media-controls-progress-bar {
+    background-color: #8A2BE2; /* Purple filled part of the progress bar */
+    border-radius: 5px;
+}
+
+#finalMixedTrack::-webkit-media-controls-volume-slider {
+    background-color: #e0e0e0; /* Volume slider track background */
+    border-radius: 5px;
+}
+
+#finalMixedTrack::-webkit-media-controls-volume-slider::-webkit-slider-thumb {
+    background-color: #8A2BE2; /* Volume slider thumb */
+    border-radius: 50%;
+}
+
+
+/* For Firefox (using -moz-range-track and -moz-range-thumb) */
+/* Note: Firefox styling for audio controls is more limited than Webkit */
+#finalMixedTrack::-moz-range-track {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+#finalMixedTrack::-moz-range-thumb {
+    background-color: #8A2BE2;
+    border-radius: 50%;
+}
+
+/* General styling for standard controls (limited) */
+#finalMixedTrack {
+    accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
+}
