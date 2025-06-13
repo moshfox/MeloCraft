@@ -1,19 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melocraft - Mezclador de Canciones</title>
-    <title>Melocraft</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <title>Melocraft - Tu Mezclador de Canciones</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <h1>Melocraft 🎶</h1>
-        <div class="search-bar global-search">
-            <i class="fas fa-search"></i> <input type="text" id="globalSearchInput" placeholder="Buscar canción o artista...">
-        </div>
         <div class="header-controls">
             <div class="volume-controls">
                 <i class="fas fa-volume-up" id="muteButton"></i>
@@ -26,24 +23,19 @@
     <main>
         <section id="homePage" class="active">
             <h2>Explora Nuestra Música</h2>
-            <audio id="globalFeaturedAudioPlayer" controls style="display:none;"></audio>
             <div class="full-song-grid" id="fullSongGrid">
-            </div>
+                </div>
         </section>
 
         <section id="baseSelectionPage" class="hidden">
             <h2>Paso 1: Elige tu Base</h2>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInputBase" placeholder="Buscar base por canción o artista...">
-            </div>
             <div class="page-volume-controls">
                 <i class="fas fa-volume-down"></i>
                 <input type="range" id="selectionBaseVolumeSlider" min="0" max="100" value="100">
                 <i class="fas fa-volume-up"></i>
             </div>
             <div class="track-selection-grid" id="baseTrackSelectionGrid">
-            </div>
+                </div>
             <div class="selection-buttons">
                 <button id="nextToVocalSelectionButton" class="main-button" disabled>Siguiente: Elegir Voz</button>
                 <button id="backFromBaseSelectionButton" class="secondary-button">Volver a Inicio</button>
@@ -52,19 +44,55 @@
 
         <section id="vocalSelectionPage" class="hidden">
             <h2>Paso 2: Elige tu Voz</h2>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInputVocal" placeholder="Buscar voz por canción o artista...">
-            </div>
             <div class="page-volume-controls">
                 <i class="fas fa-volume-down"></i>
                 <input type="range" id="selectionVocalVolumeSlider" min="0" max="100" value="100">
                 <i class="fas fa-volume-up"></i>
             </div>
             <div class="track-selection-grid" id="vocalTrackSelectionGrid">
-            </div>
+                </div>
             <div class="selection-buttons">
                 <button id="nextToMixResultButton" class="main-button" disabled>Siguiente: Ver Mezcla</button>
                 <button id="backToVocalSelectionButton" class="secondary-button">Volver a Base</button>
             </div>
         </section>
+
+        <section id="mixResultPage" class="hidden">
+            <h2>Tu Mezcla Personalizada</h2>
+            <div class="mixed-tracks-display">
+                <div class="mixed-track-info">
+                    <img id="finalBaseArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Base">
+                    <p>Base:</p>
+                    <p id="finalBaseTitle">Ninguna</p>
+                    <div class="track-volume-controls">
+                        <i class="fas fa-volume-down"></i>
+                        <input type="range" id="baseVolumeSlider" min="0" max="100" value="100">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+                <div class="mixed-track-info">
+                    <img id="finalVocalArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Voz">
+                    <p>Voz:</p>
+                    <p id="finalVocalTitle">Ninguna</p>
+                    <div class="track-volume-controls">
+                        <i class="fas fa-volume-down"></i>
+                        <input type="range" id="vocalVolumeSlider" min="0" max="100" value="100">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                </div>
+            </div>
+            <audio id="finalMixedTrack" controls></audio>
+            <div class="selection-buttons">
+                <button id="createNewMixButton" class="main-button">Crear Nueva Mezcla</button>
+                <button id="backFromMixResultButton" class="secondary-button">Volver a Inicio</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Melocraft. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
