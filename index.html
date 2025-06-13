@@ -27,3 +27,44 @@
         <section id="homePage" class="active">
             <h2>Explora Nuestra Música</h2>
             <audio id="globalFeaturedAudioPlayer" controls style="display:none;"></audio>
+            <div class="full-song-grid" id="fullSongGrid">
+            </div>
+        </section>
+
+        <section id="baseSelectionPage" class="hidden">
+            <h2>Paso 1: Elige tu Base</h2>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInputBase" placeholder="Buscar base por canción o artista...">
+            </div>
+            <div class="page-volume-controls">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="selectionBaseVolumeSlider" min="0" max="100" value="100">
+                <i class="fas fa-volume-up"></i>
+            </div>
+            <div class="track-selection-grid" id="baseTrackSelectionGrid">
+            </div>
+            <div class="selection-buttons">
+                <button id="nextToVocalSelectionButton" class="main-button" disabled>Siguiente: Elegir Voz</button>
+                <button id="backFromBaseSelectionButton" class="secondary-button">Volver a Inicio</button>
+            </div>
+        </section>
+
+        <section id="vocalSelectionPage" class="hidden">
+            <h2>Paso 2: Elige tu Voz</h2>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInputVocal" placeholder="Buscar voz por canción o artista...">
+            </div>
+            <div class="page-volume-controls">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="selectionVocalVolumeSlider" min="0" max="100" value="100">
+                <i class="fas fa-volume-up"></i>
+            </div>
+            <div class="track-selection-grid" id="vocalTrackSelectionGrid">
+            </div>
+            <div class="selection-buttons">
+                <button id="nextToMixResultButton" class="main-button" disabled>Siguiente: Ver Mezcla</button>
+                <button id="backToVocalSelectionButton" class="secondary-button">Volver a Base</button>
+            </div>
+        </section>
