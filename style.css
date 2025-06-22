@@ -1235,8 +1235,8 @@ header h1 {
 /* Animación de pulsación para el artwork (Déjala si la quieres, si no, elimínala) */
 /* Animación de pulsación para el artwork (Ajustado para ser más rápido y con mayor rango) */
 @keyframes pulse {
-    0% { transform: scale(0.6); }   /* Comienza mucho más pequeño */
-    100% { transform: scale(1.7); } /* Se hace mucho más grande */
+    0% { transform: scale(0.8); }   /* Comienza mucho más pequeño */
+    100% { transform: scale(1.2); } /* Se hace mucho más grande */
 }
 
 /* Y en #djArtwork, asegúrate de que animation-duration sea más corto */
