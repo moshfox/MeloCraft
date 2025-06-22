@@ -1090,16 +1090,51 @@ header h1 {
     border: 3px solid var(--text-color);
     box-shadow: var(--shadow);
     cursor: pointer;
-    display: flex;
-    flex-direction: column; /* Icono y texto apilados */
-    align-items: center; /* Centrar horizontalmente */
-    justify-content: center; /* Centrar verticalmente */
+    display: flex; /* Usamos flexbox */
+    flex-direction: column; /* Apila los elementos (aunque solo habrá uno visible) */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
-    padding: 5px; /* Pequeño padding interno */
-    overflow: hidden; /* Importante para que el contenido no se salga del círculo */
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
+    /* padding: 5px; */ /* Puedes quitar el padding si quieres que el icono ocupe más espacio */
+    overflow: hidden; 
+    /* text-align: center; */ /* No es necesario si no hay texto */
+    font-family: 'Montserrat', sans-serif; /* Puedes quitarlo si no hay texto */
+}
+
+/* Icono dentro del botón DJ */
+.dj-button-icon {
+    width: 80px; /* <<-- ¡Aumenta el tamaño para que sea más grande! (ajusta según necesites)*/
+    height: 80px; /* <<-- Debe ser igual al ancho*/
+    border-radius: 0; /* Asegura que el icono NO se recorte en círculo */
+    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse*/
+    display: block;
+    /* margin-bottom: 3px; */ /* Quítalo si no hay texto debajo */
+}
+
+/* Texto dentro del botón DJ */
+.dj-button-text {
+    /* OCULTA ESTE ELEMENTO COMPLETAMENTE */
+    display: none; /* Esto ocultará el texto */
+    /* También podrías eliminar completamente el <span> del HTML si lo prefieres,
+       pero 'display: none;' es más sencillo para empezar. */
+}
+
+/* Asegúrate de que los media queries para .dj-button y .dj-button-icon
+   también reflejen estos nuevos tamaños o los ajusten en consecuencia. */
+@media (max-width: 768px) {
+    .dj-button {
+        width: 70px; /* Más pequeño para móviles */
+        height: 70px;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .dj-button-icon {
+        width: 55px; /* Ajusta el tamaño del icono para móviles */
+        height: 55px;
+    }
+    /* .dj-button-text ya tiene display: none; */
 }
 
 .dj-button:hover {
