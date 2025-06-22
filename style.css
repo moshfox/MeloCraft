@@ -1078,22 +1078,22 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
-/* --- ESTILOS DEL BOTÓN DJ --- */
+
+/* --- ESTILOS DEL BOTÓN DJ FLOTANTE --- */
 .dj-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 100px; /* Ancho para que sea un círculo */
-    height: 100px; /* Alto para que sea un círculo */
+    width: 100px;      /* Ancho para que sea un círculo */
+    height: 100px;     /* Alto para que sea un círculo */
     border-radius: 50%; /* ¡LO QUEREMOS REDONDO! */
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: 3px solid var(--text-color);
     box-shadow: var(--shadow);
     cursor: pointer;
     display: flex; /* Usamos flexbox */
-    flex-direction: column; /* Apila los elementos (aunque solo habrá uno visible) */
-    align-items: center; /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente el icono */
+    justify-content: center; /* Centra verticalmente el icono */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
     overflow: hidden; /* Importante para que el contenido no se salga del círculo */
@@ -1104,7 +1104,7 @@ header h1 {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Icono dentro del botón DJ */
+/* Icono dentro del botón DJ (Ajustado para ser más grande) */
 .dj-button-icon {
     width: 80px; /* Tamaño del icono grande */
     height: 80px; /* Debe ser igual al ancho */
@@ -1133,62 +1133,6 @@ header h1 {
     }
 }
 
-/* --- ESTILOS DEL BOTÓN DJ --- */
-.dj-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 100px;      /* Ancho para que sea un círculo */
-    height: 100px;     /* Alto para que sea un círculo */
-    border-radius: 50%; /* ¡LO QUEREMOS REDONDO! */
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    border: 3px solid var(--text-color);
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    display: flex; /* Usamos flexbox */
-    flex-direction: column; /* Apila los elementos (aunque solo habrá uno visible) */
-    align-items: center; /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1000;
-    overflow: hidden; /* Importante para que el contenido no se salga del círculo */
-}
-
-.dj-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Icono dentro del botón DJ (Ajustado para ser más grande) */
-.dj-button-icon {
-    width: 80px; /* ¡Aumenta el tamaño para que sea más grande! */
-    height: 80px; /* Debe ser igual al ancho */
-    border-radius: 0; /* Asegura que el icono NO se recorte en círculo */
-    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse */
-    display: block;
-}
-
-/* Texto dentro del botón DJ (OCULTADO) */
-.dj-button-text {
-    display: none; /* Esto ocultará el texto "Melocraft AI DJ" */
-}
-
-/* Media query para pantallas pequeñas del botón DJ */
-@media (max-width: 768px) {
-    .dj-button {
-        width: 70px; /* Más pequeño para móviles */
-        height: 70px;
-        bottom: 15px;
-        left: 15px;
-    }
-
-    .dj-button-icon {
-        width: 55px; /* Ajusta el tamaño del icono para móviles */
-        height: 55px;
-    }
-}
-
-/* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
 /* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
 .dj-overlay {
     position: fixed;
@@ -1196,17 +1140,17 @@ header h1 {
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Cambia esta línea: */
-    background: linear-gradient(135deg, #6a0dad, #8a2be2); /* Morado oscuro a morado azulado */
-    /* O puedes probar con otros tonos de morado: */
-    /* background: linear-gradient(135deg, #4b0082, #9932cc); */ /* Índigo a Morado Oscuro */
-    /* background: linear-gradient(135deg, #8A2BE2, #A020F0); */ /* Morado Azulado a Púrpura */
+    /* Fondo moradito, puedes ajustar los valores hexadecimales para el tono exacto */
+    background: linear-gradient(135deg, #6a0dad, #8a2be2); /* Morado oscuro a morado azulado*/
+    /* Otras opciones de morado: */
+    /* background: linear-gradient(135deg, #4B0082, #9932CC); */ /* Índigo a Púrpura Medio */
+    /* background: linear-gradient(135deg, #A020F0, #DDA0DD); */ /* Púrpura a Ciruela */
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: 2000; /* Por encima de todo, incluido el botón */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -1223,37 +1167,25 @@ header h1 {
     max-width: 800px;
 }
 
-/* Imagen principal del DJ en la pantalla (Sin bordes ni sombras no deseadas) */
+/* Imagen principal del DJ en la pantalla (Sin bordes ni sombras no deseadas, animación más rápida y pronunciada) */
 #djArtwork {
     width: 300px; /* O el tamaño que desees para la imagen principal */
     height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
     
-    /* ¡IMPORTANTE! Eliminamos estas propiedades para quitar el borde circular y la sombra/brillo feo: */
+    /* Eliminamos estas propiedades para quitar el borde circular y la sombra/brillo feo: */
     /* border-radius: 50%; */ 
     /* border: 5px solid var(--text-color); */
     /* box-shadow: var(--shadow); */ /* Quita la sombra/brillo*/
     
     object-fit: contain; /* IMPORTANTE: Para que la imagen completa se vea sin recortar*/
-    animation: pulse 2s infinite alternate; /* Si quieres que pulse, déjalo, si no, elimina esta línea y el @keyframes pulse */
+    animation: pulse 0.8s infinite alternate; /* Animación más rápida (0.8s) y más pronunciada */
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
 
-/* Animación de pulsación para el artwork (Déjala si la quieres, si no, elimínala) */
 /* Animación de pulsación para el artwork (Ajustado para ser más rápido y con mayor rango) */
 @keyframes pulse {
     0% { transform: scale(0.8); }   /* Comienza mucho más pequeño */
     100% { transform: scale(1.2); } /* Se hace mucho más grande */
-}
-
-/* Y en #djArtwork, asegúrate de que animation-duration sea más corto */
-#djArtwork {
-    width: 300px;
-    height: 300px;
-    object-fit: contain;
-    /* QUITAMOS box-shadow si no lo quieres */
-    /* box-shadow: var(--shadow); */ 
-    animation: pulse 0.8s infinite alternate; /* ¡HEMOS CAMBIADO DE 2s A 0.8s para más rápido! */
-    margin-bottom: 20px;
 }
 
 .dj-commentary {
@@ -1284,5 +1216,50 @@ header h1 {
 
     .now-playing {
         font-size: 1.1em;
+    }
+}
+
+/* --- NUEVOS ESTILOS PARA EL BOTÓN DE CERRAR EN EL OVERLAY DEL DJ --- */
+.dj-close-button {
+    position: absolute; /* Posicionamiento absoluto dentro del dj-overlay */
+    top: 20px; /* Separación desde arriba */
+    right: 20px; /* Separación desde la derecha */
+    background: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    color: #fff; /* Color del icono/texto */
+    border: none;
+    border-radius: 50%; /* Para que sea redondo */
+    width: 40px; /* Ancho del botón */
+    height: 40px; /* Alto del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Tamaño del icono */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    z-index: 2001; /* Asegúrate de que esté por encima del overlay (z-index del overlay es 2000) */
+}
+
+.dj-close-button:hover {
+    background: rgba(0, 0, 0, 0.6); /* Fondo más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+}
+
+/* Estilo específico para el icono de Material Icons */
+.dj-close-button .material-icons {
+    font-size: 24px; /* Asegura el tamaño del icono */
+    line-height: 1; /* Alineación vertical */
+}
+
+/* Media query para pantallas pequeñas del botón de cerrar */
+@media (max-width: 768px) {
+    .dj-close-button {
+        top: 15px;
+        right: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    .dj-close-button .material-icons {
+        font-size: 20px;
     }
 }
