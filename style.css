@@ -1189,18 +1189,24 @@ header h1 {
 }
 
 /* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
+/* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
 .dj-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Degradado morado guapo */
+    /* Cambia esta línea: */
+    background: linear-gradient(135deg, #6a0dad, #8a2be2); /* Morado oscuro a morado azulado */
+    /* O puedes probar con otros tonos de morado: */
+    /* background: linear-gradient(135deg, #4b0082, #9932cc); */ /* Índigo a Morado Oscuro */
+    /* background: linear-gradient(135deg, #8A2BE2, #A020F0); */ /* Morado Azulado a Púrpura */
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 2000; /* Por encima de todo, incluido el botón */
+    z-index: 2000;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
