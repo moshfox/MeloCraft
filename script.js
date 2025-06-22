@@ -134,6 +134,10 @@ const songs = [
         artist: 'Tyler, the creator',
         image: 'assets/images/Noid.jpg',
         fullAudio: 'assets/audio/full/Noid.mp3',
+        // ATENCIÓN: Nombres de archivo con espacios y puntos extras NO son recomendables
+        // Se recomienda renombrar estos archivos a algo como:
+        // 'poppop_ai_videoplayback_instrumental.mp3'
+        // 'poppop_ai_videoplayback_vocals.mp3'
         baseAudio: 'assets/audio/bases/poppop.ai - videoplayback_instrumental.mp3',
         vocalAudio: 'assets/audio/vocals/poppop.ai - videoplayback_vocals.mp3',
     }
@@ -183,9 +187,11 @@ let finalVocalAudio = new Audio();
 let selectedBaseTrack = null;
 let selectedVocalTrack = null;
 
-const seekSlider = document.getElementById('seekSlider');
-const currentTimeDisplay = document.getElementById('currentTime');
-const durationTimeDisplay = document.getElementById('durationTime');
+// Estas variables no están en tu HTML (ni son necesarias en este script para la funcionalidad actual)
+// const seekSlider = document.getElementById('seekSlider');
+// const currentTimeDisplay = document.getElementById('currentTime');
+// const durationTimeDisplay = document.getElementById('durationTime');
+
 
 // --- Funciones de Utilidad ---
 
@@ -238,16 +244,16 @@ function stopAllAudio() {
         finalMixedTrackPlayer.load(); // Cargar para aplicar el src vacío
     }
 
-    // Resetear elementos de la barra de progreso personalizada
-    if (seekSlider) {
-        seekSlider.value = 0;
-    }
-    if (currentTimeDisplay) {
-        currentTimeDisplay.textContent = '0:00';
-    }
-    if (durationTimeDisplay) {
-        durationTimeDisplay.textContent = '0:00';
-    }
+    // Resetear elementos de la barra de progreso personalizada (si existen)
+    // if (seekSlider) {
+    //     seekSlider.value = 0;
+    // }
+    // if (currentTimeDisplay) {
+    //     currentTimeDisplay.textContent = '0:00';
+    // }
+    // if (durationTimeDisplay) {
+    //     durationTimeDisplay.textContent = '0:00';
+    // }
 
     // Resetear visualmente los iconos de play/pause en la interfaz
     document.querySelectorAll('.full-song-item.playing').forEach(item => {
@@ -465,41 +471,76 @@ async function setupAndPlayFinalMix() {
     if (finalVocalTitle) finalVocalTitle.textContent = selectedVocalTrack.title;
 
     // Configurar el finalMixedTrackPlayer como el "maestro" para la barra de progreso
-    const masterDuration = Math.max(finalBaseAudio.duration, finalVocalAudio.duration);
-    if (seekSlider) seekSlider.max = masterDuration;
-    if (durationTimeDisplay) durationTimeDisplay.textContent = formatTime(masterDuration);
+    // ATENCIÓN: El elemento #finalMixedTrack es un <audio> tag en tu HTML,
+    // pero lo estás usando como un maestro para la barra de progreso con finalBaseAudio.
+    // Esto es confuso. Si quieres usar el <audio> tag, DEBES asignarle un src.
+    // Para simplificar, la barra de progreso debería seguir a finalBaseAudio o finalVocalAudio.
+    // Tu HTML no tiene un seekSlider, currentTime, durationTime para el player final.
+    // Si quieres una barra de progreso, debes añadir esos elementos al HTML para mixResultPage.
 
-    // Sincronizar la barra de progreso con el audio "maestro"
-    finalBaseAudio.ontimeupdate = () => {
-        if (!seekSlider.dragging) {
-            if (seekSlider) seekSlider.value = finalBaseAudio.currentTime;
-        }
-        if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(finalBaseAudio.currentTime);
-    };
-
-    if (seekSlider) {
-        seekSlider.oninput = () => {
-            const newTime = seekSlider.value;
-            finalBaseAudio.currentTime = newTime;
-            finalVocalAudio.currentTime = newTime;
-        };
-        seekSlider.onmousedown = () => { seekSlider.dragging = true; };
-        seekSlider.onmouseup = () => { seekSlider.dragging = false; };
-    }
+    // Si tuvieras un seekSlider, currentTimeDisplay, durationTimeDisplay en mixResultPage:
+    // const masterDuration = Math.max(finalBaseAudio.duration, finalVocalAudio.duration);
+    // if (seekSlider) seekSlider.max = masterDuration;
+    // if (durationTimeDisplay) durationTimeDisplay.textContent = formatTime(masterDuration);
+    //
+    // finalBaseAudio.ontimeupdate = () => {
+    //     if (!seekSlider.dragging) {
+    //         if (seekSlider) seekSlider.value = finalBaseAudio.currentTime;
+    //     }
+    //     if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(finalBaseAudio.currentTime);
+    // };
+    //
+    // if (seekSlider) {
+    //     seekSlider.oninput = () => {
+    //         const newTime = seekSlider.value;
+    //         finalBaseAudio.currentTime = newTime;
+    //         finalVocalAudio.currentTime = newTime;
+    //     };
+    //     seekSlider.onmousedown = () => { seekSlider.dragging = true; };
+    //     seekSlider.onmouseup = () => { seekSlider.dragging = false; };
+    // }
 
     // Eventos de control de reproducción:
-    finalBaseAudio.onended = () => {
-        stopAllAudio();
+    // Puedes asignar los audios finales directamente al elemento <audio> HTML
+    finalMixedTrackPlayer.src = finalBaseAudio.src; // O el que quieras que controle el progreso
+    finalMixedTrackPlayer.volume = finalBaseAudio.volume; // Sincroniza volumen
+    finalMixedTrackPlayer.loop = false; // Puedes ponerlo en true si quieres que se repita
+
+    // Asegúrate de que finalBaseAudio y finalVocalAudio también se carguen y sincronicen
+    // Esto es crucial para que se reproduzcan juntas.
+    finalBaseAudio.currentTime = 0;
+    finalVocalAudio.currentTime = 0;
+
+    finalMixedTrackPlayer.onplay = () => {
+        finalBaseAudio.play().catch(e => console.error("Error al iniciar base:", e));
+        finalVocalAudio.play().catch(e => console.error("Error al iniciar vocal:", e));
+    };
+    finalMixedTrackPlayer.onpause = () => {
+        finalBaseAudio.pause();
+        finalVocalAudio.pause();
+    };
+    finalMixedTrackPlayer.onseeking = () => {
+        finalBaseAudio.currentTime = finalMixedTrackPlayer.currentTime;
+        finalVocalAudio.currentTime = finalMixedTrackPlayer.currentTime;
+    };
+    finalMixedTrackPlayer.onseeked = () => {
+        finalBaseAudio.currentTime = finalMixedTrackPlayer.currentTime;
+        finalVocalAudio.currentTime = finalMixedTrackPlayer.currentTime;
+    };
+    finalMixedTrackPlayer.onended = () => {
+        stopAllAudio(); // Esto detendrá también finalBaseAudio y finalVocalAudio
         console.log("Mezcla finalizada.");
     };
 
+
     // Intentar reproducir la mezcla automáticamente
     try {
-        await finalBaseAudio.play();
-        await finalVocalAudio.play(); // Iniciar vocal también
+        // Intentar reproducir el reproductor HTML, lo que activará los otros dos
+        await finalMixedTrackPlayer.play();
         console.log("Autoplay de mezcla final iniciado.");
     } catch (e) {
         console.warn("Autoplay de mezcla final bloqueado o fallido:", e);
+        finalMixedTrackPlayer.pause();
         finalBaseAudio.pause();
         finalVocalAudio.pause();
     }
@@ -538,7 +579,8 @@ async function playRandomSelectionTrack(type) {
     player.src = randomTrack.audio;
     player.loop = true;
     player.volume = volumeSlider.value / 100;
-    player.muted = false; // Asegurarse de que no esté silenciado si se reproduce automáticamente
+    player.muted = (volumeSlider.value === 0); // Si el slider está en 0, mutear
+    // player.muted = false; // Asegurarse de que no esté silenciado si se reproduce automáticamente
 
     try {
         await new Promise((resolve, reject) => {
@@ -702,11 +744,13 @@ function toggleDjMode() {
     if (isDjModeActive) {
         stopAllAudio(); // Pause any user audio currently playing
         djOverlay.classList.add('active');
+        djOverlay.classList.remove('hidden'); // Asegúrate de que se muestre
         playNextDjSong();
         toggleDjArtworkPulse(true);
     } else {
         resetDjState();
         djOverlay.classList.remove('active');
+        djOverlay.classList.add('hidden'); // Asegúrate de que se oculte
     }
 }
 
@@ -741,17 +785,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (muteButton) {
         let previousGlobalVolume = volumeSlider ? volumeSlider.value : 100; // Store last volume before mute
         muteButton.addEventListener('click', () => {
-            if (globalFeaturedAudioPlayer.volume > 0 || !globalFeaturedAudioPlayer.muted) {
+            if (volumeSlider.value > 0 || !globalFeaturedAudioPlayer.muted) { // Cambiado para chequear el slider
                 // Mute
                 previousGlobalVolume = volumeSlider.value; // Save current volume
                 volumeSlider.value = 0;
                 applyGlobalVolume(); // Apply changes and update icon
                 globalFeaturedAudioPlayer.muted = true; // Ensure the DJ player is muted
+                baseSelectionPageAudio.muted = true; // Mutear audios de selección
+                vocalSelectionPageAudio.muted = true;
+                if (currentPlayingSelectionAudio) currentPlayingSelectionAudio.muted = true;
+                if (finalBaseAudio) finalBaseAudio.muted = true;
+                if (finalVocalAudio) finalVocalAudio.muted = true;
             } else {
                 // Unmute
                 volumeSlider.value = previousGlobalVolume > 0 ? previousGlobalVolume : 100; // Restore or default to 100
                 applyGlobalVolume(); // Apply changes and update icon
                 globalFeaturedAudioPlayer.muted = false; // Ensure the DJ player is unmuted
+                baseSelectionPageAudio.muted = false; // Desmutear audios de selección
+                vocalSelectionPageAudio.muted = false;
+                if (currentPlayingSelectionAudio) currentPlayingSelectionAudio.muted = false;
+                if (finalBaseAudio) finalBaseAudio.muted = false;
+                if (finalVocalAudio) finalVocalAudio.muted = false;
             }
         });
     }
@@ -878,7 +932,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Event listener for when a full song finishes playing
-        if (currentPlayingSelectionAudio) {
+        if (currentPlayingSelectionAudio) { // Asegurarse de que exista antes de asignar el listener
             currentPlayingSelectionAudio.onended = () => {
                 document.querySelectorAll('.full-song-item.playing').forEach(item => {
                     item.classList.remove('playing');
