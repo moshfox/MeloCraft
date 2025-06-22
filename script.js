@@ -949,5 +949,172 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// ... (tus variables y código JS existente) ...
+
+// Nuevas referencias para el DJ
+const djModeButton = document.getElementById('djModeButton');
+const djOverlay = document.getElementById('djOverlay');
+const djArtwork = document.getElementById('djArtwork');
+const djCommentary = document.getElementById('djCommentary');
+const nowPlaying = document.getElementById('nowPlaying');
+
+// Nuevas variables para el DJ
+let isDjModeActive = false;
+let djInterval; // Para controlar el cambio de canción del DJ
+let currentDjSongIndex = -1; // Índice de la canción actual del DJ
+let djCommentaryTimeout; // Para limpiar el comentario del DJ
+let djArtworkPulseInterval; // Para la animación de la imagen al ritmo de la música
+
+// Array de plantillas de comentarios del DJ
+const djComments = [
+    "¡Qué temazo de $ARTISTA_ANTERIOR$! Pero prepárense, que ahora llega $ARTISTA_SIGUIENTE$ con su hit: ¡$CANCION_SIGUIENTE$!",
+    "Espero que hayan disfrutado de $CANCION_ANTERIOR$ de $ARTISTA_ANTERIOR$. Subimos el volumen para $CANCION_SIGUIENTE$ de $ARTISTA_SIGUIENTE$. ¡A bailar!",
+    "Wow, $ARTISTA_ANTERIOR$ nos dejó con ganas de más. Pero no se preocupen, el ambiente sigue arriba con $ARTISTA_SIGUIENTE$ y su increíble $CANCION_SIGUIENTE$.",
+    "Ese es el ritmo de $ARTISTA_ANTERIOR$ con $CANCION_ANTERIOR$. Ahora, un cambio de aires con $ARTISTA_SIGUIENTE$ y su enérgico $CANCION_SIGUIENTE$.",
+    "¡Directo desde los estudios de Melocraft! Acabamos de escuchar a $ARTISTA_ANTERIOR$. A continuación, una joya de $ARTISTA_SIGUIENTE$: $CANCION_SIGUIENTE$."
+];
+
+// Función para obtener un comentario aleatorio con reemplazo de variables
+function getRandomDjComment(prevSong, nextSong) {
+    const commentTemplate = djComments[Math.floor(Math.random() * djComments.length)];
+    return commentTemplate
+        .replace('$ARTISTA_ANTERIOR$', prevSong.artist)
+        .replace('$CANCION_ANTERIOR$', prevSong.title)
+        .replace('$ARTISTA_SIGUIENTE$', nextSong.artist)
+        .replace('$CANCION_SIGUIENTE$', nextSong.title);
+}
+
+// Función para alternar la animación de pulsación de la imagen del DJ
+function toggleDjArtworkPulse(enable) {
+    if (enable) {
+        djArtwork.style.animationPlayState = 'running';
+    } else {
+        djArtwork.style.animationPlayState = 'paused';
+    }
+}
+
+// Función principal para iniciar/detener el modo DJ
+async function toggleDjMode() {
+    isDjModeActive = !isDjModeActive;
+
+    if (isDjModeActive) {
+        // Entrar en modo DJ
+        stopAllAudio(); // Pausar cualquier audio reproduciéndose
+        djOverlay.classList.add('active'); // Mostrar el overlay
+        djModeButton.classList.add('active'); // Marcar el botón como activo si quieres un estilo visual
+
+        // Iniciar la reproducción de canciones del DJ
+        startDjPlayback();
+
+        // Iniciar animación de la imagen
+        toggleDjArtworkPulse(true);
+
+        // Opcional: Desactivar botones de navegación mientras el DJ está activo
+        document.getElementById('createButton').disabled = true;
+        // ... (desactivar otros botones si es necesario)
+    } else {
+        // Salir del modo DJ
+        clearInterval(djInterval); // Detener el cambio automático de canciones
+        clearTimeout(djCommentaryTimeout); // Limpiar cualquier comentario pendiente
+        djOverlay.classList.remove('active'); // Ocultar el overlay
+        djModeButton.classList.remove('active'); // Quitar estilo activo del botón
+        stopAllAudio(); // Asegurar que todo el audio del DJ se detiene
+        djCommentary.textContent = ''; // Limpiar comentario
+        nowPlaying.textContent = ''; // Limpiar ahora sonando
+        currentDjSongIndex = -1; // Resetear índice de canción
+
+        // Detener animación de la imagen
+        toggleDjArtworkPulse(false);
+
+        // Opcional: Reactivar botones de navegación
+        document.getElementById('createButton').disabled = false;
+        // ... (reactivar otros botones si es necesario)
+    }
+}
+
+// Función para reproducir la siguiente canción del DJ
+async function playNextDjSong() {
+    if (songs.length === 0) {
+        console.warn("No hay canciones disponibles para el DJ.");
+        return;
+    }
+
+    // Seleccionar una canción aleatoria que no sea la actual si es posible
+    let nextSongIndex;
+    do {
+        nextSongIndex = Math.floor(Math.random() * songs.length);
+    } while (nextSongIndex === currentDjSongIndex && songs.length > 1);
+
+    const nextSong = songs[nextDjSongIndex];
+    const prevSong = currentDjSongIndex !== -1 ? songs[currentDjSongIndex] : null;
+
+    currentDjSongIndex = nextSongIndex; // Actualizar el índice de la canción actual
+
+    // Reproducir comentario del DJ
+    if (prevSong && djCommentary.textContent === '') { // Solo si no hay un comentario activo
+        const comment = getRandomDjComment(prevSong, nextSong);
+        djCommentary.textContent = comment;
+        nowPlaying.textContent = ''; // Limpiar "Now Playing" mientras habla el DJ
+        // Bajar el volumen de la música (si se está reproduciendo)
+        if (globalFeaturedAudioPlayer && !globalFeaturedAudioPlayer.paused) {
+            globalFeaturedAudioPlayer.volume = 0.1; // Volumen bajo para el fondo
+        }
+        // Puedes añadir un audio de voz del DJ aquí si tienes archivos de voz
+        // const djVoiceAudio = new Audio('assets/audio/dj_voice.mp3'); // Ejemplo
+        // await djVoiceAudio.play();
+
+        // Esperar un tiempo (simulando duración del comentario)
+        await new Promise(resolve => {
+            djCommentaryTimeout = setTimeout(() => {
+                djCommentary.textContent = ''; // Limpiar comentario después de un tiempo
+                if (globalFeaturedAudioPlayer && !globalFeaturedAudioPlayer.paused) {
+                    applyGlobalVolume(); // Restaurar volumen
+                }
+                resolve();
+            }, 5000); // Comentario visible por 5 segundos (ajustar)
+        });
+    }
+
+    // Preparar y reproducir la nueva canción
+    globalFeaturedAudioPlayer.src = nextSong.fullAudio;
+    globalFeaturedAudioPlayer.loop = false; // No loopear, queremos que cambie de canción
+    globalFeaturedAudioPlayer.volume = volumeSlider.value / 100; // Restaurar volumen o aplicar el global
+    globalFeaturedAudioPlayer.muted = false; // Asegurarse de que no esté muteado
+
+    try {
+        await new Promise((resolve, reject) => {
+            globalFeaturedAudioPlayer.onloadedmetadata = () => resolve();
+            globalFeaturedAudioPlayer.onerror = () => reject(new Error(`Error al cargar metadatos de ${nextSong.fullAudio}.`));
+            globalFeaturedAudioPlayer.load();
+        });
+        await globalFeaturedAudioPlayer.play();
+        console.log(`DJ reproduciendo: ${nextSong.title}`);
+        nowPlaying.textContent = `Ahora sonando: ${nextSong.title} - ${nextSong.artist}`;
+
+        // Escuchar el final de la canción para la siguiente
+        globalFeaturedAudioPlayer.onended = () => {
+            // Un pequeño retraso antes del siguiente comentario/canción
+            setTimeout(playNextDjSong, 2000); // 2 segundos de pausa
+        };
+
+    } catch (e) {
+        console.error("Error reproduciendo canción del DJ:", e);
+        // Si hay un error, intentar con la siguiente canción
+        setTimeout(playNextDjSong, 2000);
+    }
+}
+
+// Iniciar el ciclo de reproducción del DJ (llamado cuando se activa el modo DJ)
+function startDjPlayback() {
+    // Asegurarse de que el globalFeaturedAudioPlayer esté listo
+    if (!globalFeaturedAudioPlayer) {
+        globalFeaturedAudioPlayer = new Audio();
+    }
+    // La primera canción se reproduce inmediatamente
+    playNextDjSong();
+}
+
+// Event listener para el botón del DJ
+djModeButton.addEventListener('click', toggleDjMode);
 
 
