@@ -1078,4 +1078,124 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
+/* Estilos para el botón del DJ */
+.dj-button {
+    position: fixed; /* Fijo en la pantalla */
+    bottom: 20px;    /* 20px desde abajo */
+    left: 20px;      /* 20px desde la izquierda */
+    width: 70px;     /* Tamaño del botón */
+    height: 70px;
+    border-radius: 50%; /* Redondo */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); /* Degradado morado/azul */
+    border: 3px solid var(--text-color); /* Borde sutil */
+    box-shadow: var(--shadow); /* Sombra para que destaque */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    padding: 0; /* Eliminar padding interno */
+    overflow: hidden; /* Oculta cualquier desbordamiento de la imagen */
+}
 
+.dj-button:hover {
+    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dj-button img {
+    width: 90%; /* La imagen ocupa casi todo el botón */
+    height: 90%;
+    border-radius: 50%; /* Asegura que la imagen también sea redonda */
+    object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+    display: block; /* Elimina espacio extra debajo de la imagen */
+}
+
+/* Estilos para el overlay de pantalla completa del DJ */
+.dj-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Degradado morado guapo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* Por encima de todo, incluido el botón */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.dj-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dj-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+}
+
+#djArtwork {
+    width: 250px; /* Tamaño inicial de la imagen */
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--text-color);
+    box-shadow: var(--shadow);
+    animation: pulse 2s infinite alternate; /* Animación de pulsación */
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px var(--accent-color);
+    }
+}
+
+.dj-commentary {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    color: #fff;
+    margin-top: 40px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.now-playing {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    color: var(--text-color);
+    margin-top: 15px;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .dj-button {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    #djArtwork {
+        width: 180px;
+        height: 180px;
+    }
+
+    .dj-commentary {
+        font-size: 1.5em;
+    }
+
+    .now-playing {
+        font-size: 1.1em;
+    }
+}
