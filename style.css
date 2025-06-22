@@ -1233,9 +1233,21 @@ header h1 {
 }
 
 /* Animación de pulsación para el artwork (Déjala si la quieres, si no, elimínala) */
+/* Animación de pulsación para el artwork (Ajustado para ser más rápido y con mayor rango) */
 @keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
+    0% { transform: scale(0.8); }   /* Comienza mucho más pequeño */
+    100% { transform: scale(1.2); } /* Se hace mucho más grande */
+}
+
+/* Y en #djArtwork, asegúrate de que animation-duration sea más corto */
+#djArtwork {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    /* QUITAMOS box-shadow si no lo quieres */
+    /* box-shadow: var(--shadow); */ 
+    animation: pulse 0.8s infinite alternate; /* ¡HEMOS CAMBIADO DE 2s A 0.8s para más rápido! */
+    margin-bottom: 20px;
 }
 
 .dj-commentary {
