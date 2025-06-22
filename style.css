@@ -1078,3 +1078,702 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
+
+/* Importa fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+/* Variables CSS para colores y espaciado - ¡Fácil de personalizar! */
+:root {
+    --primary-bg: #1a1a2e; /* Azul oscuro intenso */
+    --secondary-bg: #16213e; /* Azul más claro, para tarjetas y secciones */
+    --tertiary-bg: #0f3460; /* Azul-gris oscuro, para controles */
+    --accent-color-1: #e94560; /* Rosa vibrante (botones principales) */
+    --accent-color-2: #ffa420; /* Naranja cálido (resaltar títulos, selecciones) */
+    --text-color-light: #e0e0e0; /* Texto claro */
+    --text-color-dark: #333; /* Texto oscuro, si se necesita */
+    --card-bg: #222e4d; /* Fondo de tarjeta intermedio */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hover-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    --button-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Estilos globales para el body y elementos básicos */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Fuente principal para el cuerpo */
+    background-color: var(--primary-bg);
+    color: var(--text-color-light);
+    line-height: 1.6;
+    overflow-x: hidden; /* Previene scroll horizontal no deseado */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa al menos el 100% de la altura de la vista */
+}
+
+/* Encabezados */
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif; /* Fuente más destacada para títulos */
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    color: var(--accent-color-2); /* Color de acento para títulos */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: var(--accent-color-1); /* Color principal para el título de la app */
+    letter-spacing: 1.5px;
+    margin-bottom: 0; /* Ajuste para el header */
+}
+
+h2 {
+    font-size: 2.2em;
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+/* Botones genéricos */
+button {
+    cursor: pointer;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: var(--button-shadow);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #555 !important; /* Más fuerte para disabled */
+    transform: none;
+    box-shadow: none;
+}
+
+.main-button {
+    background-color: var(--accent-color-1);
+    color: white;
+}
+
+.main-button:hover {
+    background-color: #ff6681; /* Tono más claro del acento */
+}
+
+.secondary-button {
+    background-color: var(--tertiary-bg);
+    color: var(--text-color-light);
+}
+
+.secondary-button:hover {
+    background-color: #1a4d85; /* Tono más claro del terciario */
+}
+
+/* Estilos para input[type="range"] (sliders) */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%; /* Ajuste por defecto, puede ser sobreescrito */
+    height: 8px;
+    background: var(--tertiary-bg);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.2s ease;
+    cursor: grab;
+    margin: 0 10px; /* Espacio alrededor del slider */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-color-2);
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    margin-top: -6px; /* Centra el thumb */
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-color-2);
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- Header --- */
+header {
+    background-color: var(--secondary-bg);
+    padding: 15px 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex; /* Usar flexbox para el contenido del header */
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ocupa todo el ancho */
+    flex-wrap: wrap; /* Asegurar el ajuste en móviles */
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.volume-controls input[type="range"] {
+    width: 120px; /* Ancho específico para el slider de volumen global */
+}
+
+.volume-controls button {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 1.5em;
+    padding: 5px;
+    width: 40px; /* Para que el icono sea clickeable fácilmente */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Icono circular */
+    transition: background-color 0.2s ease;
+}
+
+.volume-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: none; /* No queremos que se mueva como los otros botones */
+    box-shadow: none;
+}
+
+
+/* --- Main Content Sections --- */
+main {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Apila las secciones verticalmente */
+    align-items: center; /* Centra las secciones */
+}
+
+section {
+    width: 100%;
+    max-width: 1200px; /* Ancho máximo para el contenido */
+    padding: 40px 20px;
+    background-color: var(--secondary-bg);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    margin-bottom: 30px; /* Espacio entre secciones si están apiladas */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 60vh; /* Altura mínima para que las secciones se vean bien */
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+section.hidden {
+    display: none;
+}
+
+section.active {
+    display: flex;
+}
+
+.info-message {
+    color: var(--accent-color-2);
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* --- Full Song Grid (Home Page) --- */
+.full-song-grid, .track-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.song-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent; /* Para el estado seleccionado */
+}
+
+.song-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.song-card.selected {
+    border-color: var(--accent-color-2); /* Borde para la tarjeta seleccionada */
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(255,164,32,0.7); /* Sombra más pronunciada */
+}
+
+.song-card img {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    object-fit: cover; /* Asegura que la imagen no se distorsione */
+    aspect-ratio: 1 / 1; /* Hace que la imagen sea cuadrada */
+}
+
+.song-card h3, .song-card p {
+    margin: 0;
+    color: var(--text-color-light);
+}
+
+.song-card h3 {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    color: var(--accent-color-2);
+}
+
+.song-card p {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.play-pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 12px;
+}
+
+.song-card:hover .play-pause-overlay,
+.song-card.playing .play-pause-overlay {
+    opacity: 1;
+}
+
+.play-pause-overlay .icon {
+    font-size: 3em;
+    color: var(--accent-color-1);
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
+}
+
+
+/* --- Selection Pages (Base & Vocal) --- */
+.track-selection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Un poco más compactas */
+    margin-bottom: 30px;
+}
+
+.page-volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+}
+
+.page-volume-controls input[type="range"] {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    margin: 0;
+}
+
+.page-volume-controls i {
+    font-size: 1.2em;
+    color: var(--text-color-light);
+}
+
+.selection-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Asegura que los botones se envuelvan */
+    justify-content: center;
+}
+
+/* --- Mix Result Page --- */
+#mixResultPage {
+    background: linear-gradient(to bottom right, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.mixed-tracks-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.mixed-track-info {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    flex: 1;
+    min-width: 280px;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mixed-track-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+.mixed-track-info img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.mixed-track-info p {
+    font-size: 1.1em;
+    color: var(--text-color-light);
+    margin-bottom: 8px;
+}
+
+.mixed-track-info .track-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--accent-color-2);
+    margin-bottom: 15px;
+}
+
+.track-volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+    margin-top: 15px;
+}
+
+.track-volume-controls input[type="range"] {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.track-volume-controls i {
+    font-size: 1.1em;
+    color: var(--text-color-light);
+}
+
+/* --- Audio Player and Visualizer --- */
+.audio-player-container {
+    background-color: #0d2745; /* Fondo oscuro para el reproductor */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin-top: 30px;
+    width: 100%;
+    max-width: 700px; /* Ajusta el ancho máximo del reproductor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Ocultar los controles por defecto del audio HTML5, si se usan controles personalizados */
+#finalMixedTrack {
+    display: none; /* Oculta el reproductor de audio nativo */
+}
+
+.audio-controls-custom {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#playPauseMixButton {
+    background-color: var(--accent-color-1);
+    color: white;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--button-shadow);
+    flex-shrink: 0; /* No permite que el botón se encoja */
+}
+
+#playPauseMixButton:hover {
+    background-color: #ff6681;
+    transform: scale(1.05);
+}
+
+.progress-bar-container {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    height: 10px;
+    background-color: #333;
+    border-radius: 5px;
+    overflow: hidden; /* Asegura que la barra de progreso se mantenga dentro */
+    cursor: pointer;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%; /* Se controlará con JS */
+    background: linear-gradientToRight, var(--accent-color-2), var(--accent-color-1)); /* Degradado para la barra de progreso */
+    border-radius: 5px;
+    transition: width 0.1s linear; /* Suaviza el movimiento de la barra */
+    position: absolute; /* Para que ocupe todo el espacio de su padre */
+    top: 0;
+    left: 0;
+}
+
+#currentTime, #duration {
+    font-size: 1em;
+    color: var(--text-color-light);
+    min-width: 45px; /* Evita que los tiempos se muevan mucho */
+    text-align: center;
+}
+
+#audioVisualizer {
+    display: block;
+    width: calc(100% - 20px); /* Ancho del contenedor menos padding */
+    height: 120px; /* Altura del visualizador */
+    background-color: #111;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--secondary-bg);
+    color: var(--text-color-light);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9em;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+}
+
+/* --- Loading Overlay --- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    color: white;
+    font-size: 1.5em;
+    gap: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid var(--accent-color-1);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 992px) {
+    h1 { font-size: 2.4em; }
+    h2 { font-size: 1.8em; }
+
+    .full-song-grid, .track-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .mixed-tracks-display {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .mixed-track-info {
+        max-width: 350px;
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .header-controls {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    .volume-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    .volume-controls input[type="range"] {
+        width: calc(100% - 100px); /* Ajustar para iconos a los lados */
+    }
+
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
+
+    section {
+        padding: 30px 15px;
+        min-height: 50vh;
+    }
+
+    .full-song-grid, .track-selection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .song-card img {
+        max-width: 120px;
+    }
+
+    .play-pause-overlay .icon {
+        font-size: 2.5em;
+    }
+
+    .selection-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-button, .secondary-button {
+        width: 80%;
+        max-width: 300px;
+        font-size: 0.95em;
+    }
+
+    .audio-controls-custom {
+        flex-wrap: wrap; /* Permitir que los controles se envuelvan */
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #playPauseMixButton {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+
+    .progress-bar-container {
+        width: calc(100% - 120px); /* Ajustar por el botón y los tiempos */
+        order: 1; /* Para que la barra de progreso aparezca en una línea separada si se envuelve */
+        margin-top: 10px;
+    }
+    #currentTime, #duration {
+        order: 2; /* Después de la barra de progreso si se envuelve */
+        flex-shrink: 0;
+    }
+    #audioVisualizer {
+        height: 90px; /* Reducir altura en móviles */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+
+    .full-song-grid, .track-selection-grid {
+        grid-template-columns: 1fr; /* Una columna para pantallas muy pequeñas */
+    }
+
+    .song-card {
+        padding: 15px;
+    }
+    .song-card img {
+        max-width: 100px;
+    }
+
+    .mixed-track-info {
+        padding: 15px;
+    }
+
+    .mixed-track-info img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .track-volume-controls {
+        width: 100%;
+    }
+
+    .audio-controls-custom {
+        padding: 0 5px;
+    }
+}
