@@ -1078,25 +1078,26 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
+/* --- ESTILOS DEL BOTÓN DJ --- */
 .dj-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 100px;     /* <<-- Ancho para que sea un círculo */
-    height: 100px;    /* <<-- Alto para que sea un círculo */
-    border-radius: 50%; /* <<-- ¡LO QUEREMOS REDONDO! */
+    width: 100px;      /* Ancho para que sea un círculo */
+    height: 100px;     /* Alto para que sea un círculo */
+    border-radius: 50%; /* ¡LO QUEREMOS REDONDO! */
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: 3px solid var(--text-color);
     box-shadow: var(--shadow);
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column; /* Icono y texto apilados */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
     padding: 5px; /* Pequeño padding interno */
-    overflow: hidden; /* Esto es importante para que el contenido no se salga */
+    overflow: hidden; /* Importante para que el contenido no se salga del círculo */
     text-align: center;
     font-family: 'Montserrat', sans-serif;
 }
@@ -1106,22 +1107,22 @@ header h1 {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Ahora ajustamos el icono dentro del botón */
+/* Icono dentro del botón DJ */
 .dj-button-icon {
-    width: 60px; /* <<-- Tamaño del icono (ajusta según lo necesites) */
-    height: 60px; /* <<-- Debe ser igual al ancho */
-    border-radius: 0; /* <<-- Asegura que el icono no se recorte en círculo si no lo es */
-    object-fit: contain; /* <<-- Crucial: para que la imagen completa quepa sin recortarse */
+    width: 60px; /* Tamaño del icono (ajusta según lo necesites) */
+    height: 60px; /* Debe ser igual al ancho */
+    border-radius: 0; /* Asegura que el icono NO se recorte en círculo si no lo es originalmente */
+    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse */
     display: block;
-    margin-bottom: 3px; /* Pequeño espacio entre icono y texto */
+    margin-bottom: 3px; /* Espacio entre icono y texto */
 }
 
+/* Texto dentro del botón DJ */
 .dj-button-text {
     color: #fff;
-    font-size: 0.8em; /* <<-- Un poco más pequeño para que quepa bien bajo el icono */
+    font-size: 0.8em; /* Un poco más pequeño para que quepa bien bajo el icono */
     font-weight: bold;
     line-height: 1.2;
-    /* Evita que el texto se "salga" del botón redondo */
     max-width: 90%; /* Limita el ancho del texto */
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden; /* Oculta el texto que se salga */
@@ -1147,15 +1148,18 @@ header h1 {
         font-size: 0.65em;
     }
 }
-}
 
+/* LA REGLA .dj-button img ESTABA EN CONFLICTO Y CAUSANDO UN ERROR DE SINTAXIS EN TU CSS.
+   La he ELIMINADO porque sus propiedades ya están cubiertas por .dj-button-icon. */
+/*
 .dj-button img {
-    width: 90%; /* La imagen ocupa casi todo el botón */
+    width: 90%;
     height: 90%;
-    border-radius: 50%; /* Asegura que la imagen también sea redonda */
-    object-fit: cover; /* Ajusta la imagen sin distorsionarla */
-    display: block; /* Elimina espacio extra debajo de la imagen */
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
+*/
 
 /* Estilos para el overlay de pantalla completa del DJ */
 .dj-overlay {
@@ -1186,25 +1190,27 @@ header h1 {
     max-width: 800px;
 }
 
+/* Imagen principal del DJ en la pantalla */
 #djArtwork {
     width: 300px; /* O el tamaño que desees para la imagen principal */
     height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
     
-    /* <<-- ELIMINA ESTAS LÍNEAS (o coméntalas si quieres guardarlas) --> */
+    /* ELIMINADAS LAS PROPIEDADES DE BORDER-RADIUS Y BORDER PARA QUE NO SEA CIRCULAR NI TENGA BORDES */
     /* border-radius: 50%; */
     /* border: 5px solid var(--text-color); */
     
-    object-fit: contain; /* <<-- IMPORTANTE: Para que la imagen completa se vea sin recortar */
+    object-fit: contain; /* IMPORTANTE: Para que la imagen completa se vea sin recortar */
     box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta */
     animation: pulse 2s infinite alternate; /* Mantén la animación de pulsación si la quieres */
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
 
-/* Si tienes un @keyframes pulse, déjalo tal cual */
+/* Animación de pulsación para el artwork */
 @keyframes pulse {
     0% { transform: scale(1); }
     100% { transform: scale(1.05); }
 }
+
 .dj-commentary {
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
@@ -1220,15 +1226,10 @@ header h1 {
     margin-top: 15px;
 }
 
-/* Media query para pantallas pequeñas */
+/* Media query para pantallas pequeñas (repetido y ajustado para el overlay del DJ) */
 @media (max-width: 768px) {
-    .dj-button {
-        width: 60px;
-        height: 60px;
-        bottom: 15px;
-        left: 15px;
-    }
-
+    /* Las reglas de .dj-button ya están arriba en el primer media query */
+    /* Esto es para #djArtwork, .dj-commentary, .now-playing en pantallas pequeñas */
     #djArtwork {
         width: 180px;
         height: 180px;
