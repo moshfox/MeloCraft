@@ -1083,8 +1083,8 @@ header h1 {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 100px;      /* Ancho para que sea un círculo */
-    height: 100px;     /* Alto para que sea un círculo */
+    width: 100px; /* Ancho para que sea un círculo */
+    height: 100px; /* Alto para que sea un círculo */
     border-radius: 50%; /* ¡LO QUEREMOS REDONDO! */
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: 3px solid var(--text-color);
@@ -1096,32 +1096,29 @@ header h1 {
     justify-content: center; /* Centra verticalmente */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
-    /* padding: 5px; */ /* Puedes quitar el padding si quieres que el icono ocupe más espacio */
-    overflow: hidden; 
-    /* text-align: center; */ /* No es necesario si no hay texto */
-    font-family: 'Montserrat', sans-serif; /* Puedes quitarlo si no hay texto */
+    overflow: hidden; /* Importante para que el contenido no se salga del círculo */
+}
+
+.dj-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Icono dentro del botón DJ */
 .dj-button-icon {
-    width: 80px; /* <<-- ¡Aumenta el tamaño para que sea más grande! (ajusta según necesites)*/
-    height: 80px; /* <<-- Debe ser igual al ancho*/
+    width: 80px; /* Tamaño del icono grande */
+    height: 80px; /* Debe ser igual al ancho */
     border-radius: 0; /* Asegura que el icono NO se recorte en círculo */
-    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse*/
+    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse */
     display: block;
-    /* margin-bottom: 3px; */ /* Quítalo si no hay texto debajo */
 }
 
-/* Texto dentro del botón DJ */
+/* Texto dentro del botón DJ (OCULTADO) */
 .dj-button-text {
-    /* OCULTA ESTE ELEMENTO COMPLETAMENTE */
-    display: none; /* Esto ocultará el texto */
-    /* También podrías eliminar completamente el <span> del HTML si lo prefieres,
-       pero 'display: none;' es más sencillo para empezar. */
+    display: none; /* Esto ocultará el texto "Melocraft AI DJ"*/
 }
 
-/* Asegúrate de que los media queries para .dj-button y .dj-button-icon
-   también reflejen estos nuevos tamaños o los ajusten en consecuencia. */
+/* Media query para pantallas pequeñas del botón DJ */
 @media (max-width: 768px) {
     .dj-button {
         width: 70px; /* Más pequeño para móviles */
@@ -1134,69 +1131,9 @@ header h1 {
         width: 55px; /* Ajusta el tamaño del icono para móviles */
         height: 55px;
     }
-    /* .dj-button-text ya tiene display: none; */
 }
 
-.dj-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Icono dentro del botón DJ */
-.dj-button-icon {
-    width: 60px; /* Tamaño del icono (ajusta según lo necesites) */
-    height: 60px; /* Debe ser igual al ancho */
-    border-radius: 0; /* Asegura que el icono NO se recorte en círculo si no lo es originalmente */
-    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse */
-    display: block;
-    margin-bottom: 3px; /* Espacio entre icono y texto */
-}
-
-/* Texto dentro del botón DJ */
-.dj-button-text {
-    color: #fff;
-    font-size: 0.8em; /* Un poco más pequeño para que quepa bien bajo el icono */
-    font-weight: bold;
-    line-height: 1.2;
-    max-width: 90%; /* Limita el ancho del texto */
-    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-    overflow: hidden; /* Oculta el texto que se salga */
-    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
-}
-
-/* Media query para pantallas pequeñas: ajusta el tamaño del botón y el texto */
-@media (max-width: 768px) {
-    .dj-button {
-        width: 80px; /* Más pequeño para móviles */
-        height: 80px;
-        bottom: 15px;
-        left: 15px;
-    }
-
-    .dj-button-icon {
-        width: 45px;
-        height: 45px;
-        margin-bottom: 2px;
-    }
-
-    .dj-button-text {
-        font-size: 0.65em;
-    }
-}
-
-/* LA REGLA .dj-button img ESTABA EN CONFLICTO Y CAUSANDO UN ERROR DE SINTAXIS EN TU CSS.
-   La he ELIMINADO porque sus propiedades ya están cubiertas por .dj-button-icon. */
-/*
-.dj-button img {
-    width: 90%;
-    height: 90%;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-}
-*/
-
-/* Estilos para el overlay de pantalla completa del DJ */
+/* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
 .dj-overlay {
     position: fixed;
     top: 0;
@@ -1230,7 +1167,7 @@ header h1 {
     width: 300px; /* O el tamaño que desees para la imagen principal */
     height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
     
-    /* ELIMINA O COMENTA ESTAS LÍNEAS SI ESTÁN PRESENTES: */
+    /* ELIMINADAS LAS PROPIEDADES DE BORDER-RADIUS Y BORDER PARA QUE NO SEA CIRCULAR NI TENGA BORDES*/
     /* border-radius: 50%; */ 
     /* border: 5px solid var(--text-color); */
     
@@ -1261,10 +1198,8 @@ header h1 {
     margin-top: 15px;
 }
 
-/* Media query para pantallas pequeñas (repetido y ajustado para el overlay del DJ) */
+/* Media query para pantallas pequeñas del overlay del DJ */
 @media (max-width: 768px) {
-    /* Las reglas de .dj-button ya están arriba en el primer media query */
-    /* Esto es para #djArtwork, .dj-commentary, .now-playing en pantallas pequeñas */
     #djArtwork {
         width: 180px;
         height: 180px;
