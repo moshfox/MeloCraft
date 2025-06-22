@@ -1116,5 +1116,26 @@ function startDjPlayback() {
 
 // Event listener para el botón del DJ
 djModeButton.addEventListener('click', toggleDjMode);
+// Al principio de tu script.js o dentro de tu DOMContentLoaded event listener
+const djOverlay = document.getElementById('djOverlay');
+const djCloseButton = document.getElementById('djCloseButton');
 
+// Dentro de tu DOMContentLoaded event listener o una función de inicialización
+if (djCloseCloseButton && djOverlay) {
+    djCloseButton.addEventListener('click', () => {
+        djOverlay.classList.remove('active'); // Esto ocultará el overlay del DJ
+
+        // Opcional: Si el DJ está reproduciendo música y quieres que se detenga al cerrar
+        // Asegúrate de que 'globalFeaturedAudioPlayer' sea accesible aquí (definido con 'let')
+        // if (globalFeaturedAudioPlayer && !globalFeaturedAudioPlayer.paused) {
+        //     globalFeaturedAudioPlayer.pause();
+        //     globalFeaturedAudioPlayer.currentTime = 0; // Reiniciar la canción si quieres
+        // }
+
+        // Opcional: Puedes añadir lógica para "resetear" el estado del DJ si es necesario
+        // Por ejemplo, resetear el texto de djCommentary y nowPlaying
+        // document.getElementById('djCommentary').textContent = "";
+        // document.getElementById('nowPlaying').textContent = "";
+    });
+}
 
