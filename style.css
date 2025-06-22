@@ -1195,12 +1195,12 @@ header h1 {
     width: 300px; /* O el tamaño que desees para la imagen principal */
     height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
     
-    /* ELIMINADAS LAS PROPIEDADES DE BORDER-RADIUS Y BORDER PARA QUE NO SEA CIRCULAR NI TENGA BORDES */
-    /* border-radius: 50%; */
+    /* ELIMINA O COMENTA ESTAS LÍNEAS SI ESTÁN PRESENTES: */
+    /* border-radius: 50%; */ 
     /* border: 5px solid var(--text-color); */
     
-    object-fit: contain; /* IMPORTANTE: Para que la imagen completa se vea sin recortar */
-    box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta */
+    object-fit: contain; /* IMPORTANTE: Para que la imagen completa se vea sin recortar*/
+    box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta, si no, elimínala */
     animation: pulse 2s infinite alternate; /* Mantén la animación de pulsación si la quieres */
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
