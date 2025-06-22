@@ -1133,6 +1133,61 @@ header h1 {
     }
 }
 
+/* --- ESTILOS DEL BOTÓN DJ --- */
+.dj-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;      /* Ancho para que sea un círculo */
+    height: 100px;     /* Alto para que sea un círculo */
+    border-radius: 50%; /* ¡LO QUEREMOS REDONDO! */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: 3px solid var(--text-color);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    display: flex; /* Usamos flexbox */
+    flex-direction: column; /* Apila los elementos (aunque solo habrá uno visible) */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 1000;
+    overflow: hidden; /* Importante para que el contenido no se salga del círculo */
+}
+
+.dj-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Icono dentro del botón DJ (Ajustado para ser más grande) */
+.dj-button-icon {
+    width: 80px; /* ¡Aumenta el tamaño para que sea más grande! */
+    height: 80px; /* Debe ser igual al ancho */
+    border-radius: 0; /* Asegura que el icono NO se recorte en círculo */
+    object-fit: contain; /* Crucial: para que la imagen completa quepa sin recortarse */
+    display: block;
+}
+
+/* Texto dentro del botón DJ (OCULTADO) */
+.dj-button-text {
+    display: none; /* Esto ocultará el texto "Melocraft AI DJ" */
+}
+
+/* Media query para pantallas pequeñas del botón DJ */
+@media (max-width: 768px) {
+    .dj-button {
+        width: 70px; /* Más pequeño para móviles */
+        height: 70px;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .dj-button-icon {
+        width: 55px; /* Ajusta el tamaño del icono para móviles */
+        height: 55px;
+    }
+}
+
 /* --- ESTILOS DEL OVERLAY DEL DJ (PANTALLA COMPLETA) --- */
 .dj-overlay {
     position: fixed;
@@ -1162,22 +1217,22 @@ header h1 {
     max-width: 800px;
 }
 
-/* Imagen principal del DJ en la pantalla */
+/* Imagen principal del DJ en la pantalla (Sin bordes ni sombras no deseadas) */
 #djArtwork {
     width: 300px; /* O el tamaño que desees para la imagen principal */
     height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
     
-    /* ELIMINADAS LAS PROPIEDADES DE BORDER-RADIUS Y BORDER PARA QUE NO SEA CIRCULAR NI TENGA BORDES*/
+    /* ¡IMPORTANTE! Eliminamos estas propiedades para quitar el borde circular y la sombra/brillo feo: */
     /* border-radius: 50%; */ 
     /* border: 5px solid var(--text-color); */
+    /* box-shadow: var(--shadow); */ /* Quita la sombra/brillo*/
     
     object-fit: contain; /* IMPORTANTE: Para que la imagen completa se vea sin recortar*/
-    box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta, si no, elimínala */
-    animation: pulse 2s infinite alternate; /* Mantén la animación de pulsación si la quieres */
+    animation: pulse 2s infinite alternate; /* Si quieres que pulse, déjalo, si no, elimina esta línea y el @keyframes pulse */
     margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
 
-/* Animación de pulsación para el artwork */
+/* Animación de pulsación para el artwork (Déjala si la quieres, si no, elimínala) */
 @keyframes pulse {
     0% { transform: scale(1); }
     100% { transform: scale(1.05); }
