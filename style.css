@@ -1079,3 +1079,226 @@ header h1 {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
 
+/* Styles for the progress bar and controls in mixResultPage */
+
+#mixResultPage .player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #2b2d42; /* Darker background for the player */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-top: 30px; /* Space from album art */
+    width: 90%; /* Adjust as needed */
+    max-width: 600px; /* Max width for larger screens */
+}
+
+#mixResultPage .time-display {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    color: #edf2f4; /* Light text color */
+    font-size: 0.9em;
+}
+
+#seekSlider {
+    flex-grow: 1; /* Make it take available space */
+    -webkit-appearance: none; /* Remove default styling for Chrome/Safari */
+    appearance: none;
+    width: 100%;
+    height: 8px; /* Height of the track */
+    border-radius: 5px;
+    background: linear-gradient(to right, #6A0DAD 0%, #555 0%); /* Initial fill and empty track */
+    outline: none;
+    transition: background 0.2s ease-in-out;
+    cursor: grab;
+}
+
+#seekSlider:active {
+    cursor: grabbing;
+}
+
+/* Thumb (the draggable part) styles for Webkit (Chrome, Safari) */
+#seekSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 18px; /* Size of the thumb */
+    height: 18px;
+    border-radius: 50%;
+    background: #a333c8; /* Bright purple thumb */
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border: 2px solid #edf2f4; /* Light border for contrast */
+    margin-top: -5px; /* Adjust vertical position */
+}
+
+/* Thumb (the draggable part) styles for Firefox */
+#seekSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #a333c8;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border: 2px solid #edf2f4;
+}
+
+/* Track styles for Firefox */
+#seekSlider::-moz-range-track {
+    height: 8px;
+    border-radius: 5px;
+    background: #555; /* Empty track color */
+}
+
+/* Filled portion for Firefox */
+#seekSlider::-moz-range-progress {
+    background: #6A0DAD; /* Filled track color */
+    border-radius: 5px;
+    height: 8px;
+}
+
+
+/* Main controls for play/pause and individual volume sliders */
+#mixResultPage .main-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
+#playPauseMixButton {
+    background: #a333c8; /* Purple background */
+    color: #edf2f4; /* Light text/icon color */
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#playPauseMixButton:hover {
+    background: #8b25ae; /* Slightly darker purple on hover */
+    transform: translateY(-2px);
+}
+
+#playPauseMixButton:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #edf2f4;
+}
+
+.volume-controls input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px; /* Adjust width as needed */
+    height: 6px;
+    border-radius: 3px;
+    background: #555;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #6A0DAD;
+    cursor: pointer;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.volume-controls input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #6A0DAD;
+    cursor: pointer;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for selected song options (base/vocal) */
+.song-option.selected {
+    border: 2px solid #a333c8; /* Highlight selected item with purple border */
+    box-shadow: 0 0 10px rgba(163, 51, 200, 0.6); /* Glowing effect */
+}
+
+.song-option .play-button i {
+    color: #edf2f4; /* Light color for play/pause icons */
+    transition: color 0.3s ease;
+}
+
+.song-option:hover .play-button i {
+    color: #a333c8; /* Purple on hover for icons */
+}
+
+/* General button styling */
+.control-button {
+    background-color: #4a4d6b;
+    color: #edf2f4;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.control-button:hover {
+    background-color: #5d6184;
+    transform: translateY(-1px);
+}
+
+.control-button:disabled {
+    background-color: #3a3c50;
+    color: #888;
+    cursor: not-allowed;
+}
+
+/* Player cards for base and vocal artwork/titles in mixResultPage */
+.player-card {
+    background: #2b2d42;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.player-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.player-card h3, .player-card p {
+    color: #edf2f4;
+    margin: 0;
+    text-align: center;
+}
+
+.player-card p {
+    font-size: 0.9em;
+    color: #a3a8b4;
+}
