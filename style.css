@@ -1302,3 +1302,308 @@ header h1 {
     font-size: 0.9em;
     color: #a3a8b4;
 }
+
+/* General Body Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a2e; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #0f3460;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.volume-controls input[type="range"] {
+    width: 100px;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #535c68;
+    outline: none;
+    transition: opacity .2s;
+}
+
+.volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e94560;
+    cursor: pointer;
+}
+
+/* Main Button Styles */
+.main-button {
+    background-color: #e94560;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: #d63c55;
+}
+
+.main-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Secondary Button Styles */
+.secondary-button {
+    background-color: #3e4450;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.secondary-button:hover {
+    background-color: #535c68;
+}
+
+
+/* Main Content Sections */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: #0c1524;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+section {
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #1a1a2e;
+}
+
+section.hidden {
+    display: none;
+}
+
+section.active {
+    display: block;
+}
+
+h2 {
+    color: #e94560;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Grids for songs/tracks */
+.full-song-grid,
+.track-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.song-card,
+.track-card {
+    background-color: #0f3460;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.song-card:hover,
+.track-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.song-card.selected,
+.track-card.selected {
+    border: 3px solid #e94560;
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.7);
+}
+
+.song-card img,
+.track-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.song-card h3,
+.track-card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+}
+
+.song-card p,
+.track-card p {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+/* Page specific volume controls */
+.page-volume-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.page-volume-controls input[type="range"] {
+    width: 200px;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #535c68;
+    outline: none;
+    transition: opacity .2s;
+}
+
+.page-volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #e94560;
+    cursor: pointer;
+}
+
+/* Selection Buttons */
+.selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+/* Mix Result Page Styles */
+.mixed-tracks-display {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.mixed-track-info {
+    text-align: center;
+    background-color: #0f3460;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mixed-track-info img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.mixed-track-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+}
+
+.track-volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.track-volume-controls input[type="range"] {
+    width: 150px;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: #535c68;
+    outline: none;
+    transition: opacity .2s;
+}
+
+.track-volume-controls input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #e94560;
+    cursor: pointer;
+}
+
+
+#finalMixedTrack {
+    display: block;
+    width: 80%;
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #0f3460;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+    background-color: #0f3460;
+    color: #a0a0a0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Font Awesome Icons */
+.fas {
+    color: #e94560;
+    font-size: 1.2rem;
+}
