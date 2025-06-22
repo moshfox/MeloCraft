@@ -1078,29 +1078,27 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
-/* Estilos para el botón del DJ */
-/* Estilos para el botón del DJ */
 .dj-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    width: 160px;     /* <<-- AUMENTA EL ANCHO (ej. 160px) */
-    height: 70px;     /* <<-- AUMENTA LA ALTURA (ej. 70px) */
-    border-radius: 15px; /* <<-- Hazlo rectangular con bordes redondeados */
+    width: 100px;     /* <<-- Ancho para que sea un círculo */
+    height: 100px;    /* <<-- Alto para que sea un círculo */
+    border-radius: 50%; /* <<-- ¡LO QUEREMOS REDONDO! */
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: 3px solid var(--text-color);
     box-shadow: var(--shadow);
     cursor: pointer;
-    display: flex; /* <<-- Usa flexbox para alinear icono y texto */
-    flex-direction: column; /* <<-- Organiza en columna */
-    align-items: center; /* <<-- Centra horizontalmente */
-    justify-content: center; /* <<-- Centra verticalmente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
-    padding: 5px; /* Ajusta el padding interno */
-    overflow: hidden;
-    text-align: center; /* Centra el texto */
-    font-family: 'Montserrat', sans-serif; /* Puedes añadir la fuente que uses */
+    padding: 5px; /* Pequeño padding interno */
+    overflow: hidden; /* Esto es importante para que el contenido no se salga */
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dj-button:hover {
@@ -1108,43 +1106,47 @@ header h1 {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
-.dj-button-icon { /* <<-- NUEVA REGLA PARA EL ICONO */
-    width: 40px; /* <<-- Icono más pequeño */
-    height: 40px; /* <<-- Icono más pequeño */
-    border-radius: 50%; /* Si quieres que el icono siga siendo redondo */
-    object-fit: cover;
+/* Ahora ajustamos el icono dentro del botón */
+.dj-button-icon {
+    width: 60px; /* <<-- Tamaño del icono (ajusta según lo necesites) */
+    height: 60px; /* <<-- Debe ser igual al ancho */
+    border-radius: 0; /* <<-- Asegura que el icono no se recorte en círculo si no lo es */
+    object-fit: contain; /* <<-- Crucial: para que la imagen completa quepa sin recortarse */
     display: block;
-    margin-bottom: 5px; /* Espacio entre icono y texto */
+    margin-bottom: 3px; /* Pequeño espacio entre icono y texto */
 }
 
-.dj-button-text { /* <<-- NUEVA REGLA PARA EL TEXTO */
-    color: #fff; /* Color del texto */
-    font-size: 0.9em; /* Tamaño del texto */
+.dj-button-text {
+    color: #fff;
+    font-size: 0.8em; /* <<-- Un poco más pequeño para que quepa bien bajo el icono */
     font-weight: bold;
-    line-height: 1.2; /* Ajusta el interlineado */
+    line-height: 1.2;
+    /* Evita que el texto se "salga" del botón redondo */
+    max-width: 90%; /* Limita el ancho del texto */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    overflow: hidden; /* Oculta el texto que se salga */
+    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
 }
 
-/* Media query para pantallas pequeñas (ajusta el tamaño del botón también aquí) */
+/* Media query para pantallas pequeñas: ajusta el tamaño del botón y el texto */
 @media (max-width: 768px) {
     .dj-button {
-        width: 120px;
-        height: 60px;
+        width: 80px; /* Más pequeño para móviles */
+        height: 80px;
         bottom: 15px;
         left: 15px;
-        border-radius: 10px;
     }
 
     .dj-button-icon {
-        width: 30px;
-        height: 30px;
-        margin-bottom: 3px;
+        width: 45px;
+        height: 45px;
+        margin-bottom: 2px;
     }
 
     .dj-button-text {
-        font-size: 0.7em;
+        font-size: 0.65em;
     }
-
-    /* ... el resto de tus media queries ... */
+}
 }
 
 .dj-button img {
@@ -1185,26 +1187,24 @@ header h1 {
 }
 
 #djArtwork {
-    width: 250px;
-    height: 250px;
-    /* border-radius: 50%; <--- ELIMINAR */
-    object-fit: contain; /* Cambia a 'contain' para que la imagen completa se vea si no es cuadrada */
-    /* border: 5px solid var(--text-color); <--- ELIMINAR */
+    width: 300px; /* O el tamaño que desees para la imagen principal */
+    height: 300px; /* Mantén el mismo valor para que sea cuadrada si la imagen es cuadrada */
+    
+    /* <<-- ELIMINA ESTAS LÍNEAS (o coméntalas si quieres guardarlas) --> */
+    /* border-radius: 50%; */
+    /* border: 5px solid var(--text-color); */
+    
+    object-fit: contain; /* <<-- IMPORTANTE: Para que la imagen completa se vea sin recortar */
     box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta */
-    animation: pulse 2s infinite alternate;
+    animation: pulse 2s infinite alternate; /* Mantén la animación de pulsación si la quieres */
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
 }
 
+/* Si tienes un @keyframes pulse, déjalo tal cual */
 @keyframes pulse {
-    from {
-        transform: scale(1);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    }
-    to {
-        transform: scale(1.05);
-        box-shadow: 0 0 25px var(--accent-color);
-    }
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
 }
-
 .dj-commentary {
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
