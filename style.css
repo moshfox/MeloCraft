@@ -1142,13 +1142,13 @@ header h1 {
 }
 
 #djArtwork {
-    width: 250px; /* Tamaño inicial de la imagen */
+    width: 250px;
     height: 250px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid var(--text-color);
-    box-shadow: var(--shadow);
-    animation: pulse 2s infinite alternate; /* Animación de pulsación */
+    /* border-radius: 50%; <--- ELIMINAR */
+    object-fit: contain; /* Cambia a 'contain' para que la imagen completa se vea si no es cuadrada */
+    /* border: 5px solid var(--text-color); <--- ELIMINAR */
+    box-shadow: var(--shadow); /* Puedes mantener la sombra si te gusta */
+    animation: pulse 2s infinite alternate;
 }
 
 @keyframes pulse {
