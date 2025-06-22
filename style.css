@@ -1079,29 +1079,72 @@ header h1 {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
 /* Estilos para el botón del DJ */
+/* Estilos para el botón del DJ */
 .dj-button {
-    position: fixed; /* Fijo en la pantalla */
-    bottom: 20px;    /* 20px desde abajo */
-    left: 20px;      /* 20px desde la izquierda */
-    width: 70px;     /* Tamaño del botón */
-    height: 70px;
-    border-radius: 50%; /* Redondo */
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); /* Degradado morado/azul */
-    border: 3px solid var(--text-color); /* Borde sutil */
-    box-shadow: var(--shadow); /* Sombra para que destaque */
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 160px;     /* <<-- AUMENTA EL ANCHO (ej. 160px) */
+    height: 70px;     /* <<-- AUMENTA LA ALTURA (ej. 70px) */
+    border-radius: 15px; /* <<-- Hazlo rectangular con bordes redondeados */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: 3px solid var(--text-color);
+    box-shadow: var(--shadow);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; /* <<-- Usa flexbox para alinear icono y texto */
+    flex-direction: column; /* <<-- Organiza en columna */
+    align-items: center; /* <<-- Centra horizontalmente */
+    justify-content: center; /* <<-- Centra verticalmente */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1000; /* Asegura que esté por encima de todo */
-    padding: 0; /* Eliminar padding interno */
-    overflow: hidden; /* Oculta cualquier desbordamiento de la imagen */
+    z-index: 1000;
+    padding: 5px; /* Ajusta el padding interno */
+    overflow: hidden;
+    text-align: center; /* Centra el texto */
+    font-family: 'Montserrat', sans-serif; /* Puedes añadir la fuente que uses */
 }
 
 .dj-button:hover {
-    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+    transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.dj-button-icon { /* <<-- NUEVA REGLA PARA EL ICONO */
+    width: 40px; /* <<-- Icono más pequeño */
+    height: 40px; /* <<-- Icono más pequeño */
+    border-radius: 50%; /* Si quieres que el icono siga siendo redondo */
+    object-fit: cover;
+    display: block;
+    margin-bottom: 5px; /* Espacio entre icono y texto */
+}
+
+.dj-button-text { /* <<-- NUEVA REGLA PARA EL TEXTO */
+    color: #fff; /* Color del texto */
+    font-size: 0.9em; /* Tamaño del texto */
+    font-weight: bold;
+    line-height: 1.2; /* Ajusta el interlineado */
+}
+
+/* Media query para pantallas pequeñas (ajusta el tamaño del botón también aquí) */
+@media (max-width: 768px) {
+    .dj-button {
+        width: 120px;
+        height: 60px;
+        bottom: 15px;
+        left: 15px;
+        border-radius: 10px;
+    }
+
+    .dj-button-icon {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 3px;
+    }
+
+    .dj-button-text {
+        font-size: 0.7em;
+    }
+
+    /* ... el resto de tus media queries ... */
 }
 
 .dj-button img {
