@@ -4,122 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Melocraft - Tu Mezclador de Canciones</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header role="banner">
-        <div class="header-content">
-            <h1>Melocraft <span aria-label="Notas musicales">🎶</span></h1>
-            <div class="header-controls">
-                <div class="volume-controls">
-                    <button id="muteButton" aria-label="Silenciar">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                    <input type="range" id="volumeSlider" min="0" max="100" value="100" aria-label="Volumen global">
-                </div>
-                <button id="createButton" class="main-button" aria-label="Crear nueva mezcla">Crear Nueva Mezcla</button>
+    <header>
+        <h1>Melocraft 🎶</h1>
+        <div class="header-controls">
+            <div class="volume-controls">
+                <i class="fas fa-volume-up" id="muteButton"></i>
+                <input type="range" id="volumeSlider" min="0" max="100" value="100">
             </div>
+            <button id="createButton" class="main-button">Crear Nueva Mezcla</button>
         </div>
     </header>
 
-    <main id="app-content">
-        <section id="homePage" class="active" role="region" aria-labelledby="homePageHeading">
-            <h2 id="homePageHeading">Explora Nuestra Música</h2>
+    <main>
+        <section id="homePage" class="active">
+            <h2>Explora Nuestra Música</h2>
             <div class="full-song-grid" id="fullSongGrid">
                 </div>
-            <p id="homePageMessage" class="info-message hidden">Cargando canciones...</p>
-        </section>
+            </section>
 
-        <section id="baseSelectionPage" class="hidden" role="region" aria-labelledby="baseSelectionHeading">
-            <h2 id="baseSelectionHeading">Elige tu Base</h2>
+        <section id="baseSelectionPage" class="hidden">
+            <h2>Elige tu Base</h2>
             <div class="page-volume-controls">
-                <i class="fas fa-volume-down" aria-hidden="true"></i>
-                <input type="range" id="selectionBaseVolumeSlider" min="0" max="100" value="100" aria-label="Volumen de la base">
-                <i class="fas fa-volume-up" aria-hidden="true"></i>
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="selectionBaseVolumeSlider" min="0" max="100" value="100">
+                <i class="fas fa-volume-up"></i>
             </div>
-            <div class="track-selection-grid" id="baseTrackSelectionGrid" role="group" aria-label="Selección de pistas de base">
+            <div class="track-selection-grid" id="baseTrackSelectionGrid">
                 </div>
             <div class="selection-buttons">
-                <button id="nextToVocalSelectionButton" class="main-button" disabled aria-label="Siguiente: Elegir voz">Siguiente: Elegir Voz</button>
-                <button id="backFromBaseSelectionButton" class="secondary-button" aria-label="Volver a la página de inicio">Volver a Inicio</button>
+                <button id="nextToVocalSelectionButton" class="main-button" disabled>Siguiente: Elegir Voz</button>
+                <button id="backFromBaseSelectionButton" class="secondary-button">Volver a Inicio</button>
             </div>
         </section>
 
-        <section id="vocalSelectionPage" class="hidden" role="region" aria-labelledby="vocalSelectionHeading">
-            <h2 id="vocalSelectionHeading">Elige tu Voz</h2>
+        <section id="vocalSelectionPage" class="hidden">
+            <h2>Elige tu Voz</h2>
             <div class="page-volume-controls">
-                <i class="fas fa-volume-down" aria-hidden="true"></i>
-                <input type="range" id="selectionVocalVolumeSlider" min="0" max="100" value="100" aria-label="Volumen de la voz">
-                <i class="fas fa-volume-up" aria-hidden="true"></i>
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="selectionVocalVolumeSlider" min="0" max="100" value="100">
+                <i class="fas fa-volume-up"></i>
             </div>
-            <div class="track-selection-grid" id="vocalTrackSelectionGrid" role="group" aria-label="Selección de pistas vocales">
+            <div class="track-selection-grid" id="vocalTrackSelectionGrid">
                 </div>
             <div class="selection-buttons">
-                <button id="nextToMixResultButton" class="main-button" disabled aria-label="Siguiente: Ver mezcla">Siguiente: Ver Mezcla</button>
-                <button id="backToVocalSelectionButton" class="secondary-button" aria-label="Volver a la selección de base">Volver a Base</button>
+                <button id="nextToMixResultButton" class="main-button" disabled>Siguiente: Ver Mezcla</button>
+                <button id="backToVocalSelectionButton" class="secondary-button">Volver a Base</button>
             </div>
         </section>
 
-        <section id="mixResultPage" class="hidden" role="region" aria-labelledby="mixResultHeading">
-            <h2 id="mixResultHeading">Tu Mezcla Personalizada</h2>
+        <section id="mixResultPage" class="hidden">
+            <h2>Tu Mezcla Personalizada</h2>
             <div class="mixed-tracks-display">
-                <div class="mixed-track-info" role="group" aria-labelledby="finalBaseTitle">
-                    <img id="finalBaseArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Base seleccionada">
+                <div class="mixed-track-info">
+                    <img id="finalBaseArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Base">
                     <p>Base:</p>
-                    <p id="finalBaseTitle" class="track-title">Ninguna</p>
+                    <p id="finalBaseTitle">Ninguna</p>
                     <div class="track-volume-controls">
-                        <i class="fas fa-volume-down" aria-hidden="true"></i>
-                        <input type="range" id="baseVolumeSlider" min="0" max="100" value="100" aria-label="Volumen de la base final">
-                        <i class="fas fa-volume-up" aria-hidden="true"></i>
+                        <i class="fas fa-volume-down"></i>
+                        <input type="range" id="baseVolumeSlider" min="0" max="100" value="100">
+                        <i class="fas fa-volume-up"></i>
                     </div>
                 </div>
-                <div class="mixed-track-info" role="group" aria-labelledby="finalVocalTitle">
-                    <img id="finalVocalArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Voz seleccionada">
+                <div class="mixed-track-info">
+                    <img id="finalVocalArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Voz">
                     <p>Voz:</p>
-                    <p id="finalVocalTitle" class="track-title">Ninguna</p>
+                    <p id="finalVocalTitle">Ninguna</p>
                     <div class="track-volume-controls">
-                        <i class="fas fa-volume-down" aria-hidden="true"></i>
-                        <input type="range" id="vocalVolumeSlider" min="0" max="100" value="100" aria-label="Volumen de la voz final">
-                        <i class="fas fa-volume-up" aria-hidden="true"></i>
+                        <i class="fas fa-volume-down"></i>
+                        <input type="range" id="vocalVolumeSlider" min="0" max="100" value="100">
+                        <i class="fas fa-volume-up"></i>
                     </div>
                 </div>
             </div>
-
-            <div class="audio-player-container">
-                <audio id="finalMixedTrack" controls preload="auto" aria-label="Reproductor de mezcla final"></audio>
-                <div class="audio-controls-custom">
-                    <button id="playPauseMixButton" aria-label="Reproducir o Pausar">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <div class="progress-bar-container">
-                        <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de la reproducción"></div>
-                    </div>
-                    <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
-                </div>
-                <canvas id="audioVisualizer" width="600" height="150" aria-label="Visualizador de audio"></canvas>
-            </div>
-
-
+            <audio id="finalMixedTrack" controls></audio>
             <div class="selection-buttons">
-                <button id="createNewMixButton" class="main-button" aria-label="Crear una nueva mezcla">Crear Nueva Mezcla</button>
-                <button id="backFromMixResultButton" class="secondary-button" aria-label="Volver a la página de inicio">Volver a Inicio</button>
-                <button id="downloadMixButton" class="main-button" aria-label="Descargar mezcla" download="melocraft_mix.wav">Descargar Mezcla</button>
+                <button id="createNewMixButton" class="main-button">Crear Nueva Mezcla</button>
+                <button id="backFromMixResultButton" class="secondary-button">Volver a Inicio</button>
             </div>
         </section>
     </main>
 
-    <footer role="contentinfo">
+    <footer>
         <p>&copy; 2025 Melocraft. Todos los derechos reservados.</p>
     </footer>
-
-    <div id="loadingOverlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-label="Cargando...">
-        <div class="spinner"></div>
-        <p>Cargando...</p>
-    </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
