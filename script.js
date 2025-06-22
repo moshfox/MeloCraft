@@ -167,7 +167,7 @@ const muteButton = document.getElementById('muteButton');
 const baseVolumeSlider = document.getElementById('baseVolumeSlider');
 const vocalVolumeSlider = document.getElementById('vocalVolumeSlider');
 
-const globalFeaturedAudioPlayer = document.getElementById('globalFeaturedAudioPlayer');
+let globalFeaturedAudioPlayer = document.getElementById('globalFeaturedAudioPlayer');
 
 let baseSelectionPageAudio = new Audio(); // Audio para la reproducción aleatoria en la página de selección de bases
 let vocalSelectionPageAudio = new Audio(); // Audio para la reproducción aleatoria en la página de selección de voces
