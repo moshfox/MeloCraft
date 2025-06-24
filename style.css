@@ -1078,4 +1078,108 @@ header h1 {
 #finalMixedTrack {
     accent-color: #8A2BE2; /* This styles the progress bar and volume slider in some browsers */
 }
+/* --- Estilos para el Botón DJ --- */
+.dj-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Hacerlo redondo */
+    background-color: #9b59b6; /* Un color morado, puedes ajustarlo */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
 
+.dj-button:hover {
+    background-color: #8e44ad; /* Un morado más oscuro al pasar el ratón */
+    transform: scale(1.05);
+}
+
+.dj-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para asegurar que la imagen cubra el botón */
+    border-radius: 50%;
+}
+
+/* --- Estilos para el Overlay del DJ --- */
+.dj-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4b0082 0%, #8a2be2 100%); /* Fondo morado-azul */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 999; /* Por debajo del header, pero por encima de las páginas normales */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.dj-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dj-content {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente para el contenido */
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.dj-overlay img#djArtwork {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    object-fit: cover;
+    animation: none; /* Por defecto no tiene animación */
+}
+
+/* Animación de vibración para el DJ cuando está activo */
+.dj-overlay img#djArtwork.active {
+    animation: djVibrate 0.3s infinite alternate; /* Animación de vibración */
+}
+
+@keyframes djVibrate {
+    0% { transform: rotate(-3deg) scale(1); }
+    50% { transform: rotate(3deg) scale(1.05); }
+    100% { transform: rotate(-3deg) scale(1); }
+}
+
+.dj-commentary {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 15px;
+    line-height: 1.4;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.now-playing {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1em;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
