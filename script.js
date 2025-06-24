@@ -1,15 +1,16 @@
-// --- script.js ---
-
-// Tu array de canciones existente
+// --- script.js
+// Tu array de canciones existente con nuevas propiedades para el DJ
 const songs = [
     {
         id: 'hawaiian',
         title: 'Hawaiian Roller Coaster Ride',
-        artist: 'Mark Kealiʻi Hoʻomalu',
+        artist: 'Mark Keali\'i Ho\'omalu',
         image: 'assets/images/hawaiian-roller-coaster-ride.jpg',
         fullAudio: 'assets/audio/full/hawaiian-roller-coaster-ride-full.mp3',
         baseAudio: 'assets/audio/bases/hawaiian-roller-coaster-ride-base.mp3',
-        vocalAudio: 'assets/audio/vocals/hawaiian-roller-coaster-ride-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/hawaiian-roller-coaster-ride-vocals.mp3',
+        genre: 'Soundtrack',
+        year: 2002
     },
     {
         id: 'love-me-again',
@@ -18,7 +19,9 @@ const songs = [
         image: 'assets/images/love-me-again.jpg',
         fullAudio: 'assets/audio/full/love-me-again-full.mp3',
         baseAudio: 'assets/audio/bases/love-me-again-base.mp3',
-        vocalAudio: 'assets/audio/vocals/love-me-again-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/love-me-again-vocals.mp3',
+        genre: 'Soul/Pop',
+        year: 2013
     },
     {
         id: 'olimpo',
@@ -27,7 +30,9 @@ const songs = [
         image: 'assets/images/olimpo.jpg',
         fullAudio: 'assets/audio/full/olimpo-full.mp3',
         baseAudio: 'assets/audio/bases/olimpo-base.mp3',
-        vocalAudio: 'assets/audio/vocals/olimpo-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/olimpo-vocals.mp3',
+        genre: 'Trap',
+        year: 2023
     },
     {
         id: 'counting-stars',
@@ -36,25 +41,31 @@ const songs = [
         image: 'assets/images/counting-stars.jpg',
         fullAudio: 'assets/audio/full/counting-stars-full.mp3',
         baseAudio: 'assets/audio/bases/counting-stars-base.mp3',
-        vocalAudio: 'assets/audio/vocals/counting-stars-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/counting-stars-vocals.mp3',
+        genre: 'Pop Rock',
+        year: 2013
     },
     {
-        id: 'Rosa de trigo',
+        id: 'rosa-de-trigo',
         title: 'Rosa De Trigo',
         artist: 'H.A.',
         image: 'assets/images/Rosa-de-trigo.PNG',
         fullAudio: 'assets/audio/full/Rosa-full.mp3',
         baseAudio: 'assets/audio/bases/Rosa-base.mp3',
-        vocalAudio: 'assets/audio/vocals/Rosa-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/Rosa-vocals.mp3',
+        genre: 'Pop',
+        year: 2020
     },
     {
-        id: 'Claro y Oscuro',
+        id: 'claro-y-oscuro',
         title: 'Claro y Oscuro',
         artist: 'H.A.',
         image: 'assets/images/Claro.PNG',
         fullAudio: 'assets/audio/full/Claro-full.mp3',
         baseAudio: 'assets/audio/bases/Claro-base.mp3',
         vocalAudio: 'assets/audio/vocals/Claro-vocal.mp3',
+        genre: 'Pop Urbano',
+        year: 2021
     },
     {
         id: 'meltdown',
@@ -63,145 +74,187 @@ const songs = [
         image: 'assets/images/Meltdown.jpg',
         fullAudio: 'assets/audio/full/meltdown-full.mp3',
         baseAudio: 'assets/audio/bases/meltdown-base.mp3',
-        vocalAudio: 'assets/audio/vocals/meltdown-vocals.mp3'
+        vocalAudio: 'assets/audio/vocals/meltdown-vocals.mp3',
+        genre: 'Electronic',
+        year: 2022
     },
     {
-        id: 'Washing Machine Heart',
+        id: 'washing-machine-heart',
         title: 'Washing Machine Heart',
         artist: 'Mitski',
         image: 'assets/images/Washing.jpg',
         fullAudio: 'assets/audio/full/washing-full.mp3',
         baseAudio: 'assets/audio/bases/washing-base.mp3',
         vocalAudio: 'assets/audio/vocals/washing-vocals.mp3',
+        genre: 'Indie Pop',
+        year: 2018
     },
     {
-        id: 'Espresso Macchiato',
+        id: 'espresso-macchiato',
         title: 'Espresso Macchiato',
         artist: 'Tommy Cash',
         image: 'assets/images/tommy.jpg',
         fullAudio: 'assets/audio/full/Tommy-full.mp3',
         baseAudio: 'assets/audio/bases/Tommy-base.mp3',
         vocalAudio: 'assets/audio/vocals/Tommy-vocals.mp3',
+        genre: 'Hip Hop',
+        year: 2020
     },
     {
-        id: 'PATAPIM FUNK',
-        title: 'PATAPIM FUNK ',
+        id: 'patapim-funk',
+        title: 'PATAPIM FUNK',
         artist: 'SXYGX',
         image: 'assets/images/patapim.PNG',
-        fullAudio: 'assets/audio/full/Tommy-full.mp3', // Este fullAudio es igual al de Espresso Macchiato, verifica si es intencional.
+        fullAudio: 'assets/audio/full/patapim-full.mp3', // Corregido el fullAudio
         baseAudio: 'assets/audio/bases/patapim-base.mp3',
         vocalAudio: 'assets/audio/vocals/patapim-vocals.mp3',
+        genre: 'Funk',
+        year: 2023
     },
     {
-        id: 'Rosa De Trigo Drill',
+        id: 'rosa-de-trigo-drill',
         title: 'Rosa De Trigo Drill',
         artist: 'Hodely - H.A.',
         image: 'assets/images/Rosadrill.PNG',
         fullAudio: 'assets/audio/full/Rosadrill-full.mp3',
         baseAudio: 'assets/audio/bases/Rosadrill-base.mp3',
         vocalAudio: 'assets/audio/vocals/Rosadrill-vocals.mp3',
+        genre: 'Drill',
+        year: 2024
     },
     {
-        id: 'Here',
+        id: 'here',
         title: 'Here',
         artist: 'Alessia Cara',
         image: 'assets/images/Here.png',
         fullAudio: 'assets/audio/full/Here-full.mp3',
         baseAudio: 'assets/audio/bases/Here-base.mp3',
         vocalAudio: 'assets/audio/vocals/Here-vocals.mp3',
+        genre: 'R&B/Pop',
+        year: 2015
     },
     {
-        id: 'Rock That Body',
+        id: 'rock-that-body',
         title: 'Rock That Body',
         artist: 'Black Eyed Peas',
         image: 'assets/images/Rockbody.jpg',
         fullAudio: 'assets/audio/full/Rockbody-full.mp3',
         baseAudio: 'assets/audio/bases/Rockbody-base.mp3',
         vocalAudio: 'assets/audio/vocals/RockBody-vocals.mp3',
+        genre: 'Hip Hop/Pop',
+        year: 2009
     },
     {
-        id: 'Sin Tanto Royo',
+        id: 'sin-tanto-royo',
         title: 'Sin Tanto Royo',
         artist: 'Luis R Conriquez x Tito Double P',
         image: 'assets/images/Sinrollos.PNG',
         fullAudio: 'assets/audio/full/sinrollos-full.mp3',
         baseAudio: 'assets/audio/bases/sinrollo-base.mp3',
         vocalAudio: 'assets/audio/vocals/Sinrollo-vocal.mp3',
+        genre: 'Regional Mexicano',
+        year: 2023
     },
     {
-        id: 'Noid',
+        id: 'noid',
         title: 'Noid',
         artist: 'Tyler, the creator',
         image: 'assets/images/Noid.jpg',
         fullAudio: 'assets/audio/full/Noid.mp3',
-        // ATENCIÓN: Nombres de archivo con espacios y puntos extras NO son recomendables
-        // Se recomienda renombrar estos archivos a algo como:
-        // 'poppop_ai_videoplayback_instrumental.mp3'
-        // 'poppop_ai_videoplayback_vocals.mp3'
         baseAudio: 'assets/audio/bases/poppop.ai - videoplayback_instrumental.mp3',
         vocalAudio: 'assets/audio/vocals/poppop.ai - videoplayback_vocals.mp3',
+        genre: 'Hip Hop/Jazz Rap',
+        year: 2017
     }
 ];
+
+// Comentarios del DJ
+const djComments = [
+    (prevSong, nextSong) => `¡Qué temazo acabamos de escuchar con la inconfundible voz de ${prevSong.artist}! Ahora subimos el ritmo con la base de ${nextSong.title} de ${nextSong.artist}. ¡Dale al play!`,
+    (prevSong, nextSong) => `Después de esa joya de ${prevSong.title}, el DJ de Melocraft tiene preparada una mezcla brutal: la base de ${nextSong.title} con una voz que te va a sorprender. ¡Prepárate!`,
+    (prevSong, nextSong) => `¿Listos para el siguiente nivel? Cerramos ${prevSong.title} y abrimos paso a una nueva combinación con la base de ${nextSong.title}. ¡Subid el volumen!`,
+    (prevSong, nextSong) => `¡Atención, atención! Se nos va ${prevSong.title}, pero el show debe continuar. Llega el turno de la base de ${nextSong.title}. ¡Esto no para!`,
+    (prevSong, nextSong) => `¡Menuda energía nos ha dejado ${prevSong.title}! Ahora, MeloCraft DJ te trae la base de ${nextSong.title} para mantenerte en la pista.`,
+    (prevSong, nextSong) => `De la maestría de ${prevSong.artist} con ${prevSong.title}, pasamos a la base de ${nextSong.title}. ¡Una transición que te hará vibrar!`,
+    (prevSong, nextSong) => `¡Fin de fiesta para ${prevSong.title}! Pero no te preocupes, el beat sigue con la base de ${nextSong.title}. ¡Disfruta de la fusión!`,
+    (prevSong, nextSong) => `Se despide ${prevSong.title}, una maravilla de ${prevSong.artist}. Ahora, te traemos la base de ${nextSong.title}. ¡Que no pare la música!`,
+    (prevSong, nextSong) => `¡Directo desde el ${prevSong.year} con ${prevSong.title}! Y ahora, un salto temporal y sonoro con la base de ${nextSong.title}.`,
+    (prevSong, nextSong) => `Este ${prevSong.genre} de ${prevSong.title} nos ha dejado con ganas de más. Por eso, el DJ te trae otra explosión de sonido con la base de ${nextSong.title}.`,
+    (prevSong, nextSong) => `Bueno, después de ese hit de ${prevSong.artist} que fue ${prevSong.title}, ahora vamos con la base de ${nextSong.title} de ${nextSong.artist}. ¡Dale al play!`,
+    (prevSong, nextSong) => `De la mano de ${prevSong.artist}, escuchamos ${prevSong.title}. Y para seguir, la base de ${nextSong.title}. ¡Esto es Melocraft!`,
+    (prevSong, nextSong) => `Terminamos con la vibra de ${prevSong.title}. Ahora, el DJ te tiene una sorpresa con la base de ${nextSong.title}.`,
+    (prevSong, nextSong) => `¡Un aplauso para ${prevSong.title} de ${prevSong.artist}! Y ahora, preparamos la pista para la base de ${nextSong.title}.`,
+    (prevSong, nextSong) => `Hemos bailado con ${prevSong.title}, y ahora nos movemos al ritmo de la base de ${nextSong.title}. ¡Disfruta de la noche!`
+];
+
 
 // Variables globales para las páginas y grids (tus declaraciones existentes)
 const homePage = document.getElementById('homePage');
 const baseSelectionPage = document.getElementById('baseSelectionPage');
 const vocalSelectionPage = document.getElementById('vocalSelectionPage');
 const mixResultPage = document.getElementById('mixResultPage');
-
 const createButton = document.getElementById('createButton');
-const fullSongGrid = document.getElementById('fullSongGrid');
+const fullSongGrid = document.getElementById('fullSongGrid'); // Corregido espacio
 const baseTrackSelectionGrid = document.getElementById('baseTrackSelectionGrid');
 const vocalTrackSelectionGrid = document.getElementById('vocalTrackSelectionGrid');
-
-const nextToVocalSelectionButton = document.getElementById('nextToVocalSelectionButton');
-const backFromBaseSelectionButton = document.getElementById('backFromBaseSelectionButton');
+const nextToVocalSelectionButton =
+    document.getElementById('nextToVocalSelectionButton');
+const backFromBaseSelectionButton =
+    document.getElementById('backFromBaseSelectionButton');
 const nextToMixResultButton = document.getElementById('nextToMixResultButton');
-const backToVocalSelectionButton = document.getElementById('backToVocalSelectionButton');
+const backToVocalSelectionButton =
+    document.getElementById('backToVocalSelectionButton');
 const createNewMixButton = document.getElementById('createNewMixButton');
 const backFromMixResultButton = document.getElementById('backFromMixResultButton');
-const finalMixedTrackPlayer = document.getElementById('finalMixedTrack');
-
+const finalMixedTrackPlayer = document.getElementById('finalMixedTrack'); // Este es el <audio> tag HTML
 const finalBaseArtwork = document.getElementById('finalBaseArtwork');
 const finalBaseTitle = document.getElementById('finalBaseTitle');
 const finalVocalArtwork = document.getElementById('finalVocalArtwork');
 const finalVocalTitle = document.getElementById('finalVocalTitle');
-
 const volumeSlider = document.getElementById('volumeSlider');
 const muteButton = document.getElementById('muteButton');
-
 // Sliders de volumen individuales en la mezcla final
 const baseVolumeSlider = document.getElementById('baseVolumeSlider');
 const vocalVolumeSlider = document.getElementById('vocalVolumeSlider');
 
-// **CORRECCIÓN:** globalFeaturedAudioPlayer debe ser 'let' y una instancia de Audio, no un elemento del DOM.
+// NUEVAS VARIABLES PARA EL MODO DJ
+const djModeButton = document.getElementById('djModeButton');
+const djOverlay = document.getElementById('djOverlay');
+const djArtwork = document.getElementById('djArtwork');
+const djCommentary = document.getElementById('djCommentary');
+const nowPlayingDisplay = document.getElementById('nowPlaying');
+
+let djBaseAudio = new Audio();
+let djVocalAudio = new Audio();
+let djCommentaryAudio = new Audio(); // Para los comentarios hablados
+let djInterval = null; // Para controlar el intervalo de cambio de canciones
+const COMMENTARY_DURATION = 5000; // Duración estimada del comentario en ms
+const MIX_DURATION = 30000; // Duración de cada mezcla en el modo DJ en ms (30 segundos)
+
+// Instancias de Audio
 let globalFeaturedAudioPlayer = new Audio();
 globalFeaturedAudioPlayer.volume = 1; // Volumen inicial, se ajustará con el slider.
 
 let baseSelectionPageAudio = new Audio();
 let vocalSelectionPageAudio = new Audio();
-let currentPlayingSelectionAudio = null;
-let finalBaseAudio = new Audio();
-let finalVocalAudio = new Audio();
+let currentPlayingSelectionAudio = null; // Usado para reproducir una pista individual en las pantallas de selección
+
+let finalBaseAudio = new Audio(); // Instancia de Audio para la base en la mezcla final
+let finalVocalAudio = new Audio(); // Instancia de Audio para la vocal en la mezcla final
 
 let selectedBaseTrack = null;
 let selectedVocalTrack = null;
 
-// Estas variables no están en tu HTML (ni son necesarias en este script para la funcionalidad actual)
-// const seekSlider = document.getElementById('seekSlider');
-// const currentTimeDisplay = document.getElementById('currentTime');
-// const durationTimeDisplay = document.getElementById('durationTime');
-
-
-// --- Funciones de Utilidad ---
-
+// --- Funciones de Utilidad
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
 
-// Función para detener *todos* los audios controlados por la aplicación
+/**
+ * Función para detener *todos* los audios controlados por la aplicación.
+ */
 function stopAllAudio() {
     // Lista de todos los reproductores de audio que podrían estar activos
     const allPlayers = [
@@ -209,51 +262,48 @@ function stopAllAudio() {
         baseSelectionPageAudio,
         vocalSelectionPageAudio,
         currentPlayingSelectionAudio, // Puede ser null
-        finalBaseAudio, // Puede no estar cargado aún
-        finalVocalAudio // Puede no estar cargado aún
-    ];
+        finalBaseAudio,
+        finalVocalAudio,
+        djBaseAudio, // Incluir audios del DJ
+        djVocalAudio,
+        djCommentaryAudio
+    ].filter(player => player instanceof Audio); // Filtrar solo instancias de Audio
 
     allPlayers.forEach(player => {
-        if (player instanceof Audio && !player.paused) {
+        if (!player.paused) {
             player.pause();
-            player.currentTime = 0;
         }
-        // Para reproductores que no sean el maestro principal de la página (o del DJ),
-        // limpiamos su src para asegurar que no haya conflictos.
-        // No limpiar el src del globalFeaturedAudioPlayer o de finalBaseAudio/VocalAudio
-        // si son los que controlan la reproducción principal en sus respectivas páginas.
-        if (player !== globalFeaturedAudioPlayer && player !== finalBaseAudio && player !== finalVocalAudio) {
-            player.src = ""; // Limpiar la fuente
-            player.load(); // Carga de nuevo para resetear completamente
+        player.currentTime = 0;
+        // Limpiar el src para resetear completamente el reproductor, excepto para finalMixedTrackPlayer
+        // si lo usas como controlador principal y no quieres que se quede sin src
+        if (player !== finalMixedTrackPlayer) {
+            player.src = "";
+            player.load();
         }
     });
 
-    // Manejo específico para finalMixedTrackPlayer, ya que puede ser el elemento de la UI (HTML audio tag)
+    // Manejo específico para finalMixedTrackPlayer (el <audio> tag HTML)
     if (finalMixedTrackPlayer && !finalMixedTrackPlayer.paused) {
         finalMixedTrackPlayer.pause();
-        finalMixedTrackPlayer.currentTime = 0;
     }
-    // Limpiar SRC si es necesario, y remover listeners para evitar fugas de memoria
+    finalMixedTrackPlayer.currentTime = 0;
+    // Limpiar SRC del <audio> tag y remover listeners si es necesario
     if (finalMixedTrackPlayer) {
+        finalMixedTrackPlayer.src = '';
+        finalMixedTrackPlayer.load();
+        // Es buena práctica remover listeners si se añaden dinámicamente y se van a reemplazar
         finalMixedTrackPlayer.onplay = null;
         finalMixedTrackPlayer.onpause = null;
         finalMixedTrackPlayer.onseeking = null;
         finalMixedTrackPlayer.onseeked = null;
         finalMixedTrackPlayer.onended = null;
-        finalMixedTrackPlayer.src = ""; // Limpiar la fuente
-        finalMixedTrackPlayer.load(); // Cargar para aplicar el src vacío
     }
 
-    // Resetear elementos de la barra de progreso personalizada (si existen)
-    // if (seekSlider) {
-    //     seekSlider.value = 0;
-    // }
-    // if (currentTimeDisplay) {
-    //     currentTimeDisplay.textContent = '0:00';
-    // }
-    // if (durationTimeDisplay) {
-    //     durationTimeDisplay.textContent = '0:00';
-    // }
+    // Detener el intervalo del DJ si está activo
+    if (djInterval) {
+        clearInterval(djInterval);
+        djInterval = null;
+    }
 
     // Resetear visualmente los iconos de play/pause en la interfaz
     document.querySelectorAll('.full-song-item.playing').forEach(item => {
@@ -264,8 +314,17 @@ function stopAllAudio() {
     document.querySelectorAll('.song-option .fa-pause').forEach(icon => {
         icon.classList.replace('fa-pause', 'fa-play');
     });
-}
 
+    // Resetear la selección visual en las páginas de selección
+    document.querySelectorAll('.song-option.selected').forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    // Resetear el estado visual del DJ
+    if (djArtwork) djArtwork.classList.remove('active');
+    if (djCommentary) djCommentary.textContent = '';
+    if (nowPlayingDisplay) nowPlayingDisplay.textContent = '';
+}
 
 function applyGlobalVolume() {
     const newGlobalVolume = volumeSlider.value / 100;
@@ -274,14 +333,13 @@ function applyGlobalVolume() {
     [globalFeaturedAudioPlayer, baseSelectionPageAudio, vocalSelectionPageAudio].forEach(player => {
         if (player) {
             player.volume = newGlobalVolume;
-            // Si el volumen global se sube de 0 y el reproductor está muteado, lo desmuteamos
             if (newGlobalVolume > 0 && player.muted && !player.paused) {
                 player.muted = false;
             }
         }
     });
 
-    // currentPlayingSelectionAudio debe actualizar su volumen también
+    // currentPlayingSelectionAudio también debe actualizar su volumen
     if (currentPlayingSelectionAudio) {
         currentPlayingSelectionAudio.volume = newGlobalVolume;
         if (newGlobalVolume > 0 && currentPlayingSelectionAudio.muted && !currentPlayingSelectionAudio.paused) {
@@ -297,6 +355,29 @@ function applyGlobalVolume() {
         finalVocalAudio.volume = newGlobalVolume * (vocalVolumeSlider ? vocalVolumeSlider.value / 100 : 1);
     }
 
+    // También aplicar al elemento de audio HTML de la mezcla final si está en uso
+    if (finalMixedTrackPlayer) {
+        finalMixedTrackPlayer.volume = newGlobalVolume * (baseVolumeSlider ? baseVolumeSlider.value / 100 : 1);
+        if (newGlobalVolume > 0 && finalMixedTrackPlayer.muted && !finalMixedTrackPlayer.paused) {
+            finalMixedTrackPlayer.muted = false;
+        }
+    }
+
+    // Aplicar a los audios del modo DJ
+    if (djBaseAudio) {
+        djBaseAudio.volume = newGlobalVolume;
+        if (newGlobalVolume > 0 && djBaseAudio.muted && !djBaseAudio.paused) djBaseAudio.muted = false;
+    }
+    if (djVocalAudio) {
+        djVocalAudio.volume = newGlobalVolume;
+        if (newGlobalVolume > 0 && djVocalAudio.muted && !djVocalAudio.paused) djVocalAudio.muted = false;
+    }
+    if (djCommentaryAudio) {
+        djCommentaryAudio.volume = newGlobalVolume * 0.8; // Los comentarios un poco más bajos que la música
+        if (newGlobalVolume > 0 && djCommentaryAudio.muted && !djCommentaryAudio.paused) djCommentaryAudio.muted = false;
+    }
+
+
     // Actualizar el icono de mute
     if (muteButton) {
         if (newGlobalVolume === 0) {
@@ -310,7 +391,8 @@ function applyGlobalVolume() {
 }
 
 function getRandomMiddleTime(audioPlayer) {
-    if (!audioPlayer || !audioPlayer.duration || isNaN(audioPlayer.duration) || audioPlayer.duration < 10) {
+    if (!audioPlayer || !audioPlayer.duration || isNaN(audioPlayer.duration) ||
+        audioPlayer.duration < 10) {
         return 0; // Si la duración no es válida o muy corta, empieza desde el principio
     }
     const duration = audioPlayer.duration;
@@ -335,13 +417,12 @@ function shuffleArray(array) {
  * Renderiza dinámicamente las canciones completas en la página de inicio.
  */
 function renderFullSongs() {
-    fullSongGrid.innerHTML = '';
+    fullSongGrid.innerHTML = "";
     const shuffledSongs = shuffleArray(songs);
     shuffledSongs.forEach(song => {
         const songItem = document.createElement('div');
         songItem.classList.add('full-song-item');
         songItem.dataset.songId = song.id;
-
         songItem.innerHTML = `
             <img src="${song.image}" alt="Portada de ${song.title}">
             <h3>${song.title}</h3>
@@ -357,7 +438,6 @@ function renderFullSongs() {
 function renderSelectionOptions(type) {
     let targetGrid;
     let tracks;
-
     if (type === 'base') {
         targetGrid = baseTrackSelectionGrid;
         tracks = songs.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.baseAudio }));
@@ -366,13 +446,12 @@ function renderSelectionOptions(type) {
         tracks = songs.map(s => ({ id: s.id, title: s.title, artist: s.artist, image: s.image, audio: s.vocalAudio }));
     }
 
-    targetGrid.innerHTML = '';
+    targetGrid.innerHTML = "";
     tracks.forEach(track => {
         const songOption = document.createElement('div');
         songOption.classList.add('song-option');
         songOption.dataset.trackType = type;
         songOption.dataset.songId = track.id;
-
         songOption.innerHTML = `
             <img src="${track.image}" alt="Portada de ${track.title}">
             <p>${track.title}</p>
@@ -389,11 +468,6 @@ function renderSelectionOptions(type) {
  * @param {HTMLElement} pageToShow - El elemento de la sección (página) a mostrar.
  */
 function showPage(pageToShow) {
-    // Si el DJ está activo, desactivarlo al cambiar de página
-    if (isDjModeActive) {
-        toggleDjMode();
-    }
-
     stopAllAudio(); // Detiene todos los audios al cambiar de página
 
     // Ocultar todas las páginas
@@ -405,6 +479,9 @@ function showPage(pageToShow) {
     vocalSelectionPage.classList.add('hidden');
     mixResultPage.classList.remove('active');
     mixResultPage.classList.add('hidden');
+    djOverlay.classList.remove('active'); // Ocultar el overlay del DJ
+    djOverlay.classList.add('hidden');
+
 
     // Mostrar la página deseada
     pageToShow.classList.remove('hidden');
@@ -412,16 +489,17 @@ function showPage(pageToShow) {
 
     // Lógica específica para cada página al mostrarla
     if (pageToShow === homePage) {
-        // playRandomFeaturedSong(); // Desactivado para evitar problemas de autoplay, el usuario iniciará la reproducción.
         renderFullSongs(); // Asegurarse de que las canciones se renderizan cada vez
     } else if (pageToShow === baseSelectionPage) {
-        playRandomSelectionTrack('base');
         renderSelectionOptions('base'); // Asegurarse de que las opciones se renderizan
+        playRandomSelectionTrack('base'); // Reproducir una pista aleatoria de base
     } else if (pageToShow === vocalSelectionPage) {
-        playRandomSelectionTrack('vocal');
         renderSelectionOptions('vocal'); // Asegurarse de que las opciones se renderizan
+        playRandomSelectionTrack('vocal'); // Reproducir una pista aleatoria de vocal
     } else if (pageToShow === mixResultPage) {
         setupAndPlayFinalMix();
+    } else if (pageToShow === djOverlay) { // Cuando se muestra el overlay del DJ
+        startDjMode();
     }
 }
 
@@ -432,7 +510,7 @@ async function setupAndPlayFinalMix() {
     if (!selectedBaseTrack || !selectedVocalTrack) {
         console.error("No se ha seleccionado la base o la voz para la mezcla final.");
         alert("Por favor, selecciona una base y una voz antes de ver la mezcla.");
-        showPage(homePage);
+        showPage(homePage); // Vuelve a la página de inicio si falta una selección
         return;
     }
 
@@ -441,118 +519,99 @@ async function setupAndPlayFinalMix() {
     finalVocalAudio.src = selectedVocalTrack.vocalAudio;
 
     // Cargar los audios para que sus metadatos estén disponibles
-    await Promise.all([
-        new Promise((resolve, reject) => {
-            finalBaseAudio.onloadedmetadata = () => resolve();
-            finalBaseAudio.onerror = () => reject(new Error('Error al cargar metadatos de la base final.'));
-            finalBaseAudio.load();
-        }),
-        new Promise((resolve, reject) => {
-            finalVocalAudio.onloadedmetadata = () => resolve();
-            finalVocalAudio.onerror = () => reject(new Error('Error al cargar metadatos de la vocal final.'));
-            finalVocalAudio.load();
-        })
-    ]).catch(error => {
+    try {
+        await Promise.all([
+            new Promise((resolve, reject) => {
+                finalBaseAudio.onloadedmetadata = () => resolve();
+                finalBaseAudio.onerror = () => reject(new Error('Error al cargar metadatos de la base final.'));
+                finalBaseAudio.load();
+            }),
+            new Promise((resolve, reject) => {
+                finalVocalAudio.onloadedmetadata = () => resolve();
+                finalVocalAudio.onerror = () => reject(new Error('Error al cargar metadatos de la vocal final.'));
+                finalVocalAudio.load();
+            })
+        ]);
+    } catch (error) {
         console.error("Error al cargar uno de los audios de la mezcla final:", error);
         alert("No se pudieron cargar todas las pistas de la mezcla. Verifica las rutas.");
         showPage(homePage);
         return;
-    });
+    }
 
     // Establecer volúmenes iniciales (basados en los sliders y el volumen global)
-    if (baseVolumeSlider) baseVolumeSlider.value = 100;
-    if (vocalVolumeSlider) vocalVolumeSlider.value = 100;
+    if (baseVolumeSlider) baseVolumeSlider.value = 100; // Por defecto al 100%
+    if (vocalVolumeSlider) vocalVolumeSlider.value = 100; // Por defecto al 100%
     applyGlobalVolume(); // Aplica el volumen global y el de los sliders individuales
 
     // Actualizar la información visual de las carátulas y títulos
     if (finalBaseArtwork) finalBaseArtwork.src = selectedBaseTrack.image;
     if (finalBaseTitle) finalBaseTitle.textContent = selectedBaseTrack.title;
+
     if (finalVocalArtwork) finalVocalArtwork.src = selectedVocalTrack.image;
     if (finalVocalTitle) finalVocalTitle.textContent = selectedVocalTrack.title;
 
     // Configurar el finalMixedTrackPlayer como el "maestro" para la barra de progreso
-    // ATENCIÓN: El elemento #finalMixedTrack es un <audio> tag en tu HTML,
-    // pero lo estás usando como un maestro para la barra de progreso con finalBaseAudio.
-    // Esto es confuso. Si quieres usar el <audio> tag, DEBES asignarle un src.
-    // Para simplificar, la barra de progreso debería seguir a finalBaseAudio o finalVocalAudio.
-    // Tu HTML no tiene un seekSlider, currentTime, durationTime para el player final.
-    // Si quieres una barra de progreso, debes añadir esos elementos al HTML para mixResultPage.
-
-    // Si tuvieras un seekSlider, currentTimeDisplay, durationTimeDisplay en mixResultPage:
-    // const masterDuration = Math.max(finalBaseAudio.duration, finalVocalAudio.duration);
-    // if (seekSlider) seekSlider.max = masterDuration;
-    // if (durationTimeDisplay) durationTimeDisplay.textContent = formatTime(masterDuration);
-    //
-    // finalBaseAudio.ontimeupdate = () => {
-    //     if (!seekSlider.dragging) {
-    //         if (seekSlider) seekSlider.value = finalBaseAudio.currentTime;
-    //     }
-    //     if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(finalBaseAudio.currentTime);
-    // };
-    //
-    // if (seekSlider) {
-    //     seekSlider.oninput = () => {
-    //         const newTime = seekSlider.value;
-    //         finalBaseAudio.currentTime = newTime;
-    //         finalVocalAudio.currentTime = newTime;
-    //     };
-    //     seekSlider.onmousedown = () => { seekSlider.dragging = true; };
-    //     seekSlider.onmouseup = () => { seekSlider.dragging = false; };
-    // }
-
-    // Eventos de control de reproducción:
-    // Puedes asignar los audios finales directamente al elemento <audio> HTML
-    finalMixedTrackPlayer.src = finalBaseAudio.src; // O el que quieras que controle el progreso
-    finalMixedTrackPlayer.volume = finalBaseAudio.volume; // Sincroniza volumen
+    // El finalMixedTrackPlayer es el elemento <audio> HTML
+    finalMixedTrackPlayer.src = finalBaseAudio.src; // Usa el src de la base para controlar el progreso
     finalMixedTrackPlayer.loop = false; // Puedes ponerlo en true si quieres que se repita
 
-    // Asegúrate de que finalBaseAudio y finalVocalAudio también se carguen y sincronicen
-    // Esto es crucial para que se reproduzcan juntas.
-    finalBaseAudio.currentTime = 0;
-    finalVocalAudio.currentTime = 0;
+    // Esperar a que el finalMixedTrackPlayer cargue sus metadatos antes de reproducir
+    try {
+        await new Promise((resolve, reject) => {
+            finalMixedTrackPlayer.onloadedmetadata = () => resolve();
+            finalMixedTrackPlayer.onerror = () => reject(new Error('Error al cargar metadatos de la mezcla final.'));
+            finalMixedTrackPlayer.load();
+        });
+    } catch (e) {
+        console.error("Error cargando finalMixedTrackPlayer:", e);
+        alert("Error cargando la pista principal de la mezcla. Verifica las rutas.");
+        showPage(homePage);
+        return;
+    }
 
+
+    // Sincronizar la reproducción entre el finalMixedTrackPlayer (maestro) y los audios individuales
     finalMixedTrackPlayer.onplay = () => {
+        finalBaseAudio.currentTime = finalMixedTrackPlayer.currentTime;
+        finalVocalAudio.currentTime = finalMixedTrackPlayer.currentTime;
         finalBaseAudio.play().catch(e => console.error("Error al iniciar base:", e));
         finalVocalAudio.play().catch(e => console.error("Error al iniciar vocal:", e));
     };
+
     finalMixedTrackPlayer.onpause = () => {
         finalBaseAudio.pause();
         finalVocalAudio.pause();
     };
+
     finalMixedTrackPlayer.onseeking = () => {
         finalBaseAudio.currentTime = finalMixedTrackPlayer.currentTime;
         finalVocalAudio.currentTime = finalMixedTrackPlayer.currentTime;
     };
+
     finalMixedTrackPlayer.onseeked = () => {
         finalBaseAudio.currentTime = finalMixedTrackPlayer.currentTime;
         finalVocalAudio.currentTime = finalMixedTrackPlayer.currentTime;
     };
+
     finalMixedTrackPlayer.onended = () => {
-        stopAllAudio(); // Esto detendrá también finalBaseAudio y finalVocalAudio
-        console.log("Mezcla finalizada.");
-    };
-
-
-    // Intentar reproducir la mezcla automáticamente
-    try {
-        // Intentar reproducir el reproductor HTML, lo que activará los otros dos
-        await finalMixedTrackPlayer.play();
-        console.log("Autoplay de mezcla final iniciado.");
-    } catch (e) {
-        console.warn("Autoplay de mezcla final bloqueado o fallido:", e);
-        finalMixedTrackPlayer.pause();
         finalBaseAudio.pause();
         finalVocalAudio.pause();
+        finalBaseAudio.currentTime = 0;
+        finalVocalAudio.currentTime = 0;
+    };
+
+    // Iniciar la reproducción
+    try {
+        await finalMixedTrackPlayer.play();
+        console.log("Mezcla final reproduciéndose.");
+    } catch (e) {
+        console.error("Error al intentar reproducir la mezcla final:", e);
+        alert("No se pudo iniciar la reproducción de la mezcla final. Asegúrate de que los permisos de autoplay estén configurados.");
     }
 }
 
-
-/**
- * Reproduce una pista de selección (base o vocal) aleatoria.
- */
 async function playRandomSelectionTrack(type) {
-    // stopAllAudio(); // Detiene cualquier audio en curso - YA SE LLAMA EN SHOWPAGE
-
     let tracks;
     let player;
     let targetGrid;
@@ -573,29 +632,29 @@ async function playRandomSelectionTrack(type) {
         selectedTrackVar = 'selectedVocalTrack';
     }
 
+    if (tracks.length === 0) {
+        console.warn(`No hay pistas de tipo '${type}' para reproducir.`);
+        if (selectionButton) selectionButton.disabled = true;
+        return;
+    }
+
     const randomIndex = Math.floor(Math.random() * tracks.length);
     const randomTrack = tracks[randomIndex];
 
     player.src = randomTrack.audio;
-    player.loop = true;
-    player.volume = volumeSlider.value / 100;
-    player.muted = (volumeSlider.value === 0); // Si el slider está en 0, mutear
-    // player.muted = false; // Asegurarse de que no esté silenciado si se reproduce automáticamente
+    player.volume = volumeSlider.value / 100; // Aplicar volumen global
+    player.muted = false; // Asegurarse de que no esté muteado
+    player.loop = true; // Reproducir en bucle para el fondo
 
     try {
-        await new Promise((resolve, reject) => {
-            player.onloadedmetadata = () => resolve();
-            player.onerror = () => reject(new Error('Error al cargar metadatos del audio aleatorio de selección.'));
-            player.load();
-        });
-        player.currentTime = getRandomMiddleTime(player);
         await player.play();
-        console.log(`Reproduciendo ${type} aleatoria desde el medio: ${randomTrack.title}`);
+        console.log(`Reproduciendo pista aleatoria (${type}): ${randomTrack.title}`);
     } catch (e) {
-        console.warn(`Autoplay de ${type} aleatoria bloqueado o fallido:`, e);
+        console.error(`Error de reproducción automática para la página de ${type} selección:`, e);
+        // Si hay un error de autoplay, el usuario deberá interactuar
     }
 
-    // Resalta visualmente la opción seleccionada aleatoriamente
+    // Resaltar visualmente la opción seleccionada aleatoriamente
     targetGrid.querySelectorAll('.song-option').forEach(option => {
         option.classList.remove('selected');
         const icon = option.querySelector('.fa-play, .fa-pause');
@@ -609,173 +668,131 @@ async function playRandomSelectionTrack(type) {
         selectedOption.classList.add('selected');
         const icon = selectedOption.querySelector('.fa-play, .fa-pause');
         if (icon) icon.classList.replace('fa-play', 'fa-pause'); // Si se reproduce, debe mostrar pausa
-        window[selectedTrackVar] = songs.find(s => s.id === randomTrack.id);
-        if (selectionButton) selectionButton.disabled = false; // Verificar si el botón existe antes de deshabilitar
     }
+
+    // Establecer la pista seleccionada globalmente y habilitar el botón "Siguiente"
+    window[selectedTrackVar] = songs.find(s => s.id === randomTrack.id);
+    if (selectionButton) selectionButton.disabled = false;
 }
 
+// --- FUNCIONALIDAD MODO DJ ---
 
-// --- DJ Mode specific elements and variables ---
-const djModeButton = document.getElementById('djModeButton');
-const djOverlay = document.getElementById('djOverlay');
-const djCloseButton = document.getElementById('djCloseButton');
-const djArtwork = document.getElementById('djArtwork');
-const djCommentary = document.getElementById('djCommentary');
-const nowPlaying = document.getElementById('nowPlaying');
+async function startDjMode() {
+    stopAllAudio(); // Detener todo lo demás
+    djOverlay.classList.remove('hidden');
+    djOverlay.classList.add('active');
+    djArtwork.classList.add('active'); // Iniciar animación del DJ
 
-let isDjModeActive = false;
-let djTimeoutId; // For the next song timer
-let djCommentaryTimeoutId; // For the DJ commentary timer
-let currentDjSongIndex = -1; // Index of the current DJ song
-let lastDjSongPlayed = null; // Stores the reference to the last song played for comments
+    await playNextDjMix(); // Iniciar la primera mezcla
 
-// --- Array of DJ commentary templates (Improved with more variety) ---
-const djComments = [
-    "¡Qué temazo de $ARTISTA_ANTERIOR$ con '$CANCION_ANTERIOR$'! Pero prepárense, que ahora llega $ARTISTA_SIGUIENTE$ con su hit: ¡'$CANCION_SIGUIENTE$'! ¡Súbanle el volumen!",
-    "Espero que hayan disfrutado de '$CANCION_ANTERIOR$' de $ARTISTA_ANTERIOR$. Subimos el volumen para '$CANCION_SIGUIENTE$' de $ARTISTA_SIGUIENTE$. ¡A bailar!",
-    "Wow, $ARTISTA_ANTERIOR$ nos dejó con ganas de más. Pero no se preocupen, el ambiente sigue arriba con $ARTISTA_SIGUIENTE$ y su increíble '$CANCION_SIGUIENTE$'.",
-    "Ese es el ritmo de $ARTISTA_ANTERIOR$ con '$CANCION_ANTERIOR}'. Ahora, un cambio de aires con $ARTISTA_SIGUIENTE$ y su enérgico '$CANCION_SIGUIENTE$'. ¡Esto es Melocraft AI DJ!",
-    "¡Directo desde los estudios de Melocraft! Acabamos de escuchar a $ARTISTA_ANTERIOR$. A continuación, una joya de $ARTISTA_SIGUIENTE$: '$CANCION_SIGUIENTE}'.",
-    "El micro está caliente, y los decks también. Despidiendo a $ARTISTA_ANTERIOR$, y dando la bienvenida a $ARTISTA_SIGUIENTE$ con su nueva vibra en '$CANCION_SIGUIENTE}'.",
-    "¡Volumen al máximo! Después de la genialidad de $CANCION_ANTERIOR$, nos zambullimos en el mundo de $ARTISTA_SIGUIENTE$ con '$CANCION_SIGUIENTE}'. ¡No se queden sentados!",
-    "Un aplauso para $ARTISTA_ANTERIOR$ y su hit '$CANCION_ANTERIOR}'. Y ahora, sin más preámbulos, $ARTISTA_SIGUIENTE$ con su explosiva '$CANCION_SIGUIENTE}'. ¡Melocraft al poder!"
-];
-
-// Function to get a random DJ comment with variable replacement
-function getRandomDjComment(prevSong, nextSong) {
-    const commentTemplate = djComments[Math.floor(Math.random() * djComments.length)];
-    const prevArtist = prevSong ? prevSong.artist : "nuestro último genio musical";
-    const prevTitle = prevSong ? prevSong.title : "esa increíble canción";
-
-    return commentTemplate
-        .replace(/\$ARTISTA_ANTERIOR\$/g, prevArtist)
-        .replace(/\$CANCION_ANTERIOR\$/g, prevTitle)
-        .replace(/\$ARTISTA_SIGUIENTE\$/g, nextSong.artist)
-        .replace(/\$CANCION_SIGUIENTE\$/g, nextSong.title);
+    // Establecer el intervalo para cambiar de canción
+    djInterval = setInterval(playNextDjMix, MIX_DURATION + COMMENTARY_DURATION);
 }
 
-// Function to select a random DJ track from your 'songs' array
-function selectRandomDjTrack() {
-    if (songs.length === 0) {
-        console.warn("No hay canciones disponibles en el array 'songs' para el DJ.");
-        return null;
-    }
-    let nextSongIndex;
+let lastPrevSong = null; // Para evitar que se repita la canción anterior como la actual
+async function playNextDjMix() {
+    // Pausar y resetear audios anteriores si están activos
+    if (!djBaseAudio.paused) djBaseAudio.pause();
+    if (!djVocalAudio.paused) djVocalAudio.pause();
+    if (!djCommentaryAudio.paused) djCommentaryAudio.pause();
+
+    djBaseAudio.currentTime = 0;
+    djVocalAudio.currentTime = 0;
+    djCommentaryAudio.currentTime = 0;
+
+    // Seleccionar una nueva vocal y base aleatorias
+    let randomVocalSong;
+    let randomBaseSong;
+
+    // Asegurarse de que las canciones no sean las mismas y que no repita la canción anterior inmediatamente
     do {
-        nextSongIndex = Math.floor(Math.random() * songs.length);
-    } while (nextSongIndex === currentDjSongIndex && songs.length > 1);
+        randomVocalSong = songs[Math.floor(Math.random() * songs.length)];
+        randomBaseSong = songs[Math.floor(Math.random() * songs.length)];
+    } while (randomVocalSong.id === randomBaseSong.id || randomVocalSong.id === lastPrevSong?.id || randomBaseSong.id === lastPrevSong?.id);
 
-    currentDjSongIndex = nextSongIndex;
-    return songs[currentDjSongIndex];
-}
+    const prevSong = lastPrevSong || randomVocalSong; // Si es la primera, usa la actual como "anterior" para el comentario
+    lastPrevSong = randomVocalSong; // Actualiza la última canción reproducida
 
-// Function to prepare and play the next DJ song
-async function playNextDjSong() {
-    clearTimeout(djCommentaryTimeoutId); // Clear any previous commentary timer
+    // Seleccionar un comentario aleatorio
+    const randomCommentIndex = Math.floor(Math.random() * djComments.length);
+    const commentFunction = djComments[randomCommentIndex];
+    const commentText = commentFunction(prevSong, randomBaseSong); // Pasa la canción anterior y la actual al comentario
 
-    const nextSong = selectRandomDjTrack();
+    djCommentary.textContent = commentText;
+    nowPlayingDisplay.textContent = `Ahora sonando: Voz de ${randomVocalSong.title} (de ${randomVocalSong.artist}) con Base de ${randomBaseSong.title} (de ${randomBaseSong.artist})`;
 
-    if (!nextSong || !nextSong.fullAudio) {
-        console.error("No se pudo seleccionar la siguiente canción del DJ o la ruta de audio no está definida.");
-        djCommentary.textContent = "El DJ se ha quedado sin canciones. ¡Necesita más hits!";
-        nowPlaying.textContent = "";
-        resetDjState();
-        return;
-    }
 
-    const comment = getRandomDjComment(lastDjSongPlayed, nextSong);
-    djCommentary.textContent = comment;
-    nowPlaying.textContent = ''; // Clear "Now Playing" while DJ is speaking
+    // Puedes usar una API de Texto a Voz para generar el audio del comentario.
+    // Por simplicidad, aquí solo mostramos el texto.
+    // Para una implementación real, necesitarías un servicio como Web Speech API (SpeechSynthesisUtterance)
+    // o un backend que genere el audio del texto.
+    // Ejemplo (solo texto a voz):
+    // const utterance = new SpeechSynthesisUtterance(commentText);
+    // speechSynthesis.speak(utterance);
 
-    // Lower background music volume (if any)
-    if (!globalFeaturedAudioPlayer.paused) {
-        globalFeaturedAudioPlayer.volume = (volumeSlider.value / 100) * 0.1; // 10% of global volume
-    }
 
-    // Set timer to clear commentary and restore volume
-    djCommentaryTimeoutId = setTimeout(() => {
-        djCommentary.textContent = ''; // Clear commentary
-        applyGlobalVolume(); // Restore volume after commentary
-    }, 5000); // Commentary visible for 5 seconds (adjust)
+    // Cargar y reproducir comentario
+    // Por ahora, asumimos que no hay un audio pre-grabado para los comentarios.
+    // Si tienes audios para los comentarios, cargar djCommentaryAudio.src = 'path/to/comment.mp3'
 
-    // Configure and play the new song
-    globalFeaturedAudioPlayer.src = nextSong.fullAudio;
-    globalFeaturedAudioPlayer.loop = false;
-    applyGlobalVolume(); // Apply global volume when starting the song
-    globalFeaturedAudioPlayer.muted = (volumeSlider.value === 0);
+    // Retrasar la reproducción de la música para dar tiempo al comentario
+    setTimeout(async () => {
+        djCommentary.textContent = ''; // Limpiar el comentario una vez que la música empieza
 
-    try {
-        await globalFeaturedAudioPlayer.play();
-        console.log(`DJ reproduciendo: ${nextSong.title} de ${nextSong.artist}`);
-        nowPlaying.textContent = `Ahora sonando: ${nextSong.title} - ${nextSong.artist}`;
-        djArtwork.src = nextSong.image || "assets/images/DJ.png";
-        djArtwork.alt = `Artwork de ${nextSong.title}`;
+        djBaseAudio.src = randomBaseSong.baseAudio;
+        djVocalAudio.src = randomVocalSong.vocalAudio;
 
-        lastDjSongPlayed = nextSong;
+        djBaseAudio.volume = volumeSlider.value / 100;
+        djVocalAudio.volume = volumeSlider.value / 100;
 
-        globalFeaturedAudioPlayer.onended = () => {
-            console.log("Canción del DJ terminada. Preparando la siguiente...");
-            setTimeout(playNextDjSong, 2000); // 2-second pause between songs
-        };
+        djBaseAudio.loop = true;
+        djVocalAudio.loop = true;
 
-    } catch (e) {
-        console.error("Error reproduciendo canción del DJ:", e);
-        if (e.name === 'NotAllowedError') {
-            djCommentary.textContent = "¡Necesito tu permiso! Haz clic en la pantalla para que el DJ empiece a sonar.";
-            nowPlaying.textContent = "Error de reproducción automática.";
-        } else {
-            djCommentary.textContent = "¡Ups! El DJ se ha tropezado. Pasando a la siguiente canción...";
+        try {
+            // Asegurarse de que ambas pistas se carguen antes de intentar reproducir
+            await Promise.all([
+                new Promise((resolve, reject) => {
+                    djBaseAudio.onloadedmetadata = () => resolve();
+                    djBaseAudio.onerror = () => reject(`Error al cargar base: ${randomBaseSong.baseAudio}`);
+                    djBaseAudio.load();
+                }),
+                new Promise((resolve, reject) => {
+                    djVocalAudio.onloadedmetadata = () => resolve();
+                    djVocalAudio.onerror = () => reject(`Error al cargar vocal: ${randomVocalSong.vocalAudio}`);
+                    djVocalAudio.load();
+                })
+            ]);
+
+            // Reproducir al mismo tiempo
+            await djBaseAudio.play();
+            await djVocalAudio.play();
+
+            // Establecer un timeout para detener la mezcla y preparar la siguiente
+            setTimeout(() => {
+                // Aquí podrías añadir una pequeña transición de volumen (fade out)
+                djBaseAudio.pause();
+                djVocalAudio.pause();
+                djBaseAudio.currentTime = 0;
+                djVocalAudio.currentTime = 0;
+                // playNextDjMix() se llamará por el setInterval si está activo
+            }, MIX_DURATION);
+
+        } catch (error) {
+            console.error("Error en la mezcla del DJ:", error);
+            nowPlayingDisplay.textContent = 'Error al cargar una de las pistas. Saltando...';
+            // Intentar la siguiente mezcla si hay un error
+            // Si el error es persistente, esto podría generar un bucle. Considerar un mecanismo de fallback.
+            setTimeout(playNextDjMix, 2000); // Intenta la siguiente mezcla en 2 segundos
         }
-        setTimeout(playNextDjSong, 3000);
-    }
-}
-
-// Function to activate or deactivate the DJ artwork pulse animation
-function toggleDjArtworkPulse(enable) {
-    if (djArtwork) {
-        djArtwork.style.animationPlayState = enable ? 'running' : 'paused';
-    }
-}
-
-// Main function to toggle DJ mode
-function toggleDjMode() {
-    isDjModeActive = !isDjModeActive;
-
-    if (isDjModeActive) {
-        stopAllAudio(); // Pause any user audio currently playing
-        djOverlay.classList.add('active');
-        djOverlay.classList.remove('hidden'); // Asegúrate de que se muestre
-        playNextDjSong();
-        toggleDjArtworkPulse(true);
-    } else {
-        resetDjState();
-        djOverlay.classList.remove('active');
-        djOverlay.classList.add('hidden'); // Asegúrate de que se oculte
-    }
-}
-
-// Function to stop and reset the DJ
-function resetDjState() {
-    globalFeaturedAudioPlayer.pause();
-    globalFeaturedAudioPlayer.currentTime = 0;
-    clearTimeout(djCommentaryTimeoutId);
-    djCommentary.textContent = "";
-    nowPlaying.textContent = "";
-    djArtwork.src = "assets/images/DJ.png"; // Default DJ artwork
-    djArtwork.alt = "Artwork del DJ";
-    currentDjSongIndex = -1;
-    lastDjSongPlayed = null;
-    toggleDjArtworkPulse(false);
+    }, COMMENTARY_DURATION); // Esperar la duración del comentario antes de que empiece la música
 }
 
 // --- DOMContentLoaded Event Listener ---
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Initial rendering of songs on the home page
+    // Renderizado inicial de canciones en la página de inicio
     renderFullSongs();
-    renderSelectionOptions('base');
-    renderSelectionOptions('vocal');
-    applyGlobalVolume(); // Apply initial volume on load
+
+    applyGlobalVolume(); // Aplicar volumen inicial al cargar
 
     // Global Volume Slider and Mute Button Listeners
     if (volumeSlider) {
@@ -783,30 +800,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (muteButton) {
-        let previousGlobalVolume = volumeSlider ? volumeSlider.value : 100; // Store last volume before mute
+        let previousGlobalVolume = volumeSlider ? volumeSlider.value : 100; // Guardar último volumen antes de mutear
         muteButton.addEventListener('click', () => {
-            if (volumeSlider.value > 0 || !globalFeaturedAudioPlayer.muted) { // Cambiado para chequear el slider
-                // Mute
-                previousGlobalVolume = volumeSlider.value; // Save current volume
+            if (volumeSlider.value > 0) { // Si el volumen no es cero o no está muteado
+                // Mutear
+                previousGlobalVolume = volumeSlider.value;
                 volumeSlider.value = 0;
-                applyGlobalVolume(); // Apply changes and update icon
-                globalFeaturedAudioPlayer.muted = true; // Ensure the DJ player is muted
-                baseSelectionPageAudio.muted = true; // Mutear audios de selección
-                vocalSelectionPageAudio.muted = true;
-                if (currentPlayingSelectionAudio) currentPlayingSelectionAudio.muted = true;
-                if (finalBaseAudio) finalBaseAudio.muted = true;
-                if (finalVocalAudio) finalVocalAudio.muted = true;
             } else {
-                // Unmute
-                volumeSlider.value = previousGlobalVolume > 0 ? previousGlobalVolume : 100; // Restore or default to 100
-                applyGlobalVolume(); // Apply changes and update icon
-                globalFeaturedAudioPlayer.muted = false; // Ensure the DJ player is unmuted
-                baseSelectionPageAudio.muted = false; // Desmutear audios de selección
-                vocalSelectionPageAudio.muted = false;
-                if (currentPlayingSelectionAudio) currentPlayingSelectionAudio.muted = false;
-                if (finalBaseAudio) finalBaseAudio.muted = false;
-                if (finalVocalAudio) finalVocalAudio.muted = false;
+                // Desmutear
+                volumeSlider.value = previousGlobalVolume;
             }
+            applyGlobalVolume(); // Aplicar el nuevo volumen a todos los audios
         });
     }
 
@@ -815,6 +819,10 @@ document.addEventListener('DOMContentLoaded', () => {
         baseVolumeSlider.addEventListener('input', () => {
             if (finalBaseAudio) {
                 finalBaseAudio.volume = (volumeSlider.value / 100) * (baseVolumeSlider.value / 100);
+            }
+            // También ajustar el volumen del finalMixedTrackPlayer si es el controlador principal
+            if (finalMixedTrackPlayer && finalMixedTrackPlayer.src.includes(selectedBaseTrack.baseAudio)) {
+                finalMixedTrackPlayer.volume = (volumeSlider.value / 100) * (baseVolumeSlider.value / 100);
             }
         });
     }
@@ -862,7 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedVocalTrack = null;
             if (nextToVocalSelectionButton) nextToVocalSelectionButton.disabled = true;
             if (nextToMixResultButton) nextToMixResultButton.disabled = true;
-            showPage(baseSelectionPage);
+            showPage(baseSelectionPage); // Volver a la selección de bases para crear una nueva mezcla
         });
     }
 
@@ -886,65 +894,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const clickedSong = songs.find(s => s.id === songId);
             if (!clickedSong) return;
 
-            // Initialize currentPlayingSelectionAudio if it's null
-            if (!currentPlayingSelectionAudio) {
-                currentPlayingSelectionAudio = new Audio();
-            }
+            const icon = songItem.querySelector('.play-pause-overlay .icon');
 
-            const playPauseIcon = songItem.querySelector('.play-pause-overlay .icon');
-
-            if (currentPlayingSelectionAudio.src.includes(clickedSong.fullAudio) && !currentPlayingSelectionAudio.paused) {
-                // If this song is already playing, pause it
-                currentPlayingSelectionAudio.pause();
-                if (playPauseIcon) playPauseIcon.textContent = '▶';
+            // Si la canción clickeada ya está reproduciéndose, pausarla
+            if (globalFeaturedAudioPlayer.src.includes(clickedSong.fullAudio) &&
+                !globalFeaturedAudioPlayer.paused) {
+                globalFeaturedAudioPlayer.pause();
                 songItem.classList.remove('playing');
+                if (icon) icon.textContent = '▶';
             } else {
-                // Stop any other previously playing individual audio
-                if (!currentPlayingSelectionAudio.paused) {
-                    currentPlayingSelectionAudio.pause();
-                    currentPlayingSelectionAudio.currentTime = 0;
-                }
+                // Detener cualquier otra canción que se esté reproduciendo
+                stopAllAudio(); // Detiene todos los audios, incluyendo cualquier reproducción de selección
 
-                // Reset icons of all songs to play
+                // Restablecer iconos de todas las canciones a play
                 document.querySelectorAll('.full-song-item.playing').forEach(item => {
                     item.classList.remove('playing');
-                    const icon = item.querySelector('.play-pause-overlay .icon');
-                    if (icon) icon.textContent = '▶';
+                    const otherIcon = item.querySelector('.play-pause-overlay .icon');
+                    if (otherIcon) otherIcon.textContent = '▶';
                 });
 
-                // Play the clicked song
-                currentPlayingSelectionAudio.src = clickedSong.fullAudio;
-                currentPlayingSelectionAudio.volume = volumeSlider.value / 100;
-                currentPlayingSelectionAudio.muted = false; // Ensure it's not muted
-                currentPlayingSelectionAudio.loop = false; // Play once
+                // Reproducir la canción clickeada
+                globalFeaturedAudioPlayer.src = clickedSong.fullAudio;
+                globalFeaturedAudioPlayer.volume = volumeSlider.value / 100;
+                globalFeaturedAudioPlayer.muted = false; // Asegurarse de que no esté muteado
+                globalFeaturedAudioPlayer.loop = false; // Reproducir una vez
 
                 try {
-                    await currentPlayingSelectionAudio.play();
-                    if (playPauseIcon) playPauseIcon.textContent = '⏸';
+                    await globalFeaturedAudioPlayer.play();
                     songItem.classList.add('playing');
+                    if (icon) icon.textContent = '⏸';
                     console.log(`Reproduciendo canción completa: ${clickedSong.title}`);
                 } catch (e) {
                     console.error("Error reproduciendo canción completa:", e);
-                    if (playPauseIcon) playPauseIcon.textContent = '▶';
-                    songItem.classList.remove('playing');
                 }
             }
         });
-
-        // Event listener for when a full song finishes playing
-        if (currentPlayingSelectionAudio) { // Asegurarse de que exista antes de asignar el listener
-            currentPlayingSelectionAudio.onended = () => {
-                document.querySelectorAll('.full-song-item.playing').forEach(item => {
-                    item.classList.remove('playing');
-                    const icon = item.querySelector('.play-pause-overlay .icon');
-                    if (icon) icon.textContent = '▶';
-                });
-            };
-        }
     }
 
-
-    // Listeners for base and vocal selection (with click playback)
+    // Listeners for individual track selection playback (base and vocal)
     if (baseTrackSelectionGrid) {
         baseTrackSelectionGrid.addEventListener('click', async (event) => {
             const songOption = event.target.closest('.song-option');
@@ -954,39 +941,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const clickedTrack = songs.find(s => s.id === songId);
             if (!clickedTrack) return;
 
-            // Pause the random background audio for the base page
+            const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
+
+            // Pausar el audio de fondo aleatorio de la página de base
             baseSelectionPageAudio.pause();
             baseSelectionPageAudio.currentTime = 0;
-            baseSelectionPageAudio.src = ''; // Clear source
+            baseSelectionPageAudio.src = ''; // Limpiar fuente
 
             if (!currentPlayingSelectionAudio) {
                 currentPlayingSelectionAudio = new Audio();
             }
 
-            const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
-
-            if (currentPlayingSelectionAudio.src.includes(clickedTrack.baseAudio) && !currentPlayingSelectionAudio.paused) {
-                // If this track is already playing, pause it
+            // Si esta pista ya está reproduciéndose, pausarla
+            if (currentPlayingSelectionAudio.src.includes(clickedTrack.baseAudio) &&
+                !currentPlayingSelectionAudio.paused) {
                 currentPlayingSelectionAudio.pause();
                 currentPlayingSelectionAudio.currentTime = 0;
                 if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
+                songOption.classList.remove('selected');
+                selectedBaseTrack = null;
+                if (nextToVocalSelectionButton) nextToVocalSelectionButton.disabled = true;
             } else {
-                // Stop any other currently playing individual audio
+                // Detener cualquier otra pista individual que se esté reproduciendo en esta cuadrícula
+                document.querySelectorAll('.song-option').forEach(option => {
+                    if (option.classList.contains('selected')) {
+                        option.classList.remove('selected');
+                        const icon = option.querySelector('.fa-play, .fa-pause');
+                        if (icon) icon.classList.replace('fa-pause', 'fa-play');
+                    }
+                });
                 if (!currentPlayingSelectionAudio.paused) {
                     currentPlayingSelectionAudio.pause();
                     currentPlayingSelectionAudio.currentTime = 0;
                 }
 
-                // Reset all play/pause icons in the grid
-                baseTrackSelectionGrid.querySelectorAll('.song-option .fa-pause').forEach(icon => {
-                    icon.classList.replace('fa-pause', 'fa-play');
-                });
-
-                // Play the clicked base track
                 currentPlayingSelectionAudio.src = clickedTrack.baseAudio;
                 currentPlayingSelectionAudio.volume = volumeSlider.value / 100;
                 currentPlayingSelectionAudio.muted = false;
-                currentPlayingSelectionAudio.loop = true; // Loop preview
+                currentPlayingSelectionAudio.loop = false; // Reproducir una vez
 
                 try {
                     await new Promise((resolve, reject) => {
@@ -994,22 +986,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentPlayingSelectionAudio.onerror = () => reject(new Error(`Error al cargar metadatos de ${clickedTrack.baseAudio}.`));
                         currentPlayingSelectionAudio.load();
                     });
+
                     currentPlayingSelectionAudio.currentTime = getRandomMiddleTime(currentPlayingSelectionAudio);
                     await currentPlayingSelectionAudio.play();
+
                     if (playButtonIcon) playButtonIcon.classList.replace('fa-play', 'fa-pause');
                     console.log(`Reproduciendo base individual: ${clickedTrack.title}`);
+                    songOption.classList.add('selected');
+                    selectedBaseTrack = clickedTrack;
+                    if (nextToVocalSelectionButton) nextToVocalSelectionButton.disabled = false;
                 } catch (e) {
                     console.error("Error reproduciendo base individual:", e);
                     if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
                 }
             }
-
-            baseTrackSelectionGrid.querySelectorAll('.song-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            songOption.classList.add('selected');
-            selectedBaseTrack = clickedTrack;
-            if (nextToVocalSelectionButton) nextToVocalSelectionButton.disabled = false;
         });
     }
 
@@ -1022,40 +1012,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const clickedTrack = songs.find(s => s.id === songId);
             if (!clickedTrack) return;
 
-            // Pause the random background audio for the vocal page
+            const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
+
+            // Pausar el audio de fondo aleatorio de la página vocal
             vocalSelectionPageAudio.pause();
             vocalSelectionPageAudio.currentTime = 0;
-            vocalSelectionPageAudio.src = ''; // Clear source
+            vocalSelectionPageAudio.src = ''; // Limpiar fuente
 
             if (!currentPlayingSelectionAudio) {
                 currentPlayingSelectionAudio = new Audio();
             }
 
-            const playButtonIcon = songOption.querySelector('.fa-play, .fa-pause');
-
-            if (currentPlayingSelectionAudio.src.includes(clickedTrack.vocalAudio) && !currentPlayingSelectionAudio.paused) {
-                // If this track is already playing, pause it
+            // Si esta pista ya está reproduciéndose, pausarla
+            if (currentPlayingSelectionAudio.src.includes(clickedTrack.vocalAudio) &&
+                !currentPlayingSelectionAudio.paused) {
                 currentPlayingSelectionAudio.pause();
                 currentPlayingSelectionAudio.currentTime = 0;
                 if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
+                songOption.classList.remove('selected');
+                selectedVocalTrack = null;
+                if (nextToMixResultButton) nextToMixResultButton.disabled = true;
             } else {
-                // Stop any other currently playing individual audio
+                // Detener cualquier otra pista individual que se esté reproduciendo
+                document.querySelectorAll('.song-option').forEach(option => {
+                    if (option.classList.contains('selected')) {
+                        option.classList.remove('selected');
+                        const icon = option.querySelector('.fa-play, .fa-pause');
+                        if (icon) icon.classList.replace('fa-pause', 'fa-play');
+                    }
+                });
                 if (!currentPlayingSelectionAudio.paused) {
                     currentPlayingSelectionAudio.pause();
                     currentPlayingSelectionAudio.currentTime = 0;
                 }
 
-                // Reset all play/pause icons in the grid
-                vocalTrackSelectionGrid.querySelectorAll('.song-option .fa-pause').forEach(icon => {
-                    icon.classList.replace('fa-pause', 'fa-play');
-                });
-
-                // Play the clicked vocal track
                 currentPlayingSelectionAudio.src = clickedTrack.vocalAudio;
                 currentPlayingSelectionAudio.volume = volumeSlider.value / 100;
                 currentPlayingSelectionAudio.muted = false;
-                currentPlayingSelectionAudio.loop = true; // Loop preview
-
+                currentPlayingSelectionAudio.loop = false;
                 try {
                     await new Promise((resolve, reject) => {
                         currentPlayingSelectionAudio.onloadedmetadata = () => resolve();
@@ -1064,30 +1058,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     currentPlayingSelectionAudio.currentTime = getRandomMiddleTime(currentPlayingSelectionAudio);
                     await currentPlayingSelectionAudio.play();
+
                     if (playButtonIcon) playButtonIcon.classList.replace('fa-play', 'fa-pause');
                     console.log(`Reproduciendo vocal individual: ${clickedTrack.title}`);
+                    songOption.classList.add('selected');
+                    selectedVocalTrack = clickedTrack;
+                    if (nextToMixResultButton) nextToMixResultButton.disabled = false;
                 } catch (e) {
                     console.error("Error reproduciendo vocal individual:", e);
                     if (playButtonIcon) playButtonIcon.classList.replace('fa-pause', 'fa-play');
                 }
             }
-
-            vocalTrackSelectionGrid.querySelectorAll('.song-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            songOption.classList.add('selected');
-            selectedVocalTrack = clickedTrack;
-            if (nextToMixResultButton) nextToMixResultButton.disabled = false;
         });
     }
 
-    // --- DJ Mode Event Listeners ---
+    // --- EVENT LISTENERS PARA EL MODO DJ ---
     if (djModeButton) {
-        djModeButton.addEventListener('click', toggleDjMode);
+        djModeButton.addEventListener('click', () => {
+            showPage(djOverlay); // Mostrar el overlay del DJ
+        });
     }
 
-    if (djCloseButton) {
-        djCloseButton.addEventListener('click', toggleDjMode);
+    // Permitir salir del modo DJ haciendo click en el overlay
+    if (djOverlay) {
+        djOverlay.addEventListener('click', (event) => {
+            // Asegúrate de que el clic no sea en el contenido interno para evitar cierres accidentales
+            if (event.target === djOverlay) {
+                stopAllAudio(); // Detener toda la música del DJ
+                showPage(homePage); // Volver a la página principal
+            }
+        });
     }
-
 }); // End of DOMContentLoaded
