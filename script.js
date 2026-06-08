@@ -375,8 +375,9 @@ function renderSelectionSongs(type) {
 }
 
 async function toggleFullSong(song) {
-  if (currentFullSongId === song.id && !fullAudio.paused) {
-    fullAudio.pause();
+  if (currentFullSongId === song.id && (!baseAudio.paused || !vocalAudio.paused)) {
+    stopAudio(baseAudio);
+    stopAudio(vocalAudio);
     currentFullSongId = null;
     updatePlayingCards();
     return;
@@ -385,20 +386,35 @@ async function toggleFullSong(song) {
   stopAllAudio();
 
   currentFullSongId = song.id;
-  fullAudio.src = song.fullAudio;
-  fullAudio.currentTime = 0;
+
+  baseAudio.src = song.baseAudio;
+  vocalAudio.src = song.vocalAudio;
+
+  baseAudio.loop = false;
+  vocalAudio.loop = false;
+
+  baseAudio.currentTime = 0;
+  vocalAudio.currentTime = 0;
+
   applyVolumes();
 
   try {
-    await fullAudio.play();
+    await Promise.all([
+      loadAudio(baseAudio),
+      loadAudio(vocalAudio)
+    ]);
+
+    await Promise.all([
+      baseAudio.play(),
+      vocalAudio.play()
+    ]);
   } catch (error) {
-    console.error(error);
-    alert("No se pudo reproducir esta canción. Revisa la ruta del archivo.");
+    console.error("Error reproduciendo canción normal:", error);
+    alert("No se pudo reproducir esta canción con base + voz.");
   }
 
   updatePlayingCards();
 }
-
 function updatePlayingCards() {
   document.querySelectorAll(".song-card").forEach((card) => {
     const icon = card.querySelector(".play-badge i");
@@ -618,66 +634,70 @@ async function playNextDjMix() {
   djTimer = setTimeout(playNextDjMix, 30000);
 }
 
+function on(id, event, callback) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(event, callback);
+  else console.warn("No existe el elemento:", id);
+}
+
 function bindEvents() {
-  createButton.addEventListener("click", () => {
+  on("createButton", "click", () => {
     selectedBaseTrack = null;
     selectedVocalTrack = null;
 
-    nextToVocalSelectionButton.disabled = true;
-    nextToMixResultButton.disabled = true;
+    const nextBase = document.getElementById("nextToVocalSelectionButton");
+    const nextMix = document.getElementById("nextToMixResultButton");
+
+    if (nextBase) nextBase.disabled = true;
+    if (nextMix) nextMix.disabled = true;
 
     showPage("base");
   });
 
-  backFromBaseSelectionButton.addEventListener("click", () => showPage("home"));
-  backToBaseSelectionButton.addEventListener("click", () => showPage("base"));
-  backFromMixResultButton.addEventListener("click", () => showPage("home"));
+  on("backFromBaseSelectionButton", "click", () => showPage("home"));
+  on("backToBaseSelectionButton", "click", () => showPage("base"));
+  on("backToVocalSelectionButton", "click", () => showPage("base"));
+  on("backFromMixResultButton", "click", () => showPage("home"));
 
-  nextToVocalSelectionButton.addEventListener("click", () => showPage("vocal"));
-  nextToMixResultButton.addEventListener("click", () => showPage("mix"));
+  on("nextToVocalSelectionButton", "click", () => showPage("vocal"));
+  on("nextToMixResultButton", "click", () => showPage("mix"));
 
-  createNewMixButton.addEventListener("click", () => {
+  on("createNewMixButton", "click", () => {
     selectedBaseTrack = null;
     selectedVocalTrack = null;
-
-    nextToVocalSelectionButton.disabled = true;
-    nextToMixResultButton.disabled = true;
-
     showPage("base");
   });
 
-  searchInput.addEventListener("input", renderHomeSongs);
+  on("searchInput", "input", renderHomeSongs);
 
-  volumeSlider.addEventListener("input", () => {
-    if (Number(volumeSlider.value) > 0) {
-      isMuted = false;
-    }
-
+  on("volumeSlider", "input", () => {
+    if (Number(volumeSlider.value) > 0) isMuted = false;
     applyVolumes();
   });
 
-  muteButton.addEventListener("click", () => {
+  on("muteButton", "click", () => {
     isMuted = !isMuted;
     applyVolumes();
   });
 
-  baseVolumeSlider.addEventListener("input", applyVolumes);
-  vocalVolumeSlider.addEventListener("input", applyVolumes);
+  on("baseVolumeSlider", "input", applyVolumes);
+  on("vocalVolumeSlider", "input", applyVolumes);
+  on("mixPlayButton", "click", toggleMix);
 
-  mixPlayButton.addEventListener("click", toggleMix);
-
-  mixProgress.addEventListener("mousedown", () => {
+  on("mixProgress", "mousedown", () => {
     wasPlayingBeforeSeek = !baseAudio.paused || !vocalAudio.paused;
     pauseMix();
   });
 
-  mixProgress.addEventListener("input", seekMix);
+  on("mixProgress", "input", seekMix);
 
-  mixProgress.addEventListener("mouseup", () => {
-    if (wasPlayingBeforeSeek) {
-      playMix();
-    }
+  on("mixProgress", "mouseup", () => {
+    if (wasPlayingBeforeSeek) playMix();
   });
+
+  on("djModeButton", "click", openDjMode);
+  on("closeDjButton", "click", closeDjMode);
+  on("nextDjMixButton", "click", playNextDjMix);
 
   baseAudio.addEventListener("ended", pauseMix);
   vocalAudio.addEventListener("ended", pauseMix);
@@ -686,12 +706,7 @@ function bindEvents() {
     currentFullSongId = null;
     updatePlayingCards();
   });
-
-  djModeButton.addEventListener("click", openDjMode);
-  closeDjButton.addEventListener("click", closeDjMode);
-  nextDjMixButton.addEventListener("click", playNextDjMix);
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   bindEvents();
   applyVolumes();
