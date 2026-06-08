@@ -1,108 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melocraft - Tu Mezclador de Canciones</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/Fav.ico"> 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Melocraft - Tu Mezclador de Canciones</title>
+
+  <link rel="icon" type="image/x-icon" href="assets/images/Fav.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <header>
-        <h1>Melocraft 🎶</h1>
-        <div class="header-controls">
-            <div class="volume-controls">
-                <i class="fas fa-volume-up" id="muteButton"></i>
-                <input type="range" id="volumeSlider" min="0" max="100" value="100">
-            </div>
-            <button id="createButton" class="main-button">Crear Nueva Mezcla</button>
-        </div>
-    </header>
+  <div class="bg-glow"></div>
 
-    <main>
-
-        <section id="homePage" class="active">
-            <h2>Explora Nuestra Música</h2>
-            <div class="full-song-grid" id="fullSongGrid">
-                </div>
-        </section>
-        <section id="baseSelectionPage" class="hidden">
-            <h2>Elige tu Base</h2>
-            <div class="page-volume-controls">
-                <i class="fas fa-volume-down"></i>
-                <input type="range" id="selectionBaseVolumeSlider" min="0" max="100" value="100">
-                <i class="fas fa-volume-up"></i>
-            </div>
-            <div class="track-selection-grid" id="baseTrackSelectionGrid">
-                </div>
-            <div class="selection-buttons">
-                <button id="nextToVocalSelectionButton" class="main-button" disabled>Siguiente: Elegir Voz</button>
-                <button id="backFromBaseSelectionButton" class="secondary-button">Volver a Inicio</button>
-            </div>
-        </section>
-
-        <section id="vocalSelectionPage" class="hidden">
-            <h2>Elige tu Voz</h2>
-            <div class="page-volume-controls">
-                <i class="fas fa-volume-down"></i>
-                <input type="range" id="selectionVocalVolumeSlider" min="0" max="100" value="100">
-                <i class="fas fa-volume-up"></i>
-            </div>
-            <div class="track-selection-grid" id="vocalTrackSelectionGrid">
-                </div>
-            <div class="selection-buttons">
-                <button id="nextToMixResultButton" class="main-button" disabled>Siguiente: Ver Mezcla</button>
-                <button id="backToVocalSelectionButton" class="secondary-button">Volver a Base</button>
-            </div>
-        </section>
-
-        <section id="mixResultPage" class="hidden">
-
-            <h2>Tu Mezcla Personalizada</h2>
-            <div class="mixed-tracks-display">
-                <div class="mixed-track-info">
-                    <img id="finalBaseArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Base">
-                    <p>Base:</p>
-                    <p id="finalBaseTitle">Ninguna</p>
-                    <div class="track-volume-controls">
-                        <i class="fas fa-volume-down"></i>
-                        <input type="range" id="baseVolumeSlider" min="0" max="100" value="100">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                </div>
-                <div class="mixed-track-info">
-                    <img id="finalVocalArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la Voz">
-                    <p>Voz:</p>
-                    <p id="finalVocalTitle">Ninguna</p>
-                    <div class="track-volume-controls">
-                        <i class="fas fa-volume-down"></i>
-                        <input type="range" id="vocalVolumeSlider" min="0" max="100" value="100">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                </div>
-            </div>
-            <audio id="finalMixedTrack" controls></audio>
-            <div class="selection-buttons">
-                <button id="createNewMixButton" class="main-button">Crear Nueva Mezcla</button>
-                <button id="backFromMixResultButton" class="secondary-button">Volver a Inicio</button>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Melocraft. Todos los derechos reservados.</p>
-    </footer>
-    <button id="djModeButton" class="dj-button">
-        <img src="assets/images/DJ.png" alt="Modo DJ"> </button>
-
-    <div id="djOverlay" class="dj-overlay hidden">
-        <div class="dj-content">
-            <img id="djArtwork" src="assets/images/DJ.png" alt="Artwork del DJ"> <p id="djCommentary" class="dj-commentary"></p>
-            <p id="nowPlaying" class="now-playing"></p>
-        </div>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">🎶</div>
+      <div>
+        <h1>Melocraft</h1>
+        <p>Mezcla bases y voces como un DJ</p>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input id="searchInput" type="text" placeholder="Buscar canción o artista..." />
+    </div>
+
+    <div class="header-controls">
+      <button id="muteButton" class="icon-button" title="Silenciar">
+        <i class="fas fa-volume-up"></i>
+      </button>
+
+      <input type="range" id="volumeSlider" min="0" max="100" value="85" />
+
+      <button id="createButton" class="main-button">
+        <i class="fas fa-wand-magic-sparkles"></i>
+        Crear mezcla
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="homePage" class="page active">
+      <div class="page-title">
+        <h2>Explora música</h2>
+        <p>Reproduce canciones completas o empieza una mezcla nueva.</p>
+      </div>
+
+      <div id="fullSongGrid" class="song-grid"></div>
+    </section>
+
+    <section id="baseSelectionPage" class="page hidden">
+      <div class="page-title">
+        <h2>Elige tu base</h2>
+        <p>Selecciona el instrumental que llevará la mezcla.</p>
+      </div>
+
+      <div id="baseTrackSelectionGrid" class="compact-grid"></div>
+
+      <div class="actions">
+        <button id="backFromBaseSelectionButton" class="secondary-button">
+          <i class="fas fa-arrow-left"></i>
+          Volver
+        </button>
+
+        <button id="nextToVocalSelectionButton" class="main-button" disabled>
+          Siguiente: voz
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <section id="vocalSelectionPage" class="page hidden">
+      <div class="page-title">
+        <h2>Elige tu voz</h2>
+        <p>Combínala con la base elegida.</p>
+      </div>
+
+      <div id="vocalTrackSelectionGrid" class="compact-grid"></div>
+
+      <div class="actions">
+        <button id="backToBaseSelectionButton" class="secondary-button">
+          <i class="fas fa-arrow-left"></i>
+          Volver a base
+        </button>
+
+        <button id="nextToMixResultButton" class="main-button" disabled>
+          Ver mezcla
+          <i class="fas fa-music"></i>
+        </button>
+      </div>
+    </section>
+
+    <section id="mixResultPage" class="page hidden">
+      <div class="page-title">
+        <h2>Tu mezcla</h2>
+        <p>Controla base y voz por separado.</p>
+      </div>
+
+      <div class="mix-display">
+        <article class="mix-card">
+          <img id="finalBaseArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la base" />
+          <span>Base</span>
+          <h3 id="finalBaseTitle">Ninguna</h3>
+
+          <div class="track-volume">
+            <i class="fas fa-volume-low"></i>
+            <input type="range" id="baseVolumeSlider" min="0" max="100" value="100" />
+            <i class="fas fa-volume-high"></i>
+          </div>
+        </article>
+
+        <div class="plus-symbol">+</div>
+
+        <article class="mix-card">
+          <img id="finalVocalArtwork" src="assets/images/placeholder.jpg" alt="Carátula de la voz" />
+          <span>Voz</span>
+          <h3 id="finalVocalTitle">Ninguna</h3>
+
+          <div class="track-volume">
+            <i class="fas fa-volume-low"></i>
+            <input type="range" id="vocalVolumeSlider" min="0" max="100" value="100" />
+            <i class="fas fa-volume-high"></i>
+          </div>
+        </article>
+      </div>
+
+      <div class="player-panel">
+        <button id="mixPlayButton" class="big-play-button">
+          <i class="fas fa-play"></i>
+        </button>
+
+        <div class="progress-wrap">
+          <span id="currentTime">0:00</span>
+          <input type="range" id="mixProgress" min="0" max="1000" value="0" />
+          <span id="durationTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="createNewMixButton" class="main-button">
+          <i class="fas fa-rotate"></i>
+          Nueva mezcla
+        </button>
+
+        <button id="backFromMixResultButton" class="secondary-button">
+          Volver a inicio
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <button id="djModeButton" class="dj-button">
+    <img src="assets/images/DJ.png" alt="Modo DJ" />
+  </button>
+
+  <div id="djOverlay" class="dj-overlay hidden">
+    <div class="dj-box">
+      <button id="closeDjButton" class="close-button">
+        <i class="fas fa-xmark"></i>
+      </button>
+
+      <img id="djArtwork" src="assets/images/DJ.png" alt="DJ" />
+      <h2>Modo DJ Automático</h2>
+      <p id="djCommentary"></p>
+      <p id="nowPlaying"></p>
+
+      <button id="nextDjMixButton" class="main-button">
+        Siguiente mezcla
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Melocraft. Hecho con ritmo, código y un poco de magia.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
