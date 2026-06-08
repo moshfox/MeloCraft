@@ -1,579 +1,657 @@
-:root {
-  --bg: #090914;
-  --panel: rgba(24, 24, 43, 0.82);
-  --panel-strong: #18182b;
-  --card: rgba(255, 255, 255, 0.07);
-  --card-hover: rgba(255, 255, 255, 0.12);
-  --text: #f5f7ff;
-  --muted: #a9afd3;
-  --primary: #8b5cf6;
-  --secondary: #22d3ee;
-  --danger: #fb7185;
-  --border: rgba(255, 255, 255, 0.13);
-  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
-  --radius: 24px;
-  --radius-sm: 16px;
-  --transition: 0.25s ease;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Poppins", sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(139, 92, 246, 0.35), transparent 35%),
-    radial-gradient(circle at top right, rgba(34, 211, 238, 0.22), transparent 35%),
-    linear-gradient(135deg, #080812, #121225 55%, #090914);
-  overflow-x: hidden;
-}
-
-.bg-glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.08), transparent 20%),
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.16), transparent 30%);
-  z-index: -1;
-}
-
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: grid;
-  grid-template-columns: auto minmax(240px, 520px) auto;
-  align-items: center;
-  gap: 22px;
-  padding: 18px 34px;
-  background: rgba(8, 8, 18, 0.72);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.brand-icon {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  box-shadow: 0 12px 34px rgba(139, 92, 246, 0.35);
-  font-size: 1.5rem;
-}
-
-.brand h1 {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.85rem;
-  letter-spacing: -0.04em;
-}
-
-.brand p {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 48px;
-  padding: 0 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-}
-
-.search-bar i {
-  color: var(--secondary);
-}
-
-.search-bar input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: var(--text);
-  font-size: 0.95rem;
-}
-
-.search-bar input::placeholder {
-  color: var(--muted);
-}
-
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-input[type="range"] {
-  accent-color: var(--secondary);
-  cursor: pointer;
-}
-
-#volumeSlider {
-  width: 110px;
-}
-
-button {
-  font-family: inherit;
-}
-
-.main-button,
-.secondary-button,
-.icon-button,
-.big-play-button {
-  border: none;
-  cursor: pointer;
-  transition: transform var(--transition), filter var(--transition), background var(--transition);
-}
-
-.main-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 18px;
-  border-radius: 999px;
-  color: white;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  box-shadow: 0 14px 34px rgba(34, 211, 238, 0.18);
-}
-
-.main-button:hover:not(:disabled),
-.secondary-button:hover,
-.icon-button:hover,
-.big-play-button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-}
-
-.main-button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.secondary-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 18px;
-  border-radius: 999px;
-  color: var(--text);
-  font-weight: 700;
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid var(--border);
-}
-
-.icon-button {
-  width: 46px;
-  height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid var(--border);
-}
-
-main {
-  width: min(1180px, calc(100% - 28px));
-  margin: 28px auto;
-  min-height: 70vh;
-}
-
-.page {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 32px;
-  backdrop-filter: blur(22px);
-}
-
-.hidden {
-  display: none !important;
-}
-
-.active {
-  display: block;
-}
-
-.page-title {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.page-title h2 {
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  letter-spacing: -0.05em;
-}
-
-.page-title p {
-  margin: 8px 0 0;
-  color: var(--muted);
-}
-
-.song-grid,
-.compact-grid {
-  display: grid;
-  gap: 18px;
-  max-height: 62vh;
-  overflow-y: auto;
-  padding: 8px 8px 18px;
-}
-
-.song-grid {
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-}
-
-.compact-grid {
-  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-}
-
-.song-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 22px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 14px;
-  cursor: pointer;
-  transition: transform var(--transition), background var(--transition), border-color var(--transition);
-}
-
-.song-card:hover {
-  transform: translateY(-5px);
-  background: var(--card-hover);
-  border-color: rgba(34, 211, 238, 0.5);
-}
-
-.song-card.selected {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16);
-}
-
-.song-card.playing {
-  border-color: var(--primary);
-}
-
-.song-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 18px;
-  background: #111;
-}
-
-.song-card h3 {
-  margin: 12px 0 3px;
-  font-size: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.song-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.84rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.play-badge {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  background: rgba(0, 0, 0, 0.68);
-  backdrop-filter: blur(8px);
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 28px;
-  flex-wrap: wrap;
-}
-
-.mix-display {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 20px;
-}
-
-.mix-card {
-  text-align: center;
-  border-radius: var(--radius);
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 24px;
-}
-
-.mix-card img {
-  width: min(220px, 70%);
-  aspect-ratio: 1 / 1;
-  border-radius: 24px;
-  object-fit: cover;
-  border: 3px solid rgba(34, 211, 238, 0.5);
-}
-
-.mix-card span {
-  display: inline-block;
-  margin-top: 14px;
-  color: var(--secondary);
-  font-weight: 800;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-}
-
-.mix-card h3 {
-  margin: 6px 0 14px;
-}
-
-.plus-symbol {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--secondary);
-}
-
-.track-volume {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  color: var(--muted);
-}
-
-.player-panel {
-  margin: 28px auto 0;
-  width: min(760px, 100%);
-  padding: 18px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-}
-
-.big-play-button {
-  min-width: 58px;
-  height: 58px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-}
-
-.progress-wrap {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 44px 1fr 44px;
-  align-items: center;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-
-#mixProgress {
-  width: 100%;
-}
-
-.dj-button {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 25;
-  width: 76px;
-  height: 76px;
-  border: none;
-  border-radius: 50%;
-  padding: 6px;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-  transition: transform var(--transition);
-}
-
-.dj-button:hover {
-  transform: scale(1.08) rotate(3deg);
-}
-
-.dj-button img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  background: #111;
-}
-
-.dj-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: grid;
-  place-items: center;
-  padding: 22px;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(15px);
-}
-
-.dj-box {
-  position: relative;
-  width: min(560px, 100%);
-  padding: 34px;
-  text-align: center;
-  border-radius: 34px;
-  background:
-    radial-gradient(circle at top, rgba(139, 92, 246, 0.26), transparent 45%),
-    var(--panel-strong);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 50%;
-  color: white;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-#djArtwork {
-  width: 130px;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--secondary);
-  animation: pulse 2.4s infinite;
-}
-
-#djCommentary {
-  color: var(--text);
-  font-weight: 600;
-}
-
-#nowPlaying {
-  color: var(--muted);
-}
-
-footer {
-  text-align: center;
-  color: var(--muted);
-  padding: 30px 16px;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--primary), var(--secondary));
-  border-radius: 999px;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(34, 211, 238, 0);
+const songs = [
+  {
+    id: "hawaiian",
+    title: "Hawaiian Roller Coaster Ride",
+    artist: "Mark Keali'i Ho'omalu",
+    image: "assets/images/hawaiian-roller-coaster-ride.jpg",
+    fullAudio: "assets/audio/full/hawaiian-roller-coaster-ride-full.mp3",
+    baseAudio: "assets/audio/bases/hawaiian-roller-coaster-ride-base.mp3",
+    vocalAudio: "assets/audio/vocals/hawaiian-roller-coaster-ride-vocals.mp3",
+    genre: "Soundtrack",
+    year: 2002
+  },
+  {
+    id: "love-me-again",
+    title: "Love Me Again",
+    artist: "John Newman",
+    image: "assets/images/love-me-again.jpg",
+    fullAudio: "assets/audio/full/love-me-again-full.mp3",
+    baseAudio: "assets/audio/bases/love-me-again-base.mp3",
+    vocalAudio: "assets/audio/vocals/love-me-again-vocals.mp3",
+    genre: "Soul/Pop",
+    year: 2013
+  },
+  {
+    id: "olimpo",
+    title: "OLIMPO",
+    artist: "Milo J",
+    image: "assets/images/olimpo.jpg",
+    fullAudio: "assets/audio/full/olimpo-full.mp3",
+    baseAudio: "assets/audio/bases/olimpo-base.mp3",
+    vocalAudio: "assets/audio/vocals/olimpo-vocals.mp3",
+    genre: "Trap",
+    year: 2023
+  },
+  {
+    id: "counting-stars",
+    title: "Counting Stars",
+    artist: "OneRepublic",
+    image: "assets/images/counting-stars.jpg",
+    fullAudio: "assets/audio/full/counting-stars-full.mp3",
+    baseAudio: "assets/audio/bases/counting-stars-base.mp3",
+    vocalAudio: "assets/audio/vocals/counting-stars-vocals.mp3",
+    genre: "Pop Rock",
+    year: 2013
+  },
+  {
+    id: "rosa-de-trigo",
+    title: "Rosa De Trigo",
+    artist: "H.A.",
+    image: "assets/images/Rosa-de-trigo.PNG",
+    fullAudio: "assets/audio/full/Rosa-full.mp3",
+    baseAudio: "assets/audio/bases/Rosa-base.mp3",
+    vocalAudio: "assets/audio/vocals/Rosa-vocals.mp3",
+    genre: "Pop",
+    year: 2020
+  },
+  {
+    id: "claro-y-oscuro",
+    title: "Claro y Oscuro",
+    artist: "H.A.",
+    image: "assets/images/Claro.PNG",
+    fullAudio: "assets/audio/full/Claro-full.mp3",
+    baseAudio: "assets/audio/bases/Claro-base.mp3",
+    vocalAudio: "assets/audio/vocals/Claro-vocal.mp3",
+    genre: "Pop Urbano",
+    year: 2021
+  },
+  {
+    id: "meltdown",
+    title: "Meltdown",
+    artist: "Hookme",
+    image: "assets/images/Meltdown.jpg",
+    fullAudio: "assets/audio/full/meltdown-full.mp3",
+    baseAudio: "assets/audio/bases/meltdown-base.mp3",
+    vocalAudio: "assets/audio/vocals/meltdown-vocals.mp3",
+    genre: "Electronic",
+    year: 2022
+  },
+  {
+    id: "washing-machine-heart",
+    title: "Washing Machine Heart",
+    artist: "Mitski",
+    image: "assets/images/Washing.jpg",
+    fullAudio: "assets/audio/full/washing-full.mp3",
+    baseAudio: "assets/audio/bases/washing-base.mp3",
+    vocalAudio: "assets/audio/vocals/washing-vocals.mp3",
+    genre: "Indie Pop",
+    year: 2018
+  },
+  {
+    id: "espresso-macchiato",
+    title: "Espresso Macchiato",
+    artist: "Tommy Cash",
+    image: "assets/images/tommy.jpg",
+    fullAudio: "assets/audio/full/Tommy-full.mp3",
+    baseAudio: "assets/audio/bases/Tommy-base.mp3",
+    vocalAudio: "assets/audio/vocals/Tommy-vocals.mp3",
+    genre: "Hip Hop",
+    year: 2020
+  },
+  {
+    id: "patapim-funk",
+    title: "PATAPIM FUNK",
+    artist: "SXYGX",
+    image: "assets/images/patapim.PNG",
+    fullAudio: "assets/audio/full/patapim-full.mp3",
+    baseAudio: "assets/audio/bases/patapim-base.mp3",
+    vocalAudio: "assets/audio/vocals/patapim-vocals.mp3",
+    genre: "Funk",
+    year: 2023
+  },
+  {
+    id: "rosa-de-trigo-drill",
+    title: "Rosa De Trigo Drill",
+    artist: "Hodely - H.A.",
+    image: "assets/images/Rosadrill.PNG",
+    fullAudio: "assets/audio/full/Rosadrill-full.mp3",
+    baseAudio: "assets/audio/bases/Rosadrill-base.mp3",
+    vocalAudio: "assets/audio/vocals/Rosadrill-vocals.mp3",
+    genre: "Drill",
+    year: 2024
+  },
+  {
+    id: "here",
+    title: "Here",
+    artist: "Alessia Cara",
+    image: "assets/images/Here.png",
+    fullAudio: "assets/audio/full/Here-full.mp3",
+    baseAudio: "assets/audio/bases/Here-base.mp3",
+    vocalAudio: "assets/audio/vocals/Here-vocals.mp3",
+    genre: "R&B/Pop",
+    year: 2015
+  },
+  {
+    id: "rock-that-body",
+    title: "Rock That Body",
+    artist: "Black Eyed Peas",
+    image: "assets/images/Rockbody.jpg",
+    fullAudio: "assets/audio/full/Rockbody-full.mp3",
+    baseAudio: "assets/audio/bases/Rockbody-base.mp3",
+    vocalAudio: "assets/audio/vocals/RockBody-vocals.mp3",
+    genre: "Hip Hop/Pop",
+    year: 2009
+  },
+  {
+    id: "sin-tanto-royo",
+    title: "Sin Tanto Royo",
+    artist: "Luis R Conriquez x Tito Double P",
+    image: "assets/images/Sinrollos.PNG",
+    fullAudio: "assets/audio/full/sinrollos-full.mp3",
+    baseAudio: "assets/audio/bases/sinrollo-base.mp3",
+    vocalAudio: "assets/audio/vocals/Sinrollo-vocal.mp3",
+    genre: "Regional Mexicano",
+    year: 2023
+  },
+  {
+    id: "noid",
+    title: "Noid",
+    artist: "Tyler, the Creator",
+    image: "assets/images/Noid.jpg",
+    fullAudio: "assets/audio/full/Noid.mp3",
+    baseAudio: "assets/audio/bases/poppop.ai - videoplayback_instrumental.mp3",
+    vocalAudio: "assets/audio/vocals/poppop.ai - videoplayback_vocals.mp3",
+    genre: "Hip Hop/Jazz Rap",
+    year: 2017
   }
+];
 
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 38px rgba(34, 211, 238, 0.4);
+const $ = (id) => document.getElementById(id);
+
+const pages = {
+  home: $("homePage"),
+  base: $("baseSelectionPage"),
+  vocal: $("vocalSelectionPage"),
+  mix: $("mixResultPage")
+};
+
+const fullSongGrid = $("fullSongGrid");
+const baseTrackSelectionGrid = $("baseTrackSelectionGrid");
+const vocalTrackSelectionGrid = $("vocalTrackSelectionGrid");
+
+const searchInput = $("searchInput");
+const createButton = $("createButton");
+const muteButton = $("muteButton");
+const volumeSlider = $("volumeSlider");
+
+const nextToVocalSelectionButton = $("nextToVocalSelectionButton");
+const nextToMixResultButton = $("nextToMixResultButton");
+const backFromBaseSelectionButton = $("backFromBaseSelectionButton");
+const backToBaseSelectionButton = $("backToBaseSelectionButton");
+const createNewMixButton = $("createNewMixButton");
+const backFromMixResultButton = $("backFromMixResultButton");
+
+const finalBaseArtwork = $("finalBaseArtwork");
+const finalVocalArtwork = $("finalVocalArtwork");
+const finalBaseTitle = $("finalBaseTitle");
+const finalVocalTitle = $("finalVocalTitle");
+
+const baseVolumeSlider = $("baseVolumeSlider");
+const vocalVolumeSlider = $("vocalVolumeSlider");
+const mixPlayButton = $("mixPlayButton");
+const mixProgress = $("mixProgress");
+const currentTimeLabel = $("currentTime");
+const durationTimeLabel = $("durationTime");
+
+const djModeButton = $("djModeButton");
+const djOverlay = $("djOverlay");
+const closeDjButton = $("closeDjButton");
+const nextDjMixButton = $("nextDjMixButton");
+const djCommentary = $("djCommentary");
+const nowPlaying = $("nowPlaying");
+
+let selectedBaseTrack = null;
+let selectedVocalTrack = null;
+
+let fullAudio = new Audio();
+let baseAudio = new Audio();
+let vocalAudio = new Audio();
+let djBaseAudio = new Audio();
+let djVocalAudio = new Audio();
+
+let currentFullSongId = null;
+let isMuted = false;
+let wasPlayingBeforeSeek = false;
+let djTimer = null;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
+
+  return `${min}:${sec}`;
+}
+
+function getGlobalVolume() {
+  return Number(volumeSlider.value) / 100;
+}
+
+function applyVolumes() {
+  const global = isMuted ? 0 : getGlobalVolume();
+
+  fullAudio.volume = global;
+  baseAudio.volume = global * (Number(baseVolumeSlider.value) / 100);
+  vocalAudio.volume = global * (Number(vocalVolumeSlider.value) / 100);
+  djBaseAudio.volume = global;
+  djVocalAudio.volume = global;
+
+  const icon = muteButton.querySelector("i");
+
+  if (isMuted || global === 0) {
+    icon.className = "fas fa-volume-xmark";
+  } else if (global < 0.45) {
+    icon.className = "fas fa-volume-low";
+  } else {
+    icon.className = "fas fa-volume-up";
   }
 }
 
-@media (max-width: 880px) {
-  .app-header {
-    grid-template-columns: 1fr;
+function stopAudio(audio) {
+  audio.pause();
+  audio.currentTime = 0;
+}
+
+function stopAllAudio() {
+  [fullAudio, baseAudio, vocalAudio, djBaseAudio, djVocalAudio].forEach(stopAudio);
+
+  clearTimeout(djTimer);
+  djTimer = null;
+
+  currentFullSongId = null;
+  updatePlayingCards();
+  updateMixButton(false);
+}
+
+function showPage(pageName) {
+  stopAllAudio();
+
+  Object.values(pages).forEach((page) => {
+    page.classList.add("hidden");
+    page.classList.remove("active");
+  });
+
+  pages[pageName].classList.remove("hidden");
+  pages[pageName].classList.add("active");
+
+  if (pageName === "home") renderHomeSongs();
+  if (pageName === "base") renderSelectionSongs("base");
+  if (pageName === "vocal") renderSelectionSongs("vocal");
+  if (pageName === "mix") setupMixPage();
+}
+
+function getFilteredSongs() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (!query) return songs;
+
+  return songs.filter((song) => {
+    return (
+      song.title.toLowerCase().includes(query) ||
+      song.artist.toLowerCase().includes(query) ||
+      song.genre.toLowerCase().includes(query)
+    );
+  });
+}
+
+function createSongCard(song, options = {}) {
+  const card = document.createElement("article");
+  card.className = "song-card";
+  card.dataset.songId = song.id;
+
+  if (options.selected) card.classList.add("selected");
+  if (currentFullSongId === song.id) card.classList.add("playing");
+
+  card.innerHTML = `
+    <img src="${song.image}" alt="Portada de ${song.title}" loading="lazy"
+      onerror="this.src='assets/images/placeholder.jpg'">
+    <div class="play-badge">
+      <i class="fas ${currentFullSongId === song.id ? "fa-pause" : "fa-play"}"></i>
+    </div>
+    <h3 title="${song.title}">${song.title}</h3>
+    <p title="${song.artist}">${song.artist}</p>
+  `;
+
+  return card;
+}
+
+function renderHomeSongs() {
+  const filtered = getFilteredSongs();
+  fullSongGrid.innerHTML = "";
+
+  if (!filtered.length) {
+    fullSongGrid.innerHTML = `<p class="empty">No se encontró ninguna canción.</p>`;
+    return;
   }
 
-  .header-controls {
-    justify-content: center;
-    flex-wrap: wrap;
+  filtered.forEach((song) => {
+    const card = createSongCard(song);
+    card.addEventListener("click", () => toggleFullSong(song));
+    fullSongGrid.appendChild(card);
+  });
+}
+
+function renderSelectionSongs(type) {
+  const grid = type === "base" ? baseTrackSelectionGrid : vocalTrackSelectionGrid;
+  const selected = type === "base" ? selectedBaseTrack : selectedVocalTrack;
+
+  grid.innerHTML = "";
+
+  songs.forEach((song) => {
+    const card = createSongCard(song, {
+      selected: selected?.id === song.id
+    });
+
+    card.addEventListener("click", () => {
+      if (type === "base") {
+        selectedBaseTrack = song;
+        nextToVocalSelectionButton.disabled = false;
+      } else {
+        selectedVocalTrack = song;
+        nextToMixResultButton.disabled = false;
+      }
+
+      previewStem(song, type);
+      renderSelectionSongs(type);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+async function toggleFullSong(song) {
+  if (currentFullSongId === song.id && !fullAudio.paused) {
+    fullAudio.pause();
+    currentFullSongId = null;
+    updatePlayingCards();
+    return;
   }
 
-  .brand {
-    justify-content: center;
-    text-align: left;
+  stopAllAudio();
+
+  currentFullSongId = song.id;
+  fullAudio.src = song.fullAudio;
+  fullAudio.currentTime = 0;
+  applyVolumes();
+
+  try {
+    await fullAudio.play();
+  } catch {
+    alert("No se pudo reproducir esta canción. Revisa la ruta del archivo.");
   }
 
-  .mix-display {
-    grid-template-columns: 1fr;
-  }
+  updatePlayingCards();
+}
 
-  .plus-symbol {
-    transform: rotate(90deg);
+function updatePlayingCards() {
+  document.querySelectorAll(".song-card").forEach((card) => {
+    const icon = card.querySelector(".play-badge i");
+    const isPlaying = card.dataset.songId === currentFullSongId;
+
+    card.classList.toggle("playing", isPlaying);
+
+    if (icon) {
+      icon.className = `fas ${isPlaying ? "fa-pause" : "fa-play"}`;
+    }
+  });
+}
+
+async function previewStem(song, type) {
+  stopAudio(fullAudio);
+  stopAudio(type === "base" ? vocalAudio : baseAudio);
+
+  const audio = type === "base" ? baseAudio : vocalAudio;
+  audio.src = type === "base" ? song.baseAudio : song.vocalAudio;
+  audio.loop = true;
+  applyVolumes();
+
+  try {
+    await audio.play();
+  } catch {
+    console.warn("Autoplay bloqueado o archivo no encontrado.");
   }
 }
 
-@media (max-width: 520px) {
-  .page {
-    padding: 22px 14px;
+async function setupMixPage() {
+  if (!selectedBaseTrack || !selectedVocalTrack) {
+    showPage("home");
+    return;
   }
 
-  .song-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  finalBaseArtwork.src = selectedBaseTrack.image;
+  finalVocalArtwork.src = selectedVocalTrack.image;
+  finalBaseTitle.textContent = selectedBaseTrack.title;
+  finalVocalTitle.textContent = selectedVocalTrack.title;
 
-  .compact-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  baseAudio.src = selectedBaseTrack.baseAudio;
+  vocalAudio.src = selectedVocalTrack.vocalAudio;
 
-  .player-panel {
-    border-radius: 24px;
-    flex-direction: column;
-  }
+  baseAudio.loop = false;
+  vocalAudio.loop = false;
 
-  .progress-wrap {
-    grid-template-columns: 40px 1fr 40px;
-  }
+  baseAudio.currentTime = 0;
+  vocalAudio.currentTime = 0;
 
-  .brand h1 {
-    font-size: 1.45rem;
-  }
+  applyVolumes();
+  updateMixButton(false);
+  mixProgress.value = 0;
+  currentTimeLabel.textContent = "0:00";
+  durationTimeLabel.textContent = "0:00";
 
-  .brand p {
-    display: none;
+  try {
+    await Promise.all([loadAudio(baseAudio), loadAudio(vocalAudio)]);
+    durationTimeLabel.textContent = formatTime(getMixDuration());
+  } catch {
+    alert("No se pudieron cargar los audios de la mezcla. Revisa las rutas.");
   }
 }
+
+function loadAudio(audio) {
+  return new Promise((resolve, reject) => {
+    audio.onloadedmetadata = resolve;
+    audio.onerror = reject;
+    audio.load();
+  });
+}
+
+function getMixDuration() {
+  const durations = [baseAudio.duration, vocalAudio.duration].filter(Number.isFinite);
+  return durations.length ? Math.min(...durations) : 0;
+}
+
+async function playMix() {
+  applyVolumes();
+
+  try {
+    await Promise.all([baseAudio.play(), vocalAudio.play()]);
+    updateMixButton(true);
+    requestAnimationFrame(updateProgress);
+  } catch {
+    alert("No se pudo reproducir la mezcla.");
+  }
+}
+
+function pauseMix() {
+  baseAudio.pause();
+  vocalAudio.pause();
+  updateMixButton(false);
+}
+
+function toggleMix() {
+  if (baseAudio.paused && vocalAudio.paused) {
+    playMix();
+  } else {
+    pauseMix();
+  }
+}
+
+function updateMixButton(isPlaying) {
+  const icon = mixPlayButton.querySelector("i");
+  icon.className = `fas ${isPlaying ? "fa-pause" : "fa-play"}`;
+}
+
+function updateProgress() {
+  const duration = getMixDuration();
+
+  if (!duration) return;
+
+  const current = Math.min(baseAudio.currentTime, vocalAudio.currentTime);
+  mixProgress.value = String((current / duration) * 1000);
+  currentTimeLabel.textContent = formatTime(current);
+  durationTimeLabel.textContent = formatTime(duration);
+
+  if (current >= duration - 0.2) {
+    stopAudio(baseAudio);
+    stopAudio(vocalAudio);
+    updateMixButton(false);
+    return;
+  }
+
+  if (!baseAudio.paused || !vocalAudio.paused) {
+    requestAnimationFrame(updateProgress);
+  }
+}
+
+function seekMix() {
+  const duration = getMixDuration();
+  const newTime = (Number(mixProgress.value) / 1000) * duration;
+
+  baseAudio.currentTime = newTime;
+  vocalAudio.currentTime = newTime;
+  currentTimeLabel.textContent = formatTime(newTime);
+}
+
+function openDjMode() {
+  stopAllAudio();
+  djOverlay.classList.remove("hidden");
+  playNextDjMix();
+}
+
+function closeDjMode() {
+  djOverlay.classList.add("hidden");
+  stopAllAudio();
+}
+
+function getRandomDifferentSongs() {
+  let base = songs[Math.floor(Math.random() * songs.length)];
+  let vocal = songs[Math.floor(Math.random() * songs.length)];
+
+  while (base.id === vocal.id) {
+    vocal = songs[Math.floor(Math.random() * songs.length)];
+  }
+
+  return { base, vocal };
+}
+
+async function playNextDjMix() {
+  clearTimeout(djTimer);
+  stopAudio(djBaseAudio);
+  stopAudio(djVocalAudio);
+
+  const { base, vocal } = getRandomDifferentSongs();
+
+  const comments = [
+    `Entramos fuerte: base de ${base.title} con la voz de ${vocal.title}. Esto huele a hit.`,
+    `Melocraft DJ acaba de cocinar una mezcla rara pero sabrosa: ${base.title} + ${vocal.title}.`,
+    `Cambio de universo musical: instrumental de ${base.artist} y voz de ${vocal.artist}.`,
+    `La pista se enciende. Ahora suena ${vocal.title} encima de la base de ${base.title}.`,
+    `Esta mezcla no pidió permiso: ${base.title} con ${vocal.title}. Dale volumen.`
+  ];
+
+  djCommentary.textContent = comments[Math.floor(Math.random() * comments.length)];
+  nowPlaying.textContent = `Ahora: base de ${base.title} + voz de ${vocal.title}`;
+
+  djBaseAudio.src = base.baseAudio;
+  djVocalAudio.src = vocal.vocalAudio;
+  djBaseAudio.loop = true;
+  djVocalAudio.loop = true;
+
+  applyVolumes();
+
+  try {
+    await Promise.all([loadAudio(djBaseAudio), loadAudio(djVocalAudio)]);
+    await Promise.all([djBaseAudio.play(), djVocalAudio.play()]);
+  } catch {
+    nowPlaying.textContent = "No se pudo cargar una pista. Saltando a otra mezcla...";
+  }
+
+  djTimer = setTimeout(playNextDjMix, 30000);
+}
+
+function bindEvents() {
+  createButton.addEventListener("click", () => {
+    selectedBaseTrack = null;
+    selectedVocalTrack = null;
+    nextToVocalSelectionButton.disabled = true;
+    nextToMixResultButton.disabled = true;
+    showPage("base");
+  });
+
+  backFromBaseSelectionButton.addEventListener("click", () => showPage("home"));
+  backToBaseSelectionButton.addEventListener("click", () => showPage("base"));
+  backFromMixResultButton.addEventListener("click", () => showPage("home"));
+
+  nextToVocalSelectionButton.addEventListener("click", () => showPage("vocal"));
+  nextToMixResultButton.addEventListener("click", () => showPage("mix"));
+
+  createNewMixButton.addEventListener("click", () => {
+    selectedBaseTrack = null;
+    selectedVocalTrack = null;
+    showPage("base");
+  });
+
+  searchInput.addEventListener("input", renderHomeSongs);
+
+  volumeSlider.addEventListener("input", () => {
+    if (Number(volumeSlider.value) > 0) isMuted = false;
+    applyVolumes();
+  });
+
+  muteButton.addEventListener("click", () => {
+    isMuted = !isMuted;
+    applyVolumes();
+  });
+
+  baseVolumeSlider.addEventListener("input", applyVolumes);
+  vocalVolumeSlider.addEventListener("input", applyVolumes);
+
+  mixPlayButton.addEventListener("click", toggleMix);
+
+  mixProgress.addEventListener("mousedown", () => {
+    wasPlayingBeforeSeek = !baseAudio.paused || !vocalAudio.paused;
+    pauseMix();
+  });
+
+  mixProgress.addEventListener("input", seekMix);
+
+  mixProgress.addEventListener("mouseup", () => {
+    if (wasPlayingBeforeSeek) playMix();
+  });
+
+  baseAudio.addEventListener("ended", pauseMix);
+  vocalAudio.addEventListener("ended", pauseMix);
+  fullAudio.addEventListener("ended", () => {
+    currentFullSongId = null;
+    updatePlayingCards();
+  });
+
+  djModeButton.addEventListener("click", openDjMode);
+  closeDjButton.addEventListener("click", closeDjMode);
+  nextDjMixButton.addEventListener("click", playNextDjMix);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  bindEvents();
+  applyVolumes();
+  renderHomeSongs();
+});
